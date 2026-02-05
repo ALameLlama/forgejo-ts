@@ -55,7 +55,6 @@ export class IssueService {
         team,
         page = 1,
         limit,
-        sort = 'latest',
     }: {
         /**
          * State of the issue
@@ -125,10 +124,6 @@ export class IssueService {
          * Number of items per page
          */
         limit?: number,
-        /**
-         * Type of sort
-         */
-        sort?: 'relevance' | 'latest' | 'oldest' | 'recentupdate' | 'leastupdate' | 'mostcomment' | 'leastcomment' | 'nearduedate' | 'farduedate',
     }): CancelablePromise<Array<Issue>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -151,7 +146,6 @@ export class IssueService {
                 'team': team,
                 'page': page,
                 'limit': limit,
-                'sort': sort,
             },
             errors: {
                 400: `APIError is error format response`,
@@ -1195,7 +1189,7 @@ export class IssueService {
         /**
          * index of the issue
          */
-        index: number,
+        index: string,
         /**
          * page number of results to return (1-based)
          */
@@ -1244,7 +1238,7 @@ export class IssueService {
         /**
          * index of the issue
          */
-        index: number,
+        index: string,
         body?: IssueMeta,
     }): CancelablePromise<Issue> {
         return __request(OpenAPI, {
@@ -1283,7 +1277,7 @@ export class IssueService {
         /**
          * index of the issue
          */
-        index: number,
+        index: string,
         body?: IssueMeta,
     }): CancelablePromise<Issue> {
         return __request(OpenAPI, {
@@ -1549,7 +1543,7 @@ export class IssueService {
         /**
          * index of the issue
          */
-        index: number,
+        index: string,
         /**
          * page number of results to return (1-based)
          */
@@ -1598,7 +1592,7 @@ export class IssueService {
         /**
          * index of the issue
          */
-        index: number,
+        index: string,
         body?: IssueMeta,
     }): CancelablePromise<Issue> {
         return __request(OpenAPI, {
@@ -1638,7 +1632,7 @@ export class IssueService {
         /**
          * index of the issue
          */
-        index: number,
+        index: string,
         body?: IssueMeta,
     }): CancelablePromise<Issue> {
         return __request(OpenAPI, {
@@ -1821,7 +1815,7 @@ export class IssueService {
         owner,
         repo,
         index,
-        identifier,
+        id,
         body,
     }: {
         /**
@@ -1837,19 +1831,19 @@ export class IssueService {
          */
         index: number,
         /**
-         * name or id of the label to remove
+         * id of the label to remove
          */
-        identifier: string,
+        id: number,
         body?: DeleteLabelsOption,
     }): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'DELETE',
-            url: '/repos/{owner}/{repo}/issues/{index}/labels/{identifier}',
+            url: '/repos/{owner}/{repo}/issues/{index}/labels/{id}',
             path: {
                 'owner': owner,
                 'repo': repo,
                 'index': index,
-                'identifier': identifier,
+                'id': id,
             },
             body: body,
             errors: {
@@ -2656,7 +2650,6 @@ export class IssueService {
     public static issueListLabels({
         owner,
         repo,
-        sort,
         page,
         limit,
     }: {
@@ -2668,10 +2661,6 @@ export class IssueService {
          * name of the repo
          */
         repo: string,
-        /**
-         * Specifies the sorting method: mostissues, leastissues, or reversealphabetically.
-         */
-        sort?: 'mostissues' | 'leastissues' | 'reversealphabetically',
         /**
          * page number of results to return (1-based)
          */
@@ -2689,7 +2678,6 @@ export class IssueService {
                 'repo': repo,
             },
             query: {
-                'sort': sort,
                 'page': page,
                 'limit': limit,
             },
@@ -2954,7 +2942,7 @@ export class IssueService {
         /**
          * the milestone to get, identified by ID and if not available by name
          */
-        id: number,
+        id: string,
     }): CancelablePromise<Milestone> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -2990,7 +2978,7 @@ export class IssueService {
         /**
          * the milestone to delete, identified by ID and if not available by name
          */
-        id: number,
+        id: string,
     }): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'DELETE',
@@ -3027,7 +3015,7 @@ export class IssueService {
         /**
          * the milestone to edit, identified by ID and if not available by name
          */
-        id: number,
+        id: string,
         body?: EditMilestoneOption,
     }): CancelablePromise<Milestone> {
         return __request(OpenAPI, {

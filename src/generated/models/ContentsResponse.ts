@@ -20,7 +20,6 @@ export type ContentsResponse = {
     git_url?: string;
     html_url?: string;
     last_commit_sha?: string;
-    last_commit_when?: string;
     name?: string;
     path?: string;
     sha?: string;

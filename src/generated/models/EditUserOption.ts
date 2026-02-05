@@ -14,7 +14,6 @@ export type EditUserOption = {
     description?: string;
     email?: string;
     full_name?: string;
-    hide_email?: boolean;
     location?: string;
     login_name?: string;
     max_repo_creation?: number;

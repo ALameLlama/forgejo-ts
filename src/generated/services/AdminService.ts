@@ -11,7 +11,6 @@ import type { CreateQuotaRuleOptions } from '../models/CreateQuotaRuleOptions';
 import type { CreateRepoOption } from '../models/CreateRepoOption';
 import type { CreateUserOption } from '../models/CreateUserOption';
 import type { Cron } from '../models/Cron';
-import type { DeleteEmailOption } from '../models/DeleteEmailOption';
 import type { EditHookOption } from '../models/EditHookOption';
 import type { EditQuotaRuleOptions } from '../models/EditQuotaRuleOptions';
 import type { EditUserOption } from '../models/EditUserOption';
@@ -23,7 +22,6 @@ import type { QuotaGroup } from '../models/QuotaGroup';
 import type { QuotaGroupList } from '../models/QuotaGroupList';
 import type { QuotaInfo } from '../models/QuotaInfo';
 import type { QuotaRuleInfo } from '../models/QuotaRuleInfo';
-import type { RegistrationToken } from '../models/RegistrationToken';
 import type { RenameUserOption } from '../models/RenameUserOption';
 import type { Repository } from '../models/Repository';
 import type { SetUserQuotaGroupsOptions } from '../models/SetUserQuotaGroupsOptions';
@@ -87,7 +85,7 @@ export class AdminService {
         });
     }
     /**
-     * List all users' email addresses
+     * List all emails
      * @returns Email EmailList
      * @throws ApiError
      */
@@ -117,7 +115,7 @@ export class AdminService {
         });
     }
     /**
-     * Search users' email addresses
+     * Search all emails
      * @returns Email EmailList
      * @throws ApiError
      */
@@ -153,7 +151,7 @@ export class AdminService {
         });
     }
     /**
-     * List global (system) webhooks
+     * List system's webhooks
      * @returns Hook HookList
      * @throws ApiError
      */
@@ -610,7 +608,7 @@ export class AdminService {
      * @returns void
      * @throws ApiError
      */
-    public static adminDeleteQuotaRule({
+    public static adminDEleteQuotaRule({
         quotarule,
     }: {
         /**
@@ -687,13 +685,14 @@ export class AdminService {
     }
     /**
      * Get an global actions runner registration token
-     * @returns RegistrationToken RegistrationToken is a string used to register a runner with a server
+     * @returns string RegistrationToken is a string used to register a runner with a server
      * @throws ApiError
      */
-    public static adminGetRunnerRegistrationToken(): CancelablePromise<RegistrationToken> {
+    public static adminGetRunnerRegistrationToken(): CancelablePromise<string> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/admin/runners/registration-token',
+            responseHeader: 'token',
         });
     }
     /**
@@ -842,7 +841,7 @@ export class AdminService {
         });
     }
     /**
-     * Create a user account
+     * Create a user
      * @returns User User
      * @throws ApiError
      */
@@ -863,7 +862,7 @@ export class AdminService {
         });
     }
     /**
-     * Delete user account
+     * Delete a user
      * @returns void
      * @throws ApiError
      */
@@ -926,60 +925,7 @@ export class AdminService {
         });
     }
     /**
-     * List all email addresses for a user
-     * @returns Email EmailList
-     * @throws ApiError
-     */
-    public static adminListUserEmails({
-        username,
-    }: {
-        /**
-         * username of user to get email addresses of
-         */
-        username: string,
-    }): CancelablePromise<Array<Email>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/admin/users/{username}/emails',
-            path: {
-                'username': username,
-            },
-            errors: {
-                403: `APIForbiddenError is a forbidden error response`,
-                404: `APINotFound is a not found error response`,
-            },
-        });
-    }
-    /**
-     * Delete email addresses from a user's account
-     * @returns void
-     * @throws ApiError
-     */
-    public static adminDeleteUserEmails({
-        username,
-        body,
-    }: {
-        /**
-         * username of user to delete email addresses from
-         */
-        username: string,
-        body?: DeleteEmailOption,
-    }): CancelablePromise<void> {
-        return __request(OpenAPI, {
-            method: 'DELETE',
-            url: '/admin/users/{username}/emails',
-            path: {
-                'username': username,
-            },
-            body: body,
-            errors: {
-                403: `APIForbiddenError is a forbidden error response`,
-                422: `APIValidationError is error format response related to input validation`,
-            },
-        });
-    }
-    /**
-     * Add an SSH public key to user's account
+     * Add a public key on behalf of a user
      * @returns PublicKey PublicKey
      * @throws ApiError
      */
@@ -1007,7 +953,7 @@ export class AdminService {
         });
     }
     /**
-     * Remove a public key from user's account
+     * Delete a user's public key
      * @returns void
      * @throws ApiError
      */

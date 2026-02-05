@@ -3,9 +3,9 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * GitBlob represents a git blob
+ * GitBlobResponse represents a git blob
  */
-export type GitBlob = {
+export type GitBlobResponse = {
     content?: string;
     encoding?: string;
     sha?: string;

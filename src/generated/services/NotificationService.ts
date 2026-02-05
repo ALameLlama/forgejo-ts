@@ -83,7 +83,7 @@ export class NotificationService {
         /**
          * If true, mark all notifications on this repo. Default value is false
          */
-        all?: boolean,
+        all?: string,
         /**
          * Mark notifications with the provided status types. Options are: unread, read and/or pinned. Defaults to unread.
          */
@@ -126,7 +126,7 @@ export class NotificationService {
         /**
          * id of notification thread
          */
-        id: number,
+        id: string,
     }): CancelablePromise<NotificationThread> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -152,7 +152,7 @@ export class NotificationService {
         /**
          * id of notification thread
          */
-        id: number,
+        id: string,
         /**
          * Status to mark notifications as
          */
@@ -268,7 +268,7 @@ export class NotificationService {
         /**
          * If true, mark all notifications on this repo. Default value is false
          */
-        all?: boolean,
+        all?: string,
         /**
          * Mark notifications with the provided status types. Options are: unread, read and/or pinned. Defaults to unread.
          */

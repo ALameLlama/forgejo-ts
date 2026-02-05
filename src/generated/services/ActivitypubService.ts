@@ -4,7 +4,6 @@
 /* eslint-disable */
 import type { ActivityPub } from '../models/ActivityPub';
 import type { ForgeLike } from '../models/ForgeLike';
-import type { ForgeOutbox } from '../models/ForgeOutbox';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -29,17 +28,6 @@ export class ActivitypubService {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/activitypub/actor/inbox',
-        });
-    }
-    /**
-     * Display the outbox (always empty)
-     * @returns ForgeOutbox Outbox
-     * @throws ApiError
-     */
-    public static activitypubInstanceActorOutbox(): CancelablePromise<ForgeOutbox> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/activitypub/actor/outbox',
         });
     }
     /**
@@ -88,27 +76,6 @@ export class ActivitypubService {
         });
     }
     /**
-     * Display the outbox
-     * @returns ForgeOutbox Outbox
-     * @throws ApiError
-     */
-    public static activitypubRepositoryOutbox({
-        repositoryId,
-    }: {
-        /**
-         * repository ID of the repo
-         */
-        repositoryId: number,
-    }): CancelablePromise<ForgeOutbox> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/activitypub/repository-id/{repository-id}/outbox',
-            path: {
-                'repository-id': repositoryId,
-            },
-        });
-    }
-    /**
      * Returns the Person actor for a user
      * @returns ActivityPub ActivityPub
      * @throws ApiError
@@ -130,62 +97,8 @@ export class ActivitypubService {
         });
     }
     /**
-     * Get a specific activity object of the user
-     * @returns ActivityPub ActivityPub
-     * @throws ApiError
-     */
-    public static activitypubPersonActivityNote({
-        userId,
-        activityId,
-    }: {
-        /**
-         * user ID of the user
-         */
-        userId: number,
-        /**
-         * activity ID of the sought activity
-         */
-        activityId: number,
-    }): CancelablePromise<ActivityPub> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/activitypub/user-id/{user-id}/activities/{activity-id}',
-            path: {
-                'user-id': userId,
-                'activity-id': activityId,
-            },
-        });
-    }
-    /**
-     * Get a specific activity of the user
-     * @returns ActivityPub ActivityPub
-     * @throws ApiError
-     */
-    public static activitypubPersonActivity({
-        userId,
-        activityId,
-    }: {
-        /**
-         * user ID of the user
-         */
-        userId: number,
-        /**
-         * activity ID of the sought activity
-         */
-        activityId: number,
-    }): CancelablePromise<ActivityPub> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/activitypub/user-id/{user-id}/activities/{activity-id}/activity',
-            path: {
-                'user-id': userId,
-                'activity-id': activityId,
-            },
-        });
-    }
-    /**
      * Send to the inbox
-     * @returns any APIEmpty is an empty response
+     * @returns void
      * @throws ApiError
      */
     public static activitypubPersonInbox({
@@ -195,36 +108,12 @@ export class ActivitypubService {
          * user ID of the user
          */
         userId: number,
-    }): CancelablePromise<any> {
+    }): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/activitypub/user-id/{user-id}/inbox',
             path: {
                 'user-id': userId,
-            },
-        });
-    }
-    /**
-     * List the user's recorded activity
-     * @returns ForgeOutbox Outbox
-     * @throws ApiError
-     */
-    public static activitypubPersonFeed({
-        userId,
-    }: {
-        /**
-         * user ID of the user
-         */
-        userId: number,
-    }): CancelablePromise<ForgeOutbox> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/activitypub/user-id/{user-id}/outbox',
-            path: {
-                'user-id': userId,
-            },
-            errors: {
-                403: `APIForbiddenError is a forbidden error response`,
             },
         });
     }

@@ -3,7 +3,6 @@
 /* tslint:disable */
 /* eslint-disable */
 export type CreatePushMirrorOption = {
-    branch_filter?: string;
     interval?: string;
     remote_address?: string;
     remote_password?: string;

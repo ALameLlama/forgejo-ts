@@ -27,7 +27,6 @@ import type { QuotaInfo } from '../models/QuotaInfo';
 import type { QuotaUsedArtifactList } from '../models/QuotaUsedArtifactList';
 import type { QuotaUsedAttachmentList } from '../models/QuotaUsedAttachmentList';
 import type { QuotaUsedPackageList } from '../models/QuotaUsedPackageList';
-import type { RegistrationToken } from '../models/RegistrationToken';
 import type { Repository } from '../models/Repository';
 import type { StopWatch } from '../models/StopWatch';
 import type { Team } from '../models/Team';
@@ -38,7 +37,6 @@ import type { User } from '../models/User';
 import type { UserHeatmapData } from '../models/UserHeatmapData';
 import type { UserSettings } from '../models/UserSettings';
 import type { UserSettingsOptions } from '../models/UserSettingsOptions';
-import type { VerifyGPGKeyOption } from '../models/VerifyGPGKeyOption';
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
 import { request as __request } from '../core/request';
@@ -85,13 +83,14 @@ export class UserService {
     }
     /**
      * Get an user's actions runner registration token
-     * @returns RegistrationToken RegistrationToken is a string used to register a runner with a server
+     * @returns string RegistrationToken is a string used to register a runner with a server
      * @throws ApiError
      */
-    public static userGetRunnerRegistrationToken(): CancelablePromise<RegistrationToken> {
+    public static userGetRunnerRegistrationToken(): CancelablePromise<string> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/user/actions/runners/registration-token',
+            responseHeader: 'token',
             errors: {
                 401: `APIUnauthorizedError is a unauthorized error response`,
                 403: `APIForbiddenError is a forbidden error response`,
@@ -334,7 +333,7 @@ export class UserService {
         });
     }
     /**
-     * Creates a new OAuth2 application
+     * creates a new OAuth2 application
      * @returns OAuth2Application OAuth2Application
      * @throws ApiError
      */
@@ -355,7 +354,7 @@ export class UserService {
         });
     }
     /**
-     * Get an OAuth2 application
+     * get an OAuth2 Application
      * @returns OAuth2Application OAuth2Application
      * @throws ApiError
      */
@@ -381,7 +380,7 @@ export class UserService {
         });
     }
     /**
-     * Delete an OAuth2 application
+     * delete an OAuth2 Application
      * @returns void
      * @throws ApiError
      */
@@ -407,7 +406,7 @@ export class UserService {
         });
     }
     /**
-     * Update an OAuth2 application, this includes regenerating the client secret
+     * update an OAuth2 Application, this includes regenerating the client secret
      * @returns OAuth2Application OAuth2Application
      * @throws ApiError
      */
@@ -436,7 +435,7 @@ export class UserService {
         });
     }
     /**
-     * Update avatar of the current user
+     * Update Avatar
      * @returns void
      * @throws ApiError
      */
@@ -456,7 +455,7 @@ export class UserService {
         });
     }
     /**
-     * Delete avatar of the current user. It will be replaced by a default one
+     * Delete Avatar
      * @returns void
      * @throws ApiError
      */
@@ -471,7 +470,7 @@ export class UserService {
         });
     }
     /**
-     * Blocks a user from the doer
+     * Blocks a user from the doer.
      * @returns void
      * @throws ApiError
      */
@@ -498,7 +497,7 @@ export class UserService {
         });
     }
     /**
-     * List all email addresses of the current user
+     * List the authenticated user's email addresses
      * @returns Email EmailList
      * @throws ApiError
      */
@@ -513,7 +512,7 @@ export class UserService {
         });
     }
     /**
-     * Add an email addresses to the current user's account
+     * Add email addresses
      * @returns Email EmailList
      * @throws ApiError
      */
@@ -534,7 +533,7 @@ export class UserService {
         });
     }
     /**
-     * Delete email addresses from the current user's account
+     * Delete email addresses
      * @returns void
      * @throws ApiError
      */
@@ -715,15 +714,10 @@ export class UserService {
      * @returns GPGKey GPGKey
      * @throws ApiError
      */
-    public static userVerifyGpgKey({
-        body,
-    }: {
-        body?: VerifyGPGKeyOption,
-    }): CancelablePromise<GPGKey> {
+    public static userVerifyGpgKey(): CancelablePromise<GPGKey> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/user/gpg_key_verify',
-            body: body,
             errors: {
                 401: `APIUnauthorizedError is a unauthorized error response`,
                 403: `APIForbiddenError is a forbidden error response`,
@@ -764,7 +758,7 @@ export class UserService {
         });
     }
     /**
-     * Add a GPG public key to current user's account
+     * Create a GPG key
      * @returns GPGKey GPGKey
      * @throws ApiError
      */
@@ -812,7 +806,7 @@ export class UserService {
         });
     }
     /**
-     * Remove a GPG public key from current user's account
+     * Remove a GPG key
      * @returns void
      * @throws ApiError
      */
@@ -1186,23 +1180,13 @@ export class UserService {
     }
     /**
      * Check if the authenticated user is over quota for a given subject
-     * @returns boolean Returns true if the action is accepted.
+     * @returns any Boolean
      * @throws ApiError
      */
-    public static userCheckQuota({
-        subject,
-    }: {
-        /**
-         * subject of the quota
-         */
-        subject: string,
-    }): CancelablePromise<boolean> {
+    public static userCheckQuota(): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/user/quota/check',
-            query: {
-                'subject': subject,
-            },
             errors: {
                 401: `APIUnauthorizedError is a unauthorized error response`,
                 403: `APIForbiddenError is a forbidden error response`,
@@ -1304,7 +1288,7 @@ export class UserService {
         });
     }
     /**
-     * Get current user's account settings
+     * Get user settings
      * @returns UserSettings UserSettings
      * @throws ApiError
      */
@@ -1319,7 +1303,7 @@ export class UserService {
         });
     }
     /**
-     * Update settings in current user's account
+     * Update user settings
      * @returns UserSettings UserSettings
      * @throws ApiError
      */
@@ -1602,7 +1586,7 @@ export class UserService {
         });
     }
     /**
-     * Unblocks a user from the doer
+     * Unblocks a user from the doer.
      * @returns void
      * @throws ApiError
      */
@@ -1636,7 +1620,6 @@ export class UserService {
     public static userSearch({
         q,
         uid,
-        sort,
         page,
         limit,
     }: {
@@ -1648,10 +1631,6 @@ export class UserService {
          * ID of the user to search for
          */
         uid?: number,
-        /**
-         * sort order of results
-         */
-        sort?: 'oldest' | 'newest' | 'alphabetically' | 'reversealphabetically' | 'recentupdate' | 'leastupdate',
         /**
          * page number of results to return (1-based)
          */
@@ -1670,7 +1649,6 @@ export class UserService {
             query: {
                 'q': q,
                 'uid': uid,
-                'sort': sort,
                 'page': page,
                 'limit': limit,
             },
@@ -2077,7 +2055,7 @@ export class UserService {
         });
     }
     /**
-     * List the specified user's access tokens
+     * List the authenticated user's access tokens
      * @returns AccessToken AccessTokenList represents a list of API access token.
      * @throws ApiError
      */
@@ -2116,7 +2094,7 @@ export class UserService {
         });
     }
     /**
-     * Generate an access token for the specified user
+     * Create an access token
      * @returns AccessToken AccessToken represents an API access token.
      * @throws ApiError
      */
@@ -2145,7 +2123,7 @@ export class UserService {
         });
     }
     /**
-     * Delete an access token from the specified user's account
+     * delete an access token
      * @returns void
      * @throws ApiError
      */

@@ -25,7 +25,6 @@ import type { QuotaInfo } from '../models/QuotaInfo';
 import type { QuotaUsedArtifactList } from '../models/QuotaUsedArtifactList';
 import type { QuotaUsedAttachmentList } from '../models/QuotaUsedAttachmentList';
 import type { QuotaUsedPackageList } from '../models/QuotaUsedPackageList';
-import type { RegistrationToken } from '../models/RegistrationToken';
 import type { RenameOrgOption } from '../models/RenameOrgOption';
 import type { Repository } from '../models/Repository';
 import type { Secret } from '../models/Secret';
@@ -68,7 +67,7 @@ export class OrganizationService {
         });
     }
     /**
-     * List all organizations
+     * Get list of organizations
      * @returns Organization OrganizationList
      * @throws ApiError
      */
@@ -224,7 +223,7 @@ export class OrganizationService {
     }
     /**
      * Get an organization's actions runner registration token
-     * @returns RegistrationToken RegistrationToken is a string used to register a runner with a server
+     * @returns string RegistrationToken is a string used to register a runner with a server
      * @throws ApiError
      */
     public static orgGetRunnerRegistrationToken({
@@ -234,17 +233,18 @@ export class OrganizationService {
          * name of the organization
          */
         org: string,
-    }): CancelablePromise<RegistrationToken> {
+    }): CancelablePromise<string> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/orgs/{org}/actions/runners/registration-token',
             path: {
                 'org': org,
             },
+            responseHeader: 'token',
         });
     }
     /**
-     * List actions secrets of an organization
+     * List an organization's actions secrets
      * @returns Secret SecretList
      * @throws ApiError
      */
@@ -347,7 +347,7 @@ export class OrganizationService {
         });
     }
     /**
-     * List variables of an organization
+     * Get an org-level variables list
      * @returns ActionVariable VariableList
      * @throws ApiError
      */
@@ -386,7 +386,7 @@ export class OrganizationService {
         });
     }
     /**
-     * Get organization's variable by name
+     * Get an org-level variable
      * @returns ActionVariable ActionVariable
      * @throws ApiError
      */
@@ -417,7 +417,7 @@ export class OrganizationService {
         });
     }
     /**
-     * Update variable in organization
+     * Update an org-level variable
      * @returns any response when updating an org-level variable
      * @throws ApiError
      */
@@ -451,7 +451,7 @@ export class OrganizationService {
         });
     }
     /**
-     * Create a new variable in organization
+     * Create an org-level variable
      * @returns any response when creating an org-level variable
      * @throws ApiError
      */
@@ -485,8 +485,9 @@ export class OrganizationService {
         });
     }
     /**
-     * Delete organization's variable by name
-     * @returns void
+     * Delete an org-level variable
+     * @returns ActionVariable ActionVariable
+     * @returns any response when deleting a variable
      * @throws ApiError
      */
     public static deleteOrgVariable({
@@ -501,7 +502,7 @@ export class OrganizationService {
          * name of the variable
          */
         variablename: string,
-    }): CancelablePromise<void> {
+    }): CancelablePromise<ActionVariable | any> {
         return __request(OpenAPI, {
             method: 'DELETE',
             url: '/orgs/{org}/actions/variables/{variablename}',
@@ -560,7 +561,7 @@ export class OrganizationService {
         });
     }
     /**
-     * Update an organization's avatar
+     * Update Avatar
      * @returns void
      * @throws ApiError
      */
@@ -587,7 +588,7 @@ export class OrganizationService {
         });
     }
     /**
-     * Delete an organization's avatar. It will be replaced by a default one
+     * Delete Avatar
      * @returns void
      * @throws ApiError
      */
@@ -806,7 +807,6 @@ export class OrganizationService {
      */
     public static orgListLabels({
         org,
-        sort,
         page,
         limit,
     }: {
@@ -814,10 +814,6 @@ export class OrganizationService {
          * name of the organization
          */
         org: string,
-        /**
-         * Specifies the sorting method: mostissues, leastissues, or reversealphabetically.
-         */
-        sort?: 'mostissues' | 'leastissues' | 'reversealphabetically',
         /**
          * page number of results to return (1-based)
          */
@@ -834,7 +830,6 @@ export class OrganizationService {
                 'org': org,
             },
             query: {
-                'sort': sort,
                 'page': page,
                 'limit': limit,
             },
@@ -1334,30 +1329,22 @@ export class OrganizationService {
     }
     /**
      * Check if the organization is over quota for a given subject
-     * @returns boolean Returns true if the action is accepted.
+     * @returns any Boolean
      * @throws ApiError
      */
     public static orgCheckQuota({
         org,
-        subject,
     }: {
         /**
          * name of the organization
          */
         org: string,
-        /**
-         * subject of the quota
-         */
-        subject: string,
-    }): CancelablePromise<boolean> {
+    }): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/orgs/{org}/quota/check',
             path: {
                 'org': org,
-            },
-            query: {
-                'subject': subject,
             },
             errors: {
                 403: `APIForbiddenError is a forbidden error response`,

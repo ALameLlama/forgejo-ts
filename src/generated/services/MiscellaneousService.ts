@@ -202,20 +202,6 @@ export class MiscellaneousService {
         });
     }
     /**
-     * Get default signing-key.ssh
-     * @returns string SSH public key in OpenSSH authorized key format
-     * @throws ApiError
-     */
-    public static getSshSigningKey(): CancelablePromise<string> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/signing-key.ssh',
-            errors: {
-                404: `APINotFound is a not found error response`,
-            },
-        });
-    }
-    /**
      * Returns the version of the running application
      * @returns ServerVersion ServerVersion
      * @throws ApiError

@@ -2,7 +2,6 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { ActionRun } from '../models/ActionRun';
 import type { ActionRunJob } from '../models/ActionRunJob';
 import type { ActionTaskResponse } from '../models/ActionTaskResponse';
 import type { ActionVariable } from '../models/ActionVariable';
@@ -54,7 +53,7 @@ import type { FileDeleteResponse } from '../models/FileDeleteResponse';
 import type { FileResponse } from '../models/FileResponse';
 import type { FilesResponse } from '../models/FilesResponse';
 import type { GenerateRepoOption } from '../models/GenerateRepoOption';
-import type { GitBlob } from '../models/GitBlob';
+import type { GitBlobResponse } from '../models/GitBlobResponse';
 import type { GitHook } from '../models/GitHook';
 import type { GitTreeResponse } from '../models/GitTreeResponse';
 import type { Hook } from '../models/Hook';
@@ -62,7 +61,6 @@ import type { Issue } from '../models/Issue';
 import type { IssueConfig } from '../models/IssueConfig';
 import type { IssueConfigValidation } from '../models/IssueConfigValidation';
 import type { IssueTemplate } from '../models/IssueTemplate';
-import type { ListActionRunResponse } from '../models/ListActionRunResponse';
 import type { MergePullRequestOption } from '../models/MergePullRequestOption';
 import type { MigrateRepoOptions } from '../models/MigrateRepoOptions';
 import type { NewIssuePinsAllowed } from '../models/NewIssuePinsAllowed';
@@ -74,7 +72,6 @@ import type { PullReviewComment } from '../models/PullReviewComment';
 import type { PullReviewRequestOptions } from '../models/PullReviewRequestOptions';
 import type { PushMirror } from '../models/PushMirror';
 import type { Reference } from '../models/Reference';
-import type { RegistrationToken } from '../models/RegistrationToken';
 import type { Release } from '../models/Release';
 import type { ReplaceFlagsOption } from '../models/ReplaceFlagsOption';
 import type { RepoCollaboratorPermission } from '../models/RepoCollaboratorPermission';
@@ -83,7 +80,6 @@ import type { RepoTopicOptions } from '../models/RepoTopicOptions';
 import type { SearchResults } from '../models/SearchResults';
 import type { Secret } from '../models/Secret';
 import type { SubmitPullReviewOptions } from '../models/SubmitPullReviewOptions';
-import type { SyncForkInfo } from '../models/SyncForkInfo';
 import type { Tag } from '../models/Tag';
 import type { TagProtection } from '../models/TagProtection';
 import type { Team } from '../models/Team';
@@ -205,11 +201,11 @@ export class RepositoryService {
         /**
          * sort repos by attribute. Supported values are "alpha", "created", "updated", "size", "git_size", "lfs_size", "stars", "forks" and "id". Default is "alpha"
          */
-        sort?: 'alpha' | 'created' | 'updated' | 'size' | 'git_size' | 'lfs_size' | 'id' | 'stars' | 'forks',
+        sort?: string,
         /**
          * sort order, either "asc" (ascending) or "desc" (descending). Default is "asc", ignored if "sort" is not specified.
          */
-        order?: 'asc' | 'desc',
+        order?: string,
         /**
          * page number of results to return (1-based)
          */
@@ -385,7 +381,7 @@ export class RepositoryService {
     }
     /**
      * Get a repository's actions runner registration token
-     * @returns RegistrationToken RegistrationToken is a string used to register a runner with a server
+     * @returns string RegistrationToken is a string used to register a runner with a server
      * @throws ApiError
      */
     public static repoGetRunnerRegistrationToken({
@@ -400,7 +396,7 @@ export class RepositoryService {
          * name of the repo
          */
         repo: string,
-    }): CancelablePromise<RegistrationToken> {
+    }): CancelablePromise<string> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/repos/{owner}/{repo}/actions/runners/registration-token',
@@ -408,115 +404,7 @@ export class RepositoryService {
                 'owner': owner,
                 'repo': repo,
             },
-        });
-    }
-    /**
-     * List a repository's action runs
-     * @returns ListActionRunResponse ActionRunList
-     * @throws ApiError
-     */
-    public static listActionRuns({
-        owner,
-        repo,
-        page,
-        limit,
-        event,
-        status,
-        runNumber,
-        headSha,
-    }: {
-        /**
-         * owner of the repo
-         */
-        owner: string,
-        /**
-         * name of the repo
-         */
-        repo: string,
-        /**
-         * page number of results to return (1-based)
-         */
-        page?: number,
-        /**
-         * page size of results, default maximum page size is 50
-         */
-        limit?: number,
-        /**
-         * Returns workflow run triggered by the specified events. For example, `push`, `pull_request` or `workflow_dispatch`.
-         */
-        event?: Array<string>,
-        /**
-         * Returns workflow runs with the check run status or conclusion that is specified. For example, a conclusion can be success or a status can be in_progress. Only Forgejo Actions can set a status of waiting, pending, or requested.
-         *
-         */
-        status?: Array<string>,
-        /**
-         * Returns the workflow run associated with the run number.
-         *
-         */
-        runNumber?: number,
-        /**
-         * Only returns workflow runs that are associated with the specified head_sha.
-         */
-        headSha?: string,
-    }): CancelablePromise<ListActionRunResponse> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/repos/{owner}/{repo}/actions/runs',
-            path: {
-                'owner': owner,
-                'repo': repo,
-            },
-            query: {
-                'page': page,
-                'limit': limit,
-                'event': event,
-                'status': status,
-                'run_number': runNumber,
-                'head_sha': headSha,
-            },
-            errors: {
-                400: `APIError is error format response`,
-                403: `APIForbiddenError is a forbidden error response`,
-            },
-        });
-    }
-    /**
-     * Get an action run
-     * @returns ActionRun ActionRun
-     * @throws ApiError
-     */
-    public static actionRun({
-        owner,
-        repo,
-        runId,
-    }: {
-        /**
-         * owner of the repo
-         */
-        owner: string,
-        /**
-         * name of the repo
-         */
-        repo: string,
-        /**
-         * id of the action run
-         */
-        runId: number,
-    }): CancelablePromise<ActionRun> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/repos/{owner}/{repo}/actions/runs/{run_id}',
-            path: {
-                'owner': owner,
-                'repo': repo,
-                'run_id': runId,
-            },
-            errors: {
-                400: `APIError is error format response`,
-                403: `APIForbiddenError is a forbidden error response`,
-                404: `APINotFound is a not found error response`,
-            },
+            responseHeader: 'token',
         });
     }
     /**
@@ -852,7 +740,8 @@ export class RepositoryService {
     }
     /**
      * Delete a repo-level variable
-     * @returns void
+     * @returns ActionVariable ActionVariable
+     * @returns any response when deleting a variable
      * @throws ApiError
      */
     public static deleteRepoVariable({
@@ -872,7 +761,7 @@ export class RepositoryService {
          * name of the variable
          */
         variablename: string,
-    }): CancelablePromise<void> {
+    }): CancelablePromise<ActionVariable | any> {
         return __request(OpenAPI, {
             method: 'DELETE',
             url: '/repos/{owner}/{repo}/actions/variables/{variablename}',
@@ -895,7 +784,7 @@ export class RepositoryService {
     public static dispatchWorkflow({
         owner,
         repo,
-        workflowfilename,
+        workflowname,
         body,
     }: {
         /**
@@ -909,16 +798,16 @@ export class RepositoryService {
         /**
          * name of the workflow
          */
-        workflowfilename: string,
+        workflowname: string,
         body?: DispatchWorkflowOption,
     }): CancelablePromise<DispatchWorkflowRun> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/repos/{owner}/{repo}/actions/workflows/{workflowfilename}/dispatches',
+            url: '/repos/{owner}/{repo}/actions/workflows/{workflowname}/dispatches',
             path: {
                 'owner': owner,
                 'repo': repo,
-                'workflowfilename': workflowfilename,
+                'workflowname': workflowname,
             },
             body: body,
             errors: {
@@ -1043,7 +932,7 @@ export class RepositoryService {
         });
     }
     /**
-     * Update a repository's avatar
+     * Update avatar
      * @returns void
      * @throws ApiError
      */
@@ -1076,7 +965,7 @@ export class RepositoryService {
         });
     }
     /**
-     * Delete a repository's avatar
+     * Delete avatar
      * @returns void
      * @throws ApiError
      */
@@ -2007,7 +1896,6 @@ export class RepositoryService {
             errors: {
                 403: `APIError is error format response`,
                 404: `APINotFound is a not found error response`,
-                409: `APIConflict is a conflict empty response`,
                 413: `QuotaExceeded`,
                 422: `APIError is error format response`,
                 423: `APIRepoArchivedError is an error that is raised when an archived repo should be modified`,
@@ -2095,7 +1983,6 @@ export class RepositoryService {
             errors: {
                 403: `APIError is error format response`,
                 404: `APINotFound is a not found error response`,
-                409: `APIConflict is a conflict empty response`,
                 413: `QuotaExceeded`,
                 422: `APIError is error format response`,
                 423: `APIRepoArchivedError is an error that is raised when an archived repo should be modified`,
@@ -2139,7 +2026,6 @@ export class RepositoryService {
             errors: {
                 403: `APIError is error format response`,
                 404: `APINotFound is a not found error response`,
-                409: `APIConflict is a conflict empty response`,
                 413: `QuotaExceeded`,
                 422: `APIError is error format response`,
                 423: `APIRepoArchivedError is an error that is raised when an archived repo should be modified`,
@@ -2190,38 +2076,6 @@ export class RepositoryService {
         });
     }
     /**
-     * Convert a mirror repo to a normal repo.
-     * @returns Repository Repository
-     * @throws ApiError
-     */
-    public static repoConvert({
-        owner,
-        repo,
-    }: {
-        /**
-         * owner of the repo to convert
-         */
-        owner: string,
-        /**
-         * name of the repo to convert
-         */
-        repo: string,
-    }): CancelablePromise<Repository> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/repos/{owner}/{repo}/convert',
-            path: {
-                'owner': owner,
-                'repo': repo,
-            },
-            errors: {
-                403: `APIForbiddenError is a forbidden error response`,
-                404: `APINotFound is a not found error response`,
-                422: `APIValidationError is error format response related to input validation`,
-            },
-        });
-    }
-    /**
      * Apply diff patch to repository
      * @returns FileResponse FileResponse
      * @throws ApiError
@@ -2258,7 +2112,7 @@ export class RepositoryService {
     }
     /**
      * Get the EditorConfig definitions of a file in a repository
-     * @returns string definitions
+     * @returns any success
      * @throws ApiError
      */
     public static repoGetEditorConfig({
@@ -2283,7 +2137,7 @@ export class RepositoryService {
          * The name of the commit/branch/tag. Default the repository’s default branch (usually master)
          */
         ref?: string,
-    }): CancelablePromise<Record<string, string>> {
+    }): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/repos/{owner}/{repo}/editorconfig/{filepath}',
@@ -2589,46 +2443,8 @@ export class RepositoryService {
         });
     }
     /**
-     * Gets multiple blobs of a repository.
-     * @returns GitBlob GitBlobList
-     * @throws ApiError
-     */
-    public static getBlobs({
-        owner,
-        repo,
-        shas,
-    }: {
-        /**
-         * owner of the repo
-         */
-        owner: string,
-        /**
-         * name of the repo
-         */
-        repo: string,
-        /**
-         * a comma separated list of blob-sha (mind the overall URL-length limit of ~2,083 chars)
-         */
-        shas: string,
-    }): CancelablePromise<Array<GitBlob>> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/repos/{owner}/{repo}/git/blobs',
-            path: {
-                'owner': owner,
-                'repo': repo,
-            },
-            query: {
-                'shas': shas,
-            },
-            errors: {
-                400: `APIError is error format response`,
-            },
-        });
-    }
-    /**
      * Gets the blob of a repository.
-     * @returns GitBlob GitBlob
+     * @returns GitBlobResponse GitBlobResponse
      * @throws ApiError
      */
     public static getBlob({
@@ -2645,10 +2461,10 @@ export class RepositoryService {
          */
         repo: string,
         /**
-         * sha of the blob to retrieve
+         * sha of the commit
          */
         sha: string,
-    }): CancelablePromise<GitBlob> {
+    }): CancelablePromise<GitBlobResponse> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/repos/{owner}/{repo}/git/blobs/{sha}',
@@ -3843,7 +3659,7 @@ export class RepositoryService {
         });
     }
     /**
-     * List a repo's pull requests. If a pull request is selected but fails to be retrieved for any reason, it will be a null value in the list of results.
+     * List a repo's pull requests
      * @returns PullRequest PullRequestList
      * @throws ApiError
      */
@@ -3873,7 +3689,7 @@ export class RepositoryService {
         /**
          * Type of sort
          */
-        sort?: 'oldest' | 'recentupdate' | 'recentclose' | 'leastupdate' | 'mostcomment' | 'leastcomment' | 'priority',
+        sort?: 'oldest' | 'recentupdate' | 'leastupdate' | 'mostcomment' | 'leastcomment' | 'priority',
         /**
          * ID of the milestone
          */
@@ -4397,7 +4213,7 @@ export class RepositoryService {
         });
     }
     /**
-     * Create review requests for a pull request
+     * create review requests for a pull request
      * @returns PullReview PullReviewList
      * @throws ApiError
      */
@@ -4437,7 +4253,7 @@ export class RepositoryService {
         });
     }
     /**
-     * Cancel review requests for a pull request
+     * cancel review requests for a pull request
      * @returns void
      * @throws ApiError
      */
@@ -5070,7 +4886,7 @@ export class RepositoryService {
         });
     }
     /**
-     * Set up a new push mirror in a repository
+     * add a push mirror to the repository
      * @returns PushMirror PushMirror
      * @throws ApiError
      */
@@ -5177,7 +4993,7 @@ export class RepositoryService {
         });
     }
     /**
-     * Remove a push mirror from a repository by remoteName
+     * deletes a push mirror from a repository by remoteName
      * @returns void
      * @throws ApiError
      */
@@ -6129,142 +5945,6 @@ export class RepositoryService {
                 'repo': repo,
             },
             errors: {
-                404: `APINotFound is a not found error response`,
-            },
-        });
-    }
-    /**
-     * Gets information about syncing the fork default branch with the base branch
-     * @returns SyncForkInfo SyncForkInfo
-     * @throws ApiError
-     */
-    public static repoSyncForkDefaultInfo({
-        owner,
-        repo,
-    }: {
-        /**
-         * owner of the repo
-         */
-        owner: string,
-        /**
-         * name of the repo
-         */
-        repo: string,
-    }): CancelablePromise<SyncForkInfo> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/repos/{owner}/{repo}/sync_fork',
-            path: {
-                'owner': owner,
-                'repo': repo,
-            },
-            errors: {
-                400: `APIError is error format response`,
-                404: `APINotFound is a not found error response`,
-            },
-        });
-    }
-    /**
-     * Syncs the default branch of a fork with the base branch
-     * @returns void
-     * @throws ApiError
-     */
-    public static repoSyncForkDefault({
-        owner,
-        repo,
-    }: {
-        /**
-         * owner of the repo
-         */
-        owner: string,
-        /**
-         * name of the repo
-         */
-        repo: string,
-    }): CancelablePromise<void> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/repos/{owner}/{repo}/sync_fork',
-            path: {
-                'owner': owner,
-                'repo': repo,
-            },
-            errors: {
-                400: `APIError is error format response`,
-                404: `APINotFound is a not found error response`,
-            },
-        });
-    }
-    /**
-     * Gets information about syncing a fork branch with the base branch
-     * @returns SyncForkInfo SyncForkInfo
-     * @throws ApiError
-     */
-    public static repoSyncForkBranchInfo({
-        owner,
-        repo,
-        branch,
-    }: {
-        /**
-         * owner of the repo
-         */
-        owner: string,
-        /**
-         * name of the repo
-         */
-        repo: string,
-        /**
-         * The branch
-         */
-        branch: string,
-    }): CancelablePromise<SyncForkInfo> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/repos/{owner}/{repo}/sync_fork/{branch}',
-            path: {
-                'owner': owner,
-                'repo': repo,
-                'branch': branch,
-            },
-            errors: {
-                400: `APIError is error format response`,
-                404: `APINotFound is a not found error response`,
-            },
-        });
-    }
-    /**
-     * Syncs a fork branch with the base branch
-     * @returns void
-     * @throws ApiError
-     */
-    public static repoSyncForkBranch({
-        owner,
-        repo,
-        branch,
-    }: {
-        /**
-         * owner of the repo
-         */
-        owner: string,
-        /**
-         * name of the repo
-         */
-        repo: string,
-        /**
-         * The branch
-         */
-        branch: string,
-    }): CancelablePromise<void> {
-        return __request(OpenAPI, {
-            method: 'POST',
-            url: '/repos/{owner}/{repo}/sync_fork/{branch}',
-            path: {
-                'owner': owner,
-                'repo': repo,
-                'branch': branch,
-            },
-            errors: {
-                400: `APIError is error format response`,
                 404: `APINotFound is a not found error response`,
             },
         });
@@ -7407,8 +7087,8 @@ export class RepositoryService {
         });
     }
     /**
-     * Search for topics by keyword
-     * @returns any SearchResults of a successful search
+     * search topics via keyword
+     * @returns TopicResponse TopicListResponse
      * @throws ApiError
      */
     public static topicSearch({
@@ -7417,7 +7097,7 @@ export class RepositoryService {
         limit,
     }: {
         /**
-         * keyword to search for
+         * keywords to search
          */
         q: string,
         /**
@@ -7428,9 +7108,7 @@ export class RepositoryService {
          * page size of results
          */
         limit?: number,
-    }): CancelablePromise<{
-        topics?: Array<TopicResponse>;
-    }> {
+    }): CancelablePromise<Array<TopicResponse>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/topics/search',

@@ -6,7 +6,6 @@
  * PushMirror represents information of a push mirror
  */
 export type PushMirror = {
-    branch_filter?: string;
     created?: string;
     interval?: string;
     last_error?: string;

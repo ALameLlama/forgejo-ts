@@ -2,8 +2,8 @@
  * Forgejo TypeScript Client
  * 
  * Auto-generated from Forgejo API specification
- * API Version: 14.0.2
- * Generated: 2026-02-05T11:07:56.602Z
+ * API Version: 11.0.10
+ * Generated: 2026-02-05T12:02:15.510Z
  */
 
 // Re-export everything from the generated client
@@ -34,5 +34,5 @@ export function configure(options: {
 }
 
 // Export metadata about this build
-export const FORGEJO_API_VERSION = '14.0.2';
-export const GENERATED_AT = '2026-02-05T11:07:56.603Z';
+export const FORGEJO_API_VERSION = '11.0.10';
+export const GENERATED_AT = '2026-02-05T12:02:15.510Z';
