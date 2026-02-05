@@ -3,7 +3,7 @@
  * 
  * Auto-generated from Forgejo API specification
  * API Version: 14.0.2
- * Generated: 2026-02-05T13:04:36.398Z
+ * Generated: 2026-02-05T13:05:59.618Z
  */
 
 // Re-export everything from the generated client
@@ -35,4 +35,4 @@ export function configure(options: {
 
 // Export metadata about this build
 export const FORGEJO_API_VERSION = '14.0.2';
-export const GENERATED_AT = '2026-02-05T13:04:36.398Z';
+export const GENERATED_AT = '2026-02-05T13:05:59.618Z';
