@@ -1,0 +1,38 @@
+/**
+ * Forgejo TypeScript Client
+ * 
+ * Auto-generated from Forgejo API specification
+ * API Version: 14.0.2
+ * Generated: 2026-02-05T11:07:56.602Z
+ */
+
+// Re-export everything from the generated client
+export * from './generated';
+
+// Import OpenAPI config for the configure function
+import { OpenAPI } from './generated';
+
+// Export a convenience function to configure the client
+export function configure(options: {
+  baseUrl?: string;
+  token?: string;
+  username?: string;
+  password?: string;
+}): void {
+  if (options.baseUrl) {
+    OpenAPI.BASE = options.baseUrl.replace(/\/$/, ''); // Remove trailing slash
+  }
+  
+  if (options.token) {
+    OpenAPI.TOKEN = options.token;
+  }
+  
+  if (options.username && options.password) {
+    OpenAPI.USERNAME = options.username;
+    OpenAPI.PASSWORD = options.password;
+  }
+}
+
+// Export metadata about this build
+export const FORGEJO_API_VERSION = '14.0.2';
+export const GENERATED_AT = '2026-02-05T11:07:56.603Z';

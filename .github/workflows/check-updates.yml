@@ -1,0 +1,67 @@
+name: Check for Updates
+
+on:
+  schedule:
+    # Run daily at 6:00 AM UTC
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+    inputs:
+      force_update:
+        description: "Force update even if no new version"
+        required: false
+        default: "false"
+        type: boolean
+
+permissions:
+  contents: write
+  packages: write
+  id-token: write  # Required for npm OIDC trusted publishing
+
+jobs:
+  check-versions:
+    runs-on: ubuntu-latest
+    outputs:
+      latest_version: ${{ steps.check.outputs.latest_version }}
+      lts_version: ${{ steps.check.outputs.lts_version }}
+      latest_major: ${{ steps.check.outputs.latest_major }}
+      lts_major: ${{ steps.check.outputs.lts_major }}
+      latest_needs_update: ${{ steps.check.outputs.latest_needs_update }}
+      lts_needs_update: ${{ steps.check.outputs.lts_needs_update }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Check for new versions
+        id: check
+        run: node scripts/check-versions.mjs --github-output
+
+      - name: Log version status
+        run: |
+          echo "Latest version: ${{ steps.check.outputs.latest_version }} (v${{ steps.check.outputs.latest_major }})"
+          echo "LTS version: ${{ steps.check.outputs.lts_version }} (v${{ steps.check.outputs.lts_major }})"
+          echo "Latest needs update: ${{ steps.check.outputs.latest_needs_update }}"
+          echo "LTS needs update: ${{ steps.check.outputs.lts_needs_update }}"
+
+  update-latest:
+    needs: check-versions
+    if: needs.check-versions.outputs.latest_needs_update == 'true' || github.event.inputs.force_update == 'true'
+    uses: ./.github/workflows/generate-client.yml
+    with:
+      version: ${{ needs.check-versions.outputs.latest_version }}
+      version_type: latest
+      major_version: ${{ needs.check-versions.outputs.latest_major }}
+
+  update-lts:
+    needs: check-versions
+    if: needs.check-versions.outputs.lts_needs_update == 'true' || github.event.inputs.force_update == 'true'
+    uses: ./.github/workflows/generate-client.yml
+    with:
+      version: ${{ needs.check-versions.outputs.lts_version }}
+      version_type: lts
+      major_version: ${{ needs.check-versions.outputs.lts_major }}
