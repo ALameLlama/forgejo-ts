@@ -133,7 +133,7 @@ jobs:
 
           git add .lts-version
           if ! git diff --staged --quiet; then
-            git commit -m "chore: update lts version to ${{ inputs.version }}"
+            git commit -m "chore: update to ${{ inputs.version }}"
             git push origin master
           fi
 
@@ -152,9 +152,9 @@ jobs:
       - name: Publish to npm
         run: |
           if [ "${{ inputs.version_type }}" = "latest" ]; then
-            npm publish --access public --tag latest --provenance
+            npm publish --access public --tag latest
           else
-            npm publish --access public --tag lts --provenance
+            npm publish --access public --tag lts
           fi
 
       - name: Create Release
