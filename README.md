@@ -138,19 +138,6 @@ try {
 }
 ```
 
-## Available Services
-
-- `ActivitypubService` - ActivityPub federation endpoints
-- `AdminService` - Administration endpoints (requires admin access)
-- `IssueService` - Issues and pull requests
-- `MiscellaneousService` - Miscellaneous endpoints (version, settings, etc.)
-- `NotificationService` - User notifications
-- `OrganizationService` - Organizations and teams
-- `PackageService` - Package registry
-- `RepositoryService` - Repositories, branches, commits, files
-- `SettingsService` - Instance settings
-- `UserService` - Users, followers, tokens, keys
-
 ## Version Information
 
 ```typescript
