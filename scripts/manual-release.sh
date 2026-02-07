@@ -71,7 +71,8 @@ git commit -m "chore: client revision $VERSION"
 # Create and push tag
 echo ">>> Creating and pushing tag v$VERSION..."
 git tag "v$VERSION"
-git push origin "$BRANCH" --tags
+git push origin "$BRANCH"
+git push origin "v$VERSION"
 
 # Publish to npm
 echo ">>> Publishing to npm with tag $NPM_TAG..."
