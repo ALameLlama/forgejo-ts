@@ -16,124 +16,135 @@ pnpm add @llamaduck/forgejo-ts
 
 ## Usage
 
-### Basic Configuration
+### Basic Usage
+
+Create a client and start making API calls:
 
 ```typescript
-import { configure, RepositoryService, UserService } from '@llamaduck/forgejo-ts';
+import { createClient, createConfig, getVersion, repoSearch } from '@llamaduck/forgejo-ts';
 
-// Configure the client
-configure({
-  baseUrl: 'https://your-forgejo-instance.com/api/v1',
-  token: 'your-api-token', // Optional: for authenticated requests
-});
+// Create a client
+const client = createClient(createConfig({
+  baseUrl: 'https://codeberg.org/api/v1',
+  headers: { Authorization: 'token your-api-token' }
+}));
 
-// Now use any service
-const repos = await RepositoryService.repoSearch({ q: 'hello' });
-console.log(repos);
+// Make API calls - pass the client in options
+const version = await getVersion({ client });
+console.log('Server version:', version.data?.version);
+
+const repos = await repoSearch({ query: { q: 'typescript', limit: 10 } }, { client });
+console.log('Found repos:', repos.data);
 ```
 
-### Authentication Options
+### Multiple Clients
+
+You can create multiple independent client instances:
 
 ```typescript
-import { configure } from '@llamaduck/forgejo-ts';
+import { createClient, createConfig, repoSearch } from '@llamaduck/forgejo-ts';
+
+const clientA = createClient(createConfig({
+  baseUrl: 'https://codeberg.org/api/v1',
+  headers: { Authorization: 'token token-a' }
+}));
+
+const clientB = createClient(createConfig({
+  baseUrl: 'https://gitea.com/api/v1',
+  headers: { Authorization: 'token token-b' }
+}));
+
+// Use different clients for different requests
+const reposA = await repoSearch({ query: { q: 'test' } }, { client: clientA });
+const reposB = await repoSearch({ query: { q: 'test' } }, { client: clientB });
+```
+
+### Authentication
+
+```typescript
+import { createClient, createConfig } from '@llamaduck/forgejo-ts';
 
 // Token authentication (recommended)
-configure({
-  baseUrl: 'https://your-forgejo-instance.com/api/v1',
-  token: 'your-personal-access-token',
-});
+const client = createClient(createConfig({
+  baseUrl: 'https://codeberg.org/api/v1',
+  headers: { Authorization: 'token your-personal-access-token' }
+}));
 
 // Basic authentication
-configure({
-  baseUrl: 'https://your-forgejo-instance.com/api/v1',
-  username: 'your-username',
-  password: 'your-password',
-});
+const auth = btoa('username:password');
+const client = createClient(createConfig({
+  baseUrl: 'https://codeberg.org/api/v1',
+  headers: { Authorization: `Basic ${auth}` }
+}));
 ```
 
-### Direct OpenAPI Configuration
+## API Reference
 
-For more control, you can configure the OpenAPI object directly:
-
-```typescript
-import { OpenAPI } from '@llamaduck/forgejo-ts';
-
-OpenAPI.BASE = 'https://your-forgejo-instance.com/api/v1';
-OpenAPI.TOKEN = 'your-api-token';
-
-// Or use a function for dynamic token retrieval
-OpenAPI.TOKEN = async () => {
-  return getTokenFromSomewhere();
-};
-```
-
-### Using Services
-
-All API endpoints are organized into services:
+All API functions are exported directly from the package:
 
 ```typescript
 import {
-  RepositoryService,
-  UserService,
-  OrganizationService,
-  IssueService,
-  AdminService,
-  // ... and more
+  // Repositories
+  repoSearch,
+  repoGet,
+  userListRepos,
+  
+  // Users
+  userGetCurrent,
+  userGet,
+  
+  // Issues
+  issueSearch,
+  issueCreateIssue,
+  
+  // Organizations
+  orgGet,
+  
+  // And many more...
 } from '@llamaduck/forgejo-ts';
+```
 
-// Get current user
-const user = await UserService.userGetCurrent();
+Each function accepts:
+1. **Data/params** - The request data (path params, query params, body)
+2. **Options** (optional) - Request options including the `client` instance
 
-// List repositories
-const repos = await RepositoryService.repoSearch({
-  q: 'typescript',
-  limit: 10,
-});
+Example:
+```typescript
+// Search repositories
+const repos = await repoSearch(
+  { query: { q: 'typescript', limit: 10 } },
+  { client }
+);
+
+// Get a specific repository
+const repo = await repoGet(
+  { path: { owner: 'forgejo', repo: 'forgejo' } },
+  { client }
+);
 
 // Create an issue
-const issue = await IssueService.issueCreateIssue({
-  owner: 'username',
-  repo: 'repo-name',
-  body: {
-    title: 'Bug report',
-    body: 'Description of the bug',
-  },
-});
+const issue = await issueCreateIssue(
+  { path: { owner: 'user', repo: 'repo' } },
+  { body: { title: 'Bug report', body: 'Description' } },
+  { client }
+);
 ```
 
 ### Error Handling
 
 ```typescript
-import { ApiError, RepositoryService } from '@llamaduck/forgejo-ts';
+import { repoGet } from '@llamaduck/forgejo-ts';
 
 try {
-  const repo = await RepositoryService.repoGet({
-    owner: 'user',
-    repo: 'nonexistent',
-  });
+  const repo = await repoGet(
+    { path: { owner: 'user', repo: 'nonexistent' } },
+    { client }
+  );
 } catch (error) {
-  if (error instanceof ApiError) {
-    console.error('API Error:', error.status, error.message);
-    console.error('Response body:', error.body);
-  }
-}
-```
-
-### Canceling Requests
-
-```typescript
-import { RepositoryService, CancelError } from '@llamaduck/forgejo-ts';
-
-const request = RepositoryService.repoSearch({ q: 'test' });
-
-// Cancel the request
-request.cancel();
-
-try {
-  await request;
-} catch (error) {
-  if (error instanceof CancelError) {
-    console.log('Request was canceled');
+  if (error.status === 404) {
+    console.error('Repository not found');
+  } else {
+    console.error('API Error:', error);
   }
 }
 ```
@@ -176,8 +187,6 @@ FORGEJO_VERSION=14.0.2 npm run generate
 npm run build
 ```
 
-The script fetches the Swagger spec directly from Codeberg. 
-
 ## Configuration
 
 The `config.json` file specifies which major versions to track:
@@ -193,7 +202,7 @@ When Forgejo releases a new major version (e.g., v15), update this file to chang
 
 ## Contributing
 
-Contributions are welcome! Please note that the `src/generated/` directory is auto-generated and should not be manually edited.
+Contributions are welcome! Please note that the `src/` directory is auto-generated and should not be manually edited.
 
 ## License
 
