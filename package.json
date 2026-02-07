@@ -1,6 +1,6 @@
 {
   "name": "@llamaduck/forgejo-ts",
-  "version": "11.0.10",
+  "version": "11.0.10-1",
   "description": "Auto-generated TypeScript client for Forgejo API",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
