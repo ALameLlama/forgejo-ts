@@ -53,8 +53,8 @@ jobs:
     needs: check-versions
     if: needs.check-versions.outputs.latest_needs_update == 'true' || github.event.inputs.force_update == 'true'
     permissions:
-      contents: write  # for git push
-      id-token: write  # Required for npm OIDC trusted publishing
+      contents: write # for git push
+      id-token: write # Required for npm OIDC trusted publishing
 
     steps:
       - name: Checkout
@@ -99,9 +99,6 @@ jobs:
 
       - name: Build the package
         run: npm run build
-
-      - name: Update package version
-        run: npm version "${{ needs.check-versions.outputs.latest_version }}" --no-git-tag-version --allow-same-version
 
       - name: Update tracked version file
         run: echo "${{ needs.check-versions.outputs.latest_version }}" > .latest-version
@@ -171,8 +168,8 @@ jobs:
     needs: check-versions
     if: needs.check-versions.outputs.lts_needs_update == 'true' || github.event.inputs.force_update == 'true'
     permissions:
-      contents: write  # for git push
-      id-token: write  # Required for npm OIDC trusted publishing
+      contents: write # for git push
+      id-token: write # Required for npm OIDC trusted publishing
 
     steps:
       - name: Checkout
@@ -217,9 +214,6 @@ jobs:
 
       - name: Build the package
         run: npm run build
-
-      - name: Update package version
-        run: npm version "${{ needs.check-versions.outputs.lts_version }}" --no-git-tag-version --allow-same-version
 
       - name: Update tracked version file
         run: echo "${{ needs.check-versions.outputs.lts_version }}" > .lts-version
