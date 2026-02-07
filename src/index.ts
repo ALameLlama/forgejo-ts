@@ -3,36 +3,14 @@
  * 
  * Auto-generated from Forgejo API specification
  * API Version: 14.0.2
- * Generated: 2026-02-05T13:11:19.605Z
+ * Generated: 2026-02-07T13:39:47.248Z
  */
 
 // Re-export everything from the generated client
 export * from './generated';
-
-// Import OpenAPI config for the configure function
-import { OpenAPI } from './generated';
-
-// Export a convenience function to configure the client
-export function configure(options: {
-  baseUrl?: string;
-  token?: string;
-  username?: string;
-  password?: string;
-}): void {
-  if (options.baseUrl) {
-    OpenAPI.BASE = options.baseUrl.replace(/\/$/, ''); // Remove trailing slash
-  }
-  
-  if (options.token) {
-    OpenAPI.TOKEN = options.token;
-  }
-  
-  if (options.username && options.password) {
-    OpenAPI.USERNAME = options.username;
-    OpenAPI.PASSWORD = options.password;
-  }
-}
+export { createClient, createConfig } from './generated/client';
+export type { Client, ClientOptions, Config } from './generated/client';
 
 // Export metadata about this build
 export const FORGEJO_API_VERSION = '14.0.2';
-export const GENERATED_AT = '2026-02-05T13:11:19.605Z';
+export const GENERATED_AT = '2026-02-07T13:39:47.248Z';
