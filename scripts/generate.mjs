@@ -135,9 +135,7 @@ async function generate() {
 
   try {
     await createClient({
-      input: specPath,
-      output: SRC_DIR,
-      client: "@hey-api/client-axios",
+      config: join(ROOT_DIR, "openapi-ts.config.ts"),
     });
     console.log("Client generation successful!");
   } catch (error) {

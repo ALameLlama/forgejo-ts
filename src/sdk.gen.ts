@@ -22,6 +22,7 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
  * Returns the instance's Actor
  */
 export const activitypubInstanceActor = <ThrowOnError extends boolean = false>(options?: Options<ActivitypubInstanceActorData, ThrowOnError>) => (options?.client ?? client).get<ActivitypubInstanceActorResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -51,6 +52,7 @@ export const activitypubInstanceActor = <ThrowOnError extends boolean = false>(o
  * Send to the inbox
  */
 export const activitypubInstanceActorInbox = <ThrowOnError extends boolean = false>(options?: Options<ActivitypubInstanceActorInboxData, ThrowOnError>) => (options?.client ?? client).post<ActivitypubInstanceActorInboxResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -80,6 +82,7 @@ export const activitypubInstanceActorInbox = <ThrowOnError extends boolean = fal
  * Display the outbox (always empty)
  */
 export const activitypubInstanceActorOutbox = <ThrowOnError extends boolean = false>(options?: Options<ActivitypubInstanceActorOutboxData, ThrowOnError>) => (options?.client ?? client).post<ActivitypubInstanceActorOutboxResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -109,6 +112,7 @@ export const activitypubInstanceActorOutbox = <ThrowOnError extends boolean = fa
  * Returns the Repository actor for a repo
  */
 export const activitypubRepository = <ThrowOnError extends boolean = false>(options: Options<ActivitypubRepositoryData, ThrowOnError>) => (options.client ?? client).get<ActivitypubRepositoryResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -138,6 +142,7 @@ export const activitypubRepository = <ThrowOnError extends boolean = false>(opti
  * Send to the inbox
  */
 export const activitypubRepositoryInbox = <ThrowOnError extends boolean = false>(options: Options<ActivitypubRepositoryInboxData, ThrowOnError>) => (options.client ?? client).post<ActivitypubRepositoryInboxResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -171,6 +176,7 @@ export const activitypubRepositoryInbox = <ThrowOnError extends boolean = false>
  * Display the outbox
  */
 export const activitypubRepositoryOutbox = <ThrowOnError extends boolean = false>(options: Options<ActivitypubRepositoryOutboxData, ThrowOnError>) => (options.client ?? client).post<ActivitypubRepositoryOutboxResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -200,6 +206,7 @@ export const activitypubRepositoryOutbox = <ThrowOnError extends boolean = false
  * Returns the Person actor for a user
  */
 export const activitypubPerson = <ThrowOnError extends boolean = false>(options: Options<ActivitypubPersonData, ThrowOnError>) => (options.client ?? client).get<ActivitypubPersonResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -229,6 +236,7 @@ export const activitypubPerson = <ThrowOnError extends boolean = false>(options:
  * Get a specific activity object of the user
  */
 export const activitypubPersonActivityNote = <ThrowOnError extends boolean = false>(options: Options<ActivitypubPersonActivityNoteData, ThrowOnError>) => (options.client ?? client).get<ActivitypubPersonActivityNoteResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -258,6 +266,7 @@ export const activitypubPersonActivityNote = <ThrowOnError extends boolean = fal
  * Get a specific activity of the user
  */
 export const activitypubPersonActivity = <ThrowOnError extends boolean = false>(options: Options<ActivitypubPersonActivityData, ThrowOnError>) => (options.client ?? client).get<ActivitypubPersonActivityResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -287,6 +296,7 @@ export const activitypubPersonActivity = <ThrowOnError extends boolean = false>(
  * Send to the inbox
  */
 export const activitypubPersonInbox = <ThrowOnError extends boolean = false>(options: Options<ActivitypubPersonInboxData, ThrowOnError>) => (options.client ?? client).post<ActivitypubPersonInboxResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -316,6 +326,7 @@ export const activitypubPersonInbox = <ThrowOnError extends boolean = false>(opt
  * List the user's recorded activity
  */
 export const activitypubPersonFeed = <ThrowOnError extends boolean = false>(options: Options<ActivitypubPersonFeedData, ThrowOnError>) => (options.client ?? client).get<ActivitypubPersonFeedResponses, ActivitypubPersonFeedErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -345,6 +356,7 @@ export const activitypubPersonFeed = <ThrowOnError extends boolean = false>(opti
  * List cron tasks
  */
 export const adminCronList = <ThrowOnError extends boolean = false>(options?: Options<AdminCronListData, ThrowOnError>) => (options?.client ?? client).get<AdminCronListResponses, AdminCronListErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -374,6 +386,7 @@ export const adminCronList = <ThrowOnError extends boolean = false>(options?: Op
  * Run cron task
  */
 export const adminCronRun = <ThrowOnError extends boolean = false>(options: Options<AdminCronRunData, ThrowOnError>) => (options.client ?? client).post<AdminCronRunResponses, AdminCronRunErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -403,6 +416,7 @@ export const adminCronRun = <ThrowOnError extends boolean = false>(options: Opti
  * List all users' email addresses
  */
 export const adminGetAllEmails = <ThrowOnError extends boolean = false>(options?: Options<AdminGetAllEmailsData, ThrowOnError>) => (options?.client ?? client).get<AdminGetAllEmailsResponses, AdminGetAllEmailsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -432,6 +446,7 @@ export const adminGetAllEmails = <ThrowOnError extends boolean = false>(options?
  * Search users' email addresses
  */
 export const adminSearchEmails = <ThrowOnError extends boolean = false>(options?: Options<AdminSearchEmailsData, ThrowOnError>) => (options?.client ?? client).get<AdminSearchEmailsResponses, AdminSearchEmailsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -461,6 +476,7 @@ export const adminSearchEmails = <ThrowOnError extends boolean = false>(options?
  * List global (system) webhooks
  */
 export const adminListHooks = <ThrowOnError extends boolean = false>(options?: Options<AdminListHooksData, ThrowOnError>) => (options?.client ?? client).get<AdminListHooksResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -490,6 +506,7 @@ export const adminListHooks = <ThrowOnError extends boolean = false>(options?: O
  * Create a hook
  */
 export const adminCreateHook = <ThrowOnError extends boolean = false>(options: Options<AdminCreateHookData, ThrowOnError>) => (options.client ?? client).post<AdminCreateHookResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -523,6 +540,7 @@ export const adminCreateHook = <ThrowOnError extends boolean = false>(options: O
  * Delete a hook
  */
 export const adminDeleteHook = <ThrowOnError extends boolean = false>(options: Options<AdminDeleteHookData, ThrowOnError>) => (options.client ?? client).delete<AdminDeleteHookResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -552,6 +570,7 @@ export const adminDeleteHook = <ThrowOnError extends boolean = false>(options: O
  * Get a hook
  */
 export const adminGetHook = <ThrowOnError extends boolean = false>(options: Options<AdminGetHookData, ThrowOnError>) => (options.client ?? client).get<AdminGetHookResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -581,6 +600,7 @@ export const adminGetHook = <ThrowOnError extends boolean = false>(options: Opti
  * Update a hook
  */
 export const adminEditHook = <ThrowOnError extends boolean = false>(options: Options<AdminEditHookData, ThrowOnError>) => (options.client ?? client).patch<AdminEditHookResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -614,6 +634,7 @@ export const adminEditHook = <ThrowOnError extends boolean = false>(options: Opt
  * List all organizations
  */
 export const adminGetAllOrgs = <ThrowOnError extends boolean = false>(options?: Options<AdminGetAllOrgsData, ThrowOnError>) => (options?.client ?? client).get<AdminGetAllOrgsResponses, AdminGetAllOrgsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -643,6 +664,7 @@ export const adminGetAllOrgs = <ThrowOnError extends boolean = false>(options?: 
  * List the available quota groups
  */
 export const adminListQuotaGroups = <ThrowOnError extends boolean = false>(options?: Options<AdminListQuotaGroupsData, ThrowOnError>) => (options?.client ?? client).get<AdminListQuotaGroupsResponses, AdminListQuotaGroupsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -672,6 +694,7 @@ export const adminListQuotaGroups = <ThrowOnError extends boolean = false>(optio
  * Create a new quota group
  */
 export const adminCreateQuotaGroup = <ThrowOnError extends boolean = false>(options: Options<AdminCreateQuotaGroupData, ThrowOnError>) => (options.client ?? client).post<AdminCreateQuotaGroupResponses, AdminCreateQuotaGroupErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -705,6 +728,7 @@ export const adminCreateQuotaGroup = <ThrowOnError extends boolean = false>(opti
  * Delete a quota group
  */
 export const adminDeleteQuotaGroup = <ThrowOnError extends boolean = false>(options: Options<AdminDeleteQuotaGroupData, ThrowOnError>) => (options.client ?? client).delete<AdminDeleteQuotaGroupResponses, AdminDeleteQuotaGroupErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -734,6 +758,7 @@ export const adminDeleteQuotaGroup = <ThrowOnError extends boolean = false>(opti
  * Get information about the quota group
  */
 export const adminGetQuotaGroup = <ThrowOnError extends boolean = false>(options: Options<AdminGetQuotaGroupData, ThrowOnError>) => (options.client ?? client).get<AdminGetQuotaGroupResponses, AdminGetQuotaGroupErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -763,6 +788,7 @@ export const adminGetQuotaGroup = <ThrowOnError extends boolean = false>(options
  * Removes a rule from a quota group
  */
 export const adminRemoveRuleFromQuotaGroup = <ThrowOnError extends boolean = false>(options: Options<AdminRemoveRuleFromQuotaGroupData, ThrowOnError>) => (options.client ?? client).delete<AdminRemoveRuleFromQuotaGroupResponses, AdminRemoveRuleFromQuotaGroupErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -792,6 +818,7 @@ export const adminRemoveRuleFromQuotaGroup = <ThrowOnError extends boolean = fal
  * Adds a rule to a quota group
  */
 export const adminAddRuleToQuotaGroup = <ThrowOnError extends boolean = false>(options: Options<AdminAddRuleToQuotaGroupData, ThrowOnError>) => (options.client ?? client).put<AdminAddRuleToQuotaGroupResponses, AdminAddRuleToQuotaGroupErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -821,6 +848,7 @@ export const adminAddRuleToQuotaGroup = <ThrowOnError extends boolean = false>(o
  * List users in a quota group
  */
 export const adminListUsersInQuotaGroup = <ThrowOnError extends boolean = false>(options: Options<AdminListUsersInQuotaGroupData, ThrowOnError>) => (options.client ?? client).get<AdminListUsersInQuotaGroupResponses, AdminListUsersInQuotaGroupErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -850,6 +878,7 @@ export const adminListUsersInQuotaGroup = <ThrowOnError extends boolean = false>
  * Remove a user from a quota group
  */
 export const adminRemoveUserFromQuotaGroup = <ThrowOnError extends boolean = false>(options: Options<AdminRemoveUserFromQuotaGroupData, ThrowOnError>) => (options.client ?? client).delete<AdminRemoveUserFromQuotaGroupResponses, AdminRemoveUserFromQuotaGroupErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -879,6 +908,7 @@ export const adminRemoveUserFromQuotaGroup = <ThrowOnError extends boolean = fal
  * Add a user to a quota group
  */
 export const adminAddUserToQuotaGroup = <ThrowOnError extends boolean = false>(options: Options<AdminAddUserToQuotaGroupData, ThrowOnError>) => (options.client ?? client).put<AdminAddUserToQuotaGroupResponses, AdminAddUserToQuotaGroupErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -908,6 +938,7 @@ export const adminAddUserToQuotaGroup = <ThrowOnError extends boolean = false>(o
  * List the available quota rules
  */
 export const adminListQuotaRules = <ThrowOnError extends boolean = false>(options?: Options<AdminListQuotaRulesData, ThrowOnError>) => (options?.client ?? client).get<AdminListQuotaRulesResponses, AdminListQuotaRulesErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -937,6 +968,7 @@ export const adminListQuotaRules = <ThrowOnError extends boolean = false>(option
  * Create a new quota rule
  */
 export const adminCreateQuotaRule = <ThrowOnError extends boolean = false>(options: Options<AdminCreateQuotaRuleData, ThrowOnError>) => (options.client ?? client).post<AdminCreateQuotaRuleResponses, AdminCreateQuotaRuleErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -970,6 +1002,7 @@ export const adminCreateQuotaRule = <ThrowOnError extends boolean = false>(optio
  * Deletes a quota rule
  */
 export const adminDeleteQuotaRule = <ThrowOnError extends boolean = false>(options: Options<AdminDeleteQuotaRuleData, ThrowOnError>) => (options.client ?? client).delete<AdminDeleteQuotaRuleResponses, AdminDeleteQuotaRuleErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -999,6 +1032,7 @@ export const adminDeleteQuotaRule = <ThrowOnError extends boolean = false>(optio
  * Get information about a quota rule
  */
 export const adminGetQuotaRule = <ThrowOnError extends boolean = false>(options: Options<AdminGetQuotaRuleData, ThrowOnError>) => (options.client ?? client).get<AdminGetQuotaRuleResponses, AdminGetQuotaRuleErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1028,6 +1062,7 @@ export const adminGetQuotaRule = <ThrowOnError extends boolean = false>(options:
  * Change an existing quota rule
  */
 export const adminEditQuotaRule = <ThrowOnError extends boolean = false>(options: Options<AdminEditQuotaRuleData, ThrowOnError>) => (options.client ?? client).patch<AdminEditQuotaRuleResponses, AdminEditQuotaRuleErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1061,6 +1096,7 @@ export const adminEditQuotaRule = <ThrowOnError extends boolean = false>(options
  * Search action jobs according filter conditions
  */
 export const adminSearchRunJobs = <ThrowOnError extends boolean = false>(options?: Options<AdminSearchRunJobsData, ThrowOnError>) => (options?.client ?? client).get<AdminSearchRunJobsResponses, AdminSearchRunJobsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1090,6 +1126,7 @@ export const adminSearchRunJobs = <ThrowOnError extends boolean = false>(options
  * Get an global actions runner registration token
  */
 export const adminGetRunnerRegistrationToken = <ThrowOnError extends boolean = false>(options?: Options<AdminGetRunnerRegistrationTokenData, ThrowOnError>) => (options?.client ?? client).get<AdminGetRunnerRegistrationTokenResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1119,6 +1156,7 @@ export const adminGetRunnerRegistrationToken = <ThrowOnError extends boolean = f
  * List unadopted repositories
  */
 export const adminUnadoptedList = <ThrowOnError extends boolean = false>(options?: Options<AdminUnadoptedListData, ThrowOnError>) => (options?.client ?? client).get<AdminUnadoptedListResponses, AdminUnadoptedListErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1148,6 +1186,7 @@ export const adminUnadoptedList = <ThrowOnError extends boolean = false>(options
  * Delete unadopted files
  */
 export const adminDeleteUnadoptedRepository = <ThrowOnError extends boolean = false>(options: Options<AdminDeleteUnadoptedRepositoryData, ThrowOnError>) => (options.client ?? client).delete<AdminDeleteUnadoptedRepositoryResponses, AdminDeleteUnadoptedRepositoryErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1177,6 +1216,7 @@ export const adminDeleteUnadoptedRepository = <ThrowOnError extends boolean = fa
  * Adopt unadopted files as a repository
  */
 export const adminAdoptRepository = <ThrowOnError extends boolean = false>(options: Options<AdminAdoptRepositoryData, ThrowOnError>) => (options.client ?? client).post<AdminAdoptRepositoryResponses, AdminAdoptRepositoryErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1206,6 +1246,7 @@ export const adminAdoptRepository = <ThrowOnError extends boolean = false>(optio
  * Search users according filter conditions
  */
 export const adminSearchUsers = <ThrowOnError extends boolean = false>(options?: Options<AdminSearchUsersData, ThrowOnError>) => (options?.client ?? client).get<AdminSearchUsersResponses, AdminSearchUsersErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1235,6 +1276,7 @@ export const adminSearchUsers = <ThrowOnError extends boolean = false>(options?:
  * Create a user account
  */
 export const adminCreateUser = <ThrowOnError extends boolean = false>(options?: Options<AdminCreateUserData, ThrowOnError>) => (options?.client ?? client).post<AdminCreateUserResponses, AdminCreateUserErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1268,6 +1310,7 @@ export const adminCreateUser = <ThrowOnError extends boolean = false>(options?: 
  * Delete user account
  */
 export const adminDeleteUser = <ThrowOnError extends boolean = false>(options: Options<AdminDeleteUserData, ThrowOnError>) => (options.client ?? client).delete<AdminDeleteUserResponses, AdminDeleteUserErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1297,6 +1340,7 @@ export const adminDeleteUser = <ThrowOnError extends boolean = false>(options: O
  * Edit an existing user
  */
 export const adminEditUser = <ThrowOnError extends boolean = false>(options: Options<AdminEditUserData, ThrowOnError>) => (options.client ?? client).patch<AdminEditUserResponses, AdminEditUserErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1330,6 +1374,7 @@ export const adminEditUser = <ThrowOnError extends boolean = false>(options: Opt
  * Delete email addresses from a user's account
  */
 export const adminDeleteUserEmails = <ThrowOnError extends boolean = false>(options: Options<AdminDeleteUserEmailsData, ThrowOnError>) => (options.client ?? client).delete<AdminDeleteUserEmailsResponses, AdminDeleteUserEmailsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1363,6 +1408,7 @@ export const adminDeleteUserEmails = <ThrowOnError extends boolean = false>(opti
  * List all email addresses for a user
  */
 export const adminListUserEmails = <ThrowOnError extends boolean = false>(options: Options<AdminListUserEmailsData, ThrowOnError>) => (options.client ?? client).get<AdminListUserEmailsResponses, AdminListUserEmailsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1392,6 +1438,7 @@ export const adminListUserEmails = <ThrowOnError extends boolean = false>(option
  * Add an SSH public key to user's account
  */
 export const adminCreatePublicKey = <ThrowOnError extends boolean = false>(options: Options<AdminCreatePublicKeyData, ThrowOnError>) => (options.client ?? client).post<AdminCreatePublicKeyResponses, AdminCreatePublicKeyErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1425,6 +1472,7 @@ export const adminCreatePublicKey = <ThrowOnError extends boolean = false>(optio
  * Remove a public key from user's account
  */
 export const adminDeleteUserPublicKey = <ThrowOnError extends boolean = false>(options: Options<AdminDeleteUserPublicKeyData, ThrowOnError>) => (options.client ?? client).delete<AdminDeleteUserPublicKeyResponses, AdminDeleteUserPublicKeyErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1454,6 +1502,7 @@ export const adminDeleteUserPublicKey = <ThrowOnError extends boolean = false>(o
  * Create an organization
  */
 export const adminCreateOrg = <ThrowOnError extends boolean = false>(options: Options<AdminCreateOrgData, ThrowOnError>) => (options.client ?? client).post<AdminCreateOrgResponses, AdminCreateOrgErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1487,6 +1536,7 @@ export const adminCreateOrg = <ThrowOnError extends boolean = false>(options: Op
  * Get the user's quota info
  */
 export const adminGetUserQuota = <ThrowOnError extends boolean = false>(options: Options<AdminGetUserQuotaData, ThrowOnError>) => (options.client ?? client).get<AdminGetUserQuotaResponses, AdminGetUserQuotaErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1516,6 +1566,7 @@ export const adminGetUserQuota = <ThrowOnError extends boolean = false>(options:
  * Set the user's quota groups to a given list.
  */
 export const adminSetUserQuotaGroups = <ThrowOnError extends boolean = false>(options: Options<AdminSetUserQuotaGroupsData, ThrowOnError>) => (options.client ?? client).post<AdminSetUserQuotaGroupsResponses, AdminSetUserQuotaGroupsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1549,6 +1600,7 @@ export const adminSetUserQuotaGroups = <ThrowOnError extends boolean = false>(op
  * Rename a user
  */
 export const adminRenameUser = <ThrowOnError extends boolean = false>(options: Options<AdminRenameUserData, ThrowOnError>) => (options.client ?? client).post<AdminRenameUserResponses, AdminRenameUserErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1582,6 +1634,7 @@ export const adminRenameUser = <ThrowOnError extends boolean = false>(options: O
  * Create a repository on behalf of a user
  */
 export const adminCreateRepo = <ThrowOnError extends boolean = false>(options: Options<AdminCreateRepoData, ThrowOnError>) => (options.client ?? client).post<AdminCreateRepoResponses, AdminCreateRepoErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1615,6 +1668,7 @@ export const adminCreateRepo = <ThrowOnError extends boolean = false>(options: O
  * Returns a list of all gitignore templates
  */
 export const listGitignoresTemplates = <ThrowOnError extends boolean = false>(options?: Options<ListGitignoresTemplatesData, ThrowOnError>) => (options?.client ?? client).get<ListGitignoresTemplatesResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1644,6 +1698,7 @@ export const listGitignoresTemplates = <ThrowOnError extends boolean = false>(op
  * Returns information about a gitignore template
  */
 export const getGitignoreTemplateInfo = <ThrowOnError extends boolean = false>(options: Options<GetGitignoreTemplateInfoData, ThrowOnError>) => (options.client ?? client).get<GetGitignoreTemplateInfoResponses, GetGitignoreTemplateInfoErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1673,6 +1728,7 @@ export const getGitignoreTemplateInfo = <ThrowOnError extends boolean = false>(o
  * Returns a list of all label templates
  */
 export const listLabelTemplates = <ThrowOnError extends boolean = false>(options?: Options<ListLabelTemplatesData, ThrowOnError>) => (options?.client ?? client).get<ListLabelTemplatesResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1702,6 +1758,7 @@ export const listLabelTemplates = <ThrowOnError extends boolean = false>(options
  * Returns all labels in a template
  */
 export const getLabelTemplateInfo = <ThrowOnError extends boolean = false>(options: Options<GetLabelTemplateInfoData, ThrowOnError>) => (options.client ?? client).get<GetLabelTemplateInfoResponses, GetLabelTemplateInfoErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1731,6 +1788,7 @@ export const getLabelTemplateInfo = <ThrowOnError extends boolean = false>(optio
  * Returns a list of all license templates
  */
 export const listLicenseTemplates = <ThrowOnError extends boolean = false>(options?: Options<ListLicenseTemplatesData, ThrowOnError>) => (options?.client ?? client).get<ListLicenseTemplatesResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1760,6 +1818,7 @@ export const listLicenseTemplates = <ThrowOnError extends boolean = false>(optio
  * Returns information about a license template
  */
 export const getLicenseTemplateInfo = <ThrowOnError extends boolean = false>(options: Options<GetLicenseTemplateInfoData, ThrowOnError>) => (options.client ?? client).get<GetLicenseTemplateInfoResponses, GetLicenseTemplateInfoErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1789,6 +1848,7 @@ export const getLicenseTemplateInfo = <ThrowOnError extends boolean = false>(opt
  * Render a markdown document as HTML
  */
 export const renderMarkdown = <ThrowOnError extends boolean = false>(options?: Options<RenderMarkdownData, ThrowOnError>) => (options?.client ?? client).post<RenderMarkdownResponses, RenderMarkdownErrors, ThrowOnError>({
+    responseType: 'text',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1823,6 +1883,7 @@ export const renderMarkdown = <ThrowOnError extends boolean = false>(options?: O
  */
 export const renderMarkdownRaw = <ThrowOnError extends boolean = false>(options: Options<RenderMarkdownRawData, ThrowOnError>) => (options.client ?? client).post<RenderMarkdownRawResponses, RenderMarkdownRawErrors, ThrowOnError>({
     bodySerializer: null,
+    responseType: 'text',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1856,6 +1917,7 @@ export const renderMarkdownRaw = <ThrowOnError extends boolean = false>(options:
  * Render a markup document as HTML
  */
 export const renderMarkup = <ThrowOnError extends boolean = false>(options?: Options<RenderMarkupData, ThrowOnError>) => (options?.client ?? client).post<RenderMarkupResponses, RenderMarkupErrors, ThrowOnError>({
+    responseType: 'text',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1889,6 +1951,7 @@ export const renderMarkup = <ThrowOnError extends boolean = false>(options?: Opt
  * Returns the nodeinfo of the Forgejo application
  */
 export const getNodeInfo = <ThrowOnError extends boolean = false>(options?: Options<GetNodeInfoData, ThrowOnError>) => (options?.client ?? client).get<GetNodeInfoResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1918,6 +1981,7 @@ export const getNodeInfo = <ThrowOnError extends boolean = false>(options?: Opti
  * List users's notification threads
  */
 export const notifyGetList = <ThrowOnError extends boolean = false>(options?: Options<NotifyGetListData, ThrowOnError>) => (options?.client ?? client).get<NotifyGetListResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1947,6 +2011,7 @@ export const notifyGetList = <ThrowOnError extends boolean = false>(options?: Op
  * Mark notification threads as read, pinned or unread
  */
 export const notifyReadList = <ThrowOnError extends boolean = false>(options?: Options<NotifyReadListData, ThrowOnError>) => (options?.client ?? client).put<NotifyReadListResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -1976,6 +2041,7 @@ export const notifyReadList = <ThrowOnError extends boolean = false>(options?: O
  * Check if unread notifications exist
  */
 export const notifyNewAvailable = <ThrowOnError extends boolean = false>(options?: Options<NotifyNewAvailableData, ThrowOnError>) => (options?.client ?? client).get<NotifyNewAvailableResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2005,6 +2071,7 @@ export const notifyNewAvailable = <ThrowOnError extends boolean = false>(options
  * Get notification thread by ID
  */
 export const notifyGetThread = <ThrowOnError extends boolean = false>(options: Options<NotifyGetThreadData, ThrowOnError>) => (options.client ?? client).get<NotifyGetThreadResponses, NotifyGetThreadErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2034,6 +2101,7 @@ export const notifyGetThread = <ThrowOnError extends boolean = false>(options: O
  * Mark notification thread as read by ID
  */
 export const notifyReadThread = <ThrowOnError extends boolean = false>(options: Options<NotifyReadThreadData, ThrowOnError>) => (options.client ?? client).patch<NotifyReadThreadResponses, NotifyReadThreadErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2065,6 +2133,7 @@ export const notifyReadThread = <ThrowOnError extends boolean = false>(options: 
  * @deprecated
  */
 export const createOrgRepoDeprecated = <ThrowOnError extends boolean = false>(options: Options<CreateOrgRepoDeprecatedData, ThrowOnError>) => (options.client ?? client).post<CreateOrgRepoDeprecatedResponses, CreateOrgRepoDeprecatedErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2098,6 +2167,7 @@ export const createOrgRepoDeprecated = <ThrowOnError extends boolean = false>(op
  * List all organizations
  */
 export const orgGetAll = <ThrowOnError extends boolean = false>(options?: Options<OrgGetAllData, ThrowOnError>) => (options?.client ?? client).get<OrgGetAllResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2127,6 +2197,7 @@ export const orgGetAll = <ThrowOnError extends boolean = false>(options?: Option
  * Create an organization
  */
 export const orgCreate = <ThrowOnError extends boolean = false>(options: Options<OrgCreateData, ThrowOnError>) => (options.client ?? client).post<OrgCreateResponses, OrgCreateErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2160,6 +2231,7 @@ export const orgCreate = <ThrowOnError extends boolean = false>(options: Options
  * Delete an organization
  */
 export const orgDelete = <ThrowOnError extends boolean = false>(options: Options<OrgDeleteData, ThrowOnError>) => (options.client ?? client).delete<OrgDeleteResponses, OrgDeleteErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2189,6 +2261,7 @@ export const orgDelete = <ThrowOnError extends boolean = false>(options: Options
  * Get an organization
  */
 export const orgGet = <ThrowOnError extends boolean = false>(options: Options<OrgGetData, ThrowOnError>) => (options.client ?? client).get<OrgGetResponses, OrgGetErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2218,6 +2291,7 @@ export const orgGet = <ThrowOnError extends boolean = false>(options: Options<Or
  * Edit an organization
  */
 export const orgEdit = <ThrowOnError extends boolean = false>(options: Options<OrgEditData, ThrowOnError>) => (options.client ?? client).patch<OrgEditResponses, OrgEditErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2251,6 +2325,7 @@ export const orgEdit = <ThrowOnError extends boolean = false>(options: Options<O
  * Search for organization's action jobs according filter conditions
  */
 export const orgSearchRunJobs = <ThrowOnError extends boolean = false>(options: Options<OrgSearchRunJobsData, ThrowOnError>) => (options.client ?? client).get<OrgSearchRunJobsResponses, OrgSearchRunJobsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2280,6 +2355,7 @@ export const orgSearchRunJobs = <ThrowOnError extends boolean = false>(options: 
  * Get an organization's actions runner registration token
  */
 export const orgGetRunnerRegistrationToken = <ThrowOnError extends boolean = false>(options: Options<OrgGetRunnerRegistrationTokenData, ThrowOnError>) => (options.client ?? client).get<OrgGetRunnerRegistrationTokenResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2309,6 +2385,7 @@ export const orgGetRunnerRegistrationToken = <ThrowOnError extends boolean = fal
  * List actions secrets of an organization
  */
 export const orgListActionsSecrets = <ThrowOnError extends boolean = false>(options: Options<OrgListActionsSecretsData, ThrowOnError>) => (options.client ?? client).get<OrgListActionsSecretsResponses, OrgListActionsSecretsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2338,6 +2415,7 @@ export const orgListActionsSecrets = <ThrowOnError extends boolean = false>(opti
  * Delete a secret in an organization
  */
 export const deleteOrgSecret = <ThrowOnError extends boolean = false>(options: Options<DeleteOrgSecretData, ThrowOnError>) => (options.client ?? client).delete<DeleteOrgSecretResponses, DeleteOrgSecretErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2367,6 +2445,7 @@ export const deleteOrgSecret = <ThrowOnError extends boolean = false>(options: O
  * Create or Update a secret value in an organization
  */
 export const updateOrgSecret = <ThrowOnError extends boolean = false>(options: Options<UpdateOrgSecretData, ThrowOnError>) => (options.client ?? client).put<UpdateOrgSecretResponses, UpdateOrgSecretErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2400,6 +2479,7 @@ export const updateOrgSecret = <ThrowOnError extends boolean = false>(options: O
  * List variables of an organization
  */
 export const getOrgVariablesList = <ThrowOnError extends boolean = false>(options: Options<GetOrgVariablesListData, ThrowOnError>) => (options.client ?? client).get<GetOrgVariablesListResponses, GetOrgVariablesListErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2429,6 +2509,7 @@ export const getOrgVariablesList = <ThrowOnError extends boolean = false>(option
  * Delete organization's variable by name
  */
 export const deleteOrgVariable = <ThrowOnError extends boolean = false>(options: Options<DeleteOrgVariableData, ThrowOnError>) => (options.client ?? client).delete<DeleteOrgVariableResponses, DeleteOrgVariableErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2458,6 +2539,7 @@ export const deleteOrgVariable = <ThrowOnError extends boolean = false>(options:
  * Get organization's variable by name
  */
 export const getOrgVariable = <ThrowOnError extends boolean = false>(options: Options<GetOrgVariableData, ThrowOnError>) => (options.client ?? client).get<GetOrgVariableResponses, GetOrgVariableErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2487,6 +2569,7 @@ export const getOrgVariable = <ThrowOnError extends boolean = false>(options: Op
  * Create a new variable in organization
  */
 export const createOrgVariable = <ThrowOnError extends boolean = false>(options: Options<CreateOrgVariableData, ThrowOnError>) => (options.client ?? client).post<CreateOrgVariableResponses, CreateOrgVariableErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2520,6 +2603,7 @@ export const createOrgVariable = <ThrowOnError extends boolean = false>(options:
  * Update variable in organization
  */
 export const updateOrgVariable = <ThrowOnError extends boolean = false>(options: Options<UpdateOrgVariableData, ThrowOnError>) => (options.client ?? client).put<UpdateOrgVariableResponses, UpdateOrgVariableErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2553,6 +2637,7 @@ export const updateOrgVariable = <ThrowOnError extends boolean = false>(options:
  * List an organization's activity feeds
  */
 export const orgListActivityFeeds = <ThrowOnError extends boolean = false>(options: Options<OrgListActivityFeedsData, ThrowOnError>) => (options.client ?? client).get<OrgListActivityFeedsResponses, OrgListActivityFeedsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2582,6 +2667,7 @@ export const orgListActivityFeeds = <ThrowOnError extends boolean = false>(optio
  * Delete an organization's avatar. It will be replaced by a default one
  */
 export const orgDeleteAvatar = <ThrowOnError extends boolean = false>(options: Options<OrgDeleteAvatarData, ThrowOnError>) => (options.client ?? client).delete<OrgDeleteAvatarResponses, OrgDeleteAvatarErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2611,6 +2697,7 @@ export const orgDeleteAvatar = <ThrowOnError extends boolean = false>(options: O
  * Update an organization's avatar
  */
 export const orgUpdateAvatar = <ThrowOnError extends boolean = false>(options: Options<OrgUpdateAvatarData, ThrowOnError>) => (options.client ?? client).post<OrgUpdateAvatarResponses, OrgUpdateAvatarErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2644,6 +2731,7 @@ export const orgUpdateAvatar = <ThrowOnError extends boolean = false>(options: O
  * Blocks a user from the organization
  */
 export const orgBlockUser = <ThrowOnError extends boolean = false>(options: Options<OrgBlockUserData, ThrowOnError>) => (options.client ?? client).put<OrgBlockUserResponses, OrgBlockUserErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2673,6 +2761,7 @@ export const orgBlockUser = <ThrowOnError extends boolean = false>(options: Opti
  * List an organization's webhooks
  */
 export const orgListHooks = <ThrowOnError extends boolean = false>(options: Options<OrgListHooksData, ThrowOnError>) => (options.client ?? client).get<OrgListHooksResponses, OrgListHooksErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2702,6 +2791,7 @@ export const orgListHooks = <ThrowOnError extends boolean = false>(options: Opti
  * Create a hook
  */
 export const orgCreateHook = <ThrowOnError extends boolean = false>(options: Options<OrgCreateHookData, ThrowOnError>) => (options.client ?? client).post<OrgCreateHookResponses, OrgCreateHookErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2735,6 +2825,7 @@ export const orgCreateHook = <ThrowOnError extends boolean = false>(options: Opt
  * Delete a hook
  */
 export const orgDeleteHook = <ThrowOnError extends boolean = false>(options: Options<OrgDeleteHookData, ThrowOnError>) => (options.client ?? client).delete<OrgDeleteHookResponses, OrgDeleteHookErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2764,6 +2855,7 @@ export const orgDeleteHook = <ThrowOnError extends boolean = false>(options: Opt
  * Get a hook
  */
 export const orgGetHook = <ThrowOnError extends boolean = false>(options: Options<OrgGetHookData, ThrowOnError>) => (options.client ?? client).get<OrgGetHookResponses, OrgGetHookErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2793,6 +2885,7 @@ export const orgGetHook = <ThrowOnError extends boolean = false>(options: Option
  * Update a hook
  */
 export const orgEditHook = <ThrowOnError extends boolean = false>(options: Options<OrgEditHookData, ThrowOnError>) => (options.client ?? client).patch<OrgEditHookResponses, OrgEditHookErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2826,6 +2919,7 @@ export const orgEditHook = <ThrowOnError extends boolean = false>(options: Optio
  * List an organization's labels
  */
 export const orgListLabels = <ThrowOnError extends boolean = false>(options: Options<OrgListLabelsData, ThrowOnError>) => (options.client ?? client).get<OrgListLabelsResponses, OrgListLabelsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2855,6 +2949,7 @@ export const orgListLabels = <ThrowOnError extends boolean = false>(options: Opt
  * Create a label for an organization
  */
 export const orgCreateLabel = <ThrowOnError extends boolean = false>(options: Options<OrgCreateLabelData, ThrowOnError>) => (options.client ?? client).post<OrgCreateLabelResponses, OrgCreateLabelErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2888,6 +2983,7 @@ export const orgCreateLabel = <ThrowOnError extends boolean = false>(options: Op
  * Delete a label
  */
 export const orgDeleteLabel = <ThrowOnError extends boolean = false>(options: Options<OrgDeleteLabelData, ThrowOnError>) => (options.client ?? client).delete<OrgDeleteLabelResponses, OrgDeleteLabelErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2917,6 +3013,7 @@ export const orgDeleteLabel = <ThrowOnError extends boolean = false>(options: Op
  * Get a single label
  */
 export const orgGetLabel = <ThrowOnError extends boolean = false>(options: Options<OrgGetLabelData, ThrowOnError>) => (options.client ?? client).get<OrgGetLabelResponses, OrgGetLabelErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2946,6 +3043,7 @@ export const orgGetLabel = <ThrowOnError extends boolean = false>(options: Optio
  * Update a label
  */
 export const orgEditLabel = <ThrowOnError extends boolean = false>(options: Options<OrgEditLabelData, ThrowOnError>) => (options.client ?? client).patch<OrgEditLabelResponses, OrgEditLabelErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -2979,6 +3077,7 @@ export const orgEditLabel = <ThrowOnError extends boolean = false>(options: Opti
  * List the organization's blocked users
  */
 export const orgListBlockedUsers = <ThrowOnError extends boolean = false>(options: Options<OrgListBlockedUsersData, ThrowOnError>) => (options.client ?? client).get<OrgListBlockedUsersResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3008,6 +3107,7 @@ export const orgListBlockedUsers = <ThrowOnError extends boolean = false>(option
  * List an organization's members
  */
 export const orgListMembers = <ThrowOnError extends boolean = false>(options: Options<OrgListMembersData, ThrowOnError>) => (options.client ?? client).get<OrgListMembersResponses, OrgListMembersErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3037,6 +3137,7 @@ export const orgListMembers = <ThrowOnError extends boolean = false>(options: Op
  * Remove a member from an organization
  */
 export const orgDeleteMember = <ThrowOnError extends boolean = false>(options: Options<OrgDeleteMemberData, ThrowOnError>) => (options.client ?? client).delete<OrgDeleteMemberResponses, OrgDeleteMemberErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3066,6 +3167,7 @@ export const orgDeleteMember = <ThrowOnError extends boolean = false>(options: O
  * Check if a user is a member of an organization
  */
 export const orgIsMember = <ThrowOnError extends boolean = false>(options: Options<OrgIsMemberData, ThrowOnError>) => (options.client ?? client).get<OrgIsMemberResponses, OrgIsMemberErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3095,6 +3197,7 @@ export const orgIsMember = <ThrowOnError extends boolean = false>(options: Optio
  * List an organization's public members
  */
 export const orgListPublicMembers = <ThrowOnError extends boolean = false>(options: Options<OrgListPublicMembersData, ThrowOnError>) => (options.client ?? client).get<OrgListPublicMembersResponses, OrgListPublicMembersErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3124,6 +3227,7 @@ export const orgListPublicMembers = <ThrowOnError extends boolean = false>(optio
  * Conceal a user's membership
  */
 export const orgConcealMember = <ThrowOnError extends boolean = false>(options: Options<OrgConcealMemberData, ThrowOnError>) => (options.client ?? client).delete<OrgConcealMemberResponses, OrgConcealMemberErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3153,6 +3257,7 @@ export const orgConcealMember = <ThrowOnError extends boolean = false>(options: 
  * Check if a user is a public member of an organization
  */
 export const orgIsPublicMember = <ThrowOnError extends boolean = false>(options: Options<OrgIsPublicMemberData, ThrowOnError>) => (options.client ?? client).get<OrgIsPublicMemberResponses, OrgIsPublicMemberErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3182,6 +3287,7 @@ export const orgIsPublicMember = <ThrowOnError extends boolean = false>(options:
  * Publicize a user's membership
  */
 export const orgPublicizeMember = <ThrowOnError extends boolean = false>(options: Options<OrgPublicizeMemberData, ThrowOnError>) => (options.client ?? client).put<OrgPublicizeMemberResponses, OrgPublicizeMemberErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3211,6 +3317,7 @@ export const orgPublicizeMember = <ThrowOnError extends boolean = false>(options
  * Get quota information for an organization
  */
 export const orgGetQuota = <ThrowOnError extends boolean = false>(options: Options<OrgGetQuotaData, ThrowOnError>) => (options.client ?? client).get<OrgGetQuotaResponses, OrgGetQuotaErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3240,6 +3347,7 @@ export const orgGetQuota = <ThrowOnError extends boolean = false>(options: Optio
  * List the artifacts affecting the organization's quota
  */
 export const orgListQuotaArtifacts = <ThrowOnError extends boolean = false>(options: Options<OrgListQuotaArtifactsData, ThrowOnError>) => (options.client ?? client).get<OrgListQuotaArtifactsResponses, OrgListQuotaArtifactsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3269,6 +3377,7 @@ export const orgListQuotaArtifacts = <ThrowOnError extends boolean = false>(opti
  * List the attachments affecting the organization's quota
  */
 export const orgListQuotaAttachments = <ThrowOnError extends boolean = false>(options: Options<OrgListQuotaAttachmentsData, ThrowOnError>) => (options.client ?? client).get<OrgListQuotaAttachmentsResponses, OrgListQuotaAttachmentsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3298,6 +3407,7 @@ export const orgListQuotaAttachments = <ThrowOnError extends boolean = false>(op
  * Check if the organization is over quota for a given subject
  */
 export const orgCheckQuota = <ThrowOnError extends boolean = false>(options: Options<OrgCheckQuotaData, ThrowOnError>) => (options.client ?? client).get<OrgCheckQuotaResponses, OrgCheckQuotaErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3327,6 +3437,7 @@ export const orgCheckQuota = <ThrowOnError extends boolean = false>(options: Opt
  * List the packages affecting the organization's quota
  */
 export const orgListQuotaPackages = <ThrowOnError extends boolean = false>(options: Options<OrgListQuotaPackagesData, ThrowOnError>) => (options.client ?? client).get<OrgListQuotaPackagesResponses, OrgListQuotaPackagesErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3356,6 +3467,7 @@ export const orgListQuotaPackages = <ThrowOnError extends boolean = false>(optio
  * Rename an organization
  */
 export const renameOrg = <ThrowOnError extends boolean = false>(options: Options<RenameOrgData, ThrowOnError>) => (options.client ?? client).post<RenameOrgResponses, RenameOrgErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3389,6 +3501,7 @@ export const renameOrg = <ThrowOnError extends boolean = false>(options: Options
  * List an organization's repos
  */
 export const orgListRepos = <ThrowOnError extends boolean = false>(options: Options<OrgListReposData, ThrowOnError>) => (options.client ?? client).get<OrgListReposResponses, OrgListReposErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3418,6 +3531,7 @@ export const orgListRepos = <ThrowOnError extends boolean = false>(options: Opti
  * Create a repository in an organization
  */
 export const createOrgRepo = <ThrowOnError extends boolean = false>(options: Options<CreateOrgRepoData, ThrowOnError>) => (options.client ?? client).post<CreateOrgRepoResponses, CreateOrgRepoErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3451,6 +3565,7 @@ export const createOrgRepo = <ThrowOnError extends boolean = false>(options: Opt
  * List an organization's teams
  */
 export const orgListTeams = <ThrowOnError extends boolean = false>(options: Options<OrgListTeamsData, ThrowOnError>) => (options.client ?? client).get<OrgListTeamsResponses, OrgListTeamsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3480,6 +3595,7 @@ export const orgListTeams = <ThrowOnError extends boolean = false>(options: Opti
  * Create a team
  */
 export const orgCreateTeam = <ThrowOnError extends boolean = false>(options: Options<OrgCreateTeamData, ThrowOnError>) => (options.client ?? client).post<OrgCreateTeamResponses, OrgCreateTeamErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3513,6 +3629,7 @@ export const orgCreateTeam = <ThrowOnError extends boolean = false>(options: Opt
  * Search for teams within an organization
  */
 export const teamSearch = <ThrowOnError extends boolean = false>(options: Options<TeamSearchData, ThrowOnError>) => (options.client ?? client).get<TeamSearchResponses, TeamSearchErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3542,6 +3659,7 @@ export const teamSearch = <ThrowOnError extends boolean = false>(options: Option
  * Unblock a user from the organization
  */
 export const orgUnblockUser = <ThrowOnError extends boolean = false>(options: Options<OrgUnblockUserData, ThrowOnError>) => (options.client ?? client).put<OrgUnblockUserResponses, OrgUnblockUserErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3571,6 +3689,7 @@ export const orgUnblockUser = <ThrowOnError extends boolean = false>(options: Op
  * Gets all packages of an owner
  */
 export const listPackages = <ThrowOnError extends boolean = false>(options: Options<ListPackagesData, ThrowOnError>) => (options.client ?? client).get<ListPackagesResponses, ListPackagesErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3600,6 +3719,7 @@ export const listPackages = <ThrowOnError extends boolean = false>(options: Opti
  * Link a package to a repository
  */
 export const linkPackage = <ThrowOnError extends boolean = false>(options: Options<LinkPackageData, ThrowOnError>) => (options.client ?? client).post<LinkPackageResponses, LinkPackageErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3629,6 +3749,7 @@ export const linkPackage = <ThrowOnError extends boolean = false>(options: Optio
  * Unlink a package from a repository
  */
 export const unlinkPackage = <ThrowOnError extends boolean = false>(options: Options<UnlinkPackageData, ThrowOnError>) => (options.client ?? client).post<UnlinkPackageResponses, UnlinkPackageErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3658,6 +3779,7 @@ export const unlinkPackage = <ThrowOnError extends boolean = false>(options: Opt
  * Delete a package
  */
 export const deletePackage = <ThrowOnError extends boolean = false>(options: Options<DeletePackageData, ThrowOnError>) => (options.client ?? client).delete<DeletePackageResponses, DeletePackageErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3687,6 +3809,7 @@ export const deletePackage = <ThrowOnError extends boolean = false>(options: Opt
  * Gets a package
  */
 export const getPackage = <ThrowOnError extends boolean = false>(options: Options<GetPackageData, ThrowOnError>) => (options.client ?? client).get<GetPackageResponses, GetPackageErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3716,6 +3839,7 @@ export const getPackage = <ThrowOnError extends boolean = false>(options: Option
  * Gets all files of a package
  */
 export const listPackageFiles = <ThrowOnError extends boolean = false>(options: Options<ListPackageFilesData, ThrowOnError>) => (options.client ?? client).get<ListPackageFilesResponses, ListPackageFilesErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3745,6 +3869,7 @@ export const listPackageFiles = <ThrowOnError extends boolean = false>(options: 
  * Search for issues across the repositories that the user has access to
  */
 export const issueSearchIssues = <ThrowOnError extends boolean = false>(options?: Options<IssueSearchIssuesData, ThrowOnError>) => (options?.client ?? client).get<IssueSearchIssuesResponses, IssueSearchIssuesErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3774,6 +3899,7 @@ export const issueSearchIssues = <ThrowOnError extends boolean = false>(options?
  * Migrate a remote git repository
  */
 export const repoMigrate = <ThrowOnError extends boolean = false>(options?: Options<RepoMigrateData, ThrowOnError>) => (options?.client ?? client).post<RepoMigrateResponses, RepoMigrateErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3807,6 +3933,7 @@ export const repoMigrate = <ThrowOnError extends boolean = false>(options?: Opti
  * Search for repositories
  */
 export const repoSearch = <ThrowOnError extends boolean = false>(options?: Options<RepoSearchData, ThrowOnError>) => (options?.client ?? client).get<RepoSearchResponses, RepoSearchErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3836,6 +3963,7 @@ export const repoSearch = <ThrowOnError extends boolean = false>(options?: Optio
  * Delete a repository
  */
 export const repoDelete = <ThrowOnError extends boolean = false>(options: Options<RepoDeleteData, ThrowOnError>) => (options.client ?? client).delete<RepoDeleteResponses, RepoDeleteErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3865,6 +3993,7 @@ export const repoDelete = <ThrowOnError extends boolean = false>(options: Option
  * Get a repository
  */
 export const repoGet = <ThrowOnError extends boolean = false>(options: Options<RepoGetData, ThrowOnError>) => (options.client ?? client).get<RepoGetResponses, RepoGetErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3894,6 +4023,7 @@ export const repoGet = <ThrowOnError extends boolean = false>(options: Options<R
  * Edit a repository's properties. Only fields that are set will be changed.
  */
 export const repoEdit = <ThrowOnError extends boolean = false>(options: Options<RepoEditData, ThrowOnError>) => (options.client ?? client).patch<RepoEditResponses, RepoEditErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3927,6 +4057,7 @@ export const repoEdit = <ThrowOnError extends boolean = false>(options: Options<
  * Search for repository's action jobs according filter conditions
  */
 export const repoSearchRunJobs = <ThrowOnError extends boolean = false>(options: Options<RepoSearchRunJobsData, ThrowOnError>) => (options.client ?? client).get<RepoSearchRunJobsResponses, RepoSearchRunJobsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3956,6 +4087,7 @@ export const repoSearchRunJobs = <ThrowOnError extends boolean = false>(options:
  * Get a repository's actions runner registration token
  */
 export const repoGetRunnerRegistrationToken = <ThrowOnError extends boolean = false>(options: Options<RepoGetRunnerRegistrationTokenData, ThrowOnError>) => (options.client ?? client).get<RepoGetRunnerRegistrationTokenResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -3986,6 +4118,7 @@ export const repoGetRunnerRegistrationToken = <ThrowOnError extends boolean = fa
  */
 export const listActionRuns = <ThrowOnError extends boolean = false>(options: Options<ListActionRunsData, ThrowOnError>) => (options.client ?? client).get<ListActionRunsResponses, ListActionRunsErrors, ThrowOnError>({
     querySerializer: { parameters: { event: { array: { explode: false } }, status: { array: { explode: false } } } },
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4015,6 +4148,7 @@ export const listActionRuns = <ThrowOnError extends boolean = false>(options: Op
  * Get an action run
  */
 export const actionRun = <ThrowOnError extends boolean = false>(options: Options<ActionRunData, ThrowOnError>) => (options.client ?? client).get<ActionRunResponses, ActionRunErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4044,6 +4178,7 @@ export const actionRun = <ThrowOnError extends boolean = false>(options: Options
  * List an repo's actions secrets
  */
 export const repoListActionsSecrets = <ThrowOnError extends boolean = false>(options: Options<RepoListActionsSecretsData, ThrowOnError>) => (options.client ?? client).get<RepoListActionsSecretsResponses, RepoListActionsSecretsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4073,6 +4208,7 @@ export const repoListActionsSecrets = <ThrowOnError extends boolean = false>(opt
  * Delete a secret in a repository
  */
 export const deleteRepoSecret = <ThrowOnError extends boolean = false>(options: Options<DeleteRepoSecretData, ThrowOnError>) => (options.client ?? client).delete<DeleteRepoSecretResponses, DeleteRepoSecretErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4102,6 +4238,7 @@ export const deleteRepoSecret = <ThrowOnError extends boolean = false>(options: 
  * Create or Update a secret value in a repository
  */
 export const updateRepoSecret = <ThrowOnError extends boolean = false>(options: Options<UpdateRepoSecretData, ThrowOnError>) => (options.client ?? client).put<UpdateRepoSecretResponses, UpdateRepoSecretErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4135,6 +4272,7 @@ export const updateRepoSecret = <ThrowOnError extends boolean = false>(options: 
  * List a repository's action tasks
  */
 export const listActionTasks = <ThrowOnError extends boolean = false>(options: Options<ListActionTasksData, ThrowOnError>) => (options.client ?? client).get<ListActionTasksResponses, ListActionTasksErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4164,6 +4302,7 @@ export const listActionTasks = <ThrowOnError extends boolean = false>(options: O
  * Get repo-level variables list
  */
 export const getRepoVariablesList = <ThrowOnError extends boolean = false>(options: Options<GetRepoVariablesListData, ThrowOnError>) => (options.client ?? client).get<GetRepoVariablesListResponses, GetRepoVariablesListErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4193,6 +4332,7 @@ export const getRepoVariablesList = <ThrowOnError extends boolean = false>(optio
  * Delete a repo-level variable
  */
 export const deleteRepoVariable = <ThrowOnError extends boolean = false>(options: Options<DeleteRepoVariableData, ThrowOnError>) => (options.client ?? client).delete<DeleteRepoVariableResponses, DeleteRepoVariableErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4222,6 +4362,7 @@ export const deleteRepoVariable = <ThrowOnError extends boolean = false>(options
  * Get a repo-level variable
  */
 export const getRepoVariable = <ThrowOnError extends boolean = false>(options: Options<GetRepoVariableData, ThrowOnError>) => (options.client ?? client).get<GetRepoVariableResponses, GetRepoVariableErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4251,6 +4392,7 @@ export const getRepoVariable = <ThrowOnError extends boolean = false>(options: O
  * Create a repo-level variable
  */
 export const createRepoVariable = <ThrowOnError extends boolean = false>(options: Options<CreateRepoVariableData, ThrowOnError>) => (options.client ?? client).post<CreateRepoVariableResponses, CreateRepoVariableErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4284,6 +4426,7 @@ export const createRepoVariable = <ThrowOnError extends boolean = false>(options
  * Update a repo-level variable
  */
 export const updateRepoVariable = <ThrowOnError extends boolean = false>(options: Options<UpdateRepoVariableData, ThrowOnError>) => (options.client ?? client).put<UpdateRepoVariableResponses, UpdateRepoVariableErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4317,6 +4460,7 @@ export const updateRepoVariable = <ThrowOnError extends boolean = false>(options
  * Dispatches a workflow
  */
 export const dispatchWorkflow = <ThrowOnError extends boolean = false>(options: Options<DispatchWorkflowData, ThrowOnError>) => (options.client ?? client).post<DispatchWorkflowResponses, DispatchWorkflowErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4350,6 +4494,7 @@ export const dispatchWorkflow = <ThrowOnError extends boolean = false>(options: 
  * List a repository's activity feeds
  */
 export const repoListActivityFeeds = <ThrowOnError extends boolean = false>(options: Options<RepoListActivityFeedsData, ThrowOnError>) => (options.client ?? client).get<RepoListActivityFeedsResponses, RepoListActivityFeedsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4379,6 +4524,7 @@ export const repoListActivityFeeds = <ThrowOnError extends boolean = false>(opti
  * Get an archive of a repository
  */
 export const repoGetArchive = <ThrowOnError extends boolean = false>(options: Options<RepoGetArchiveData, ThrowOnError>) => (options.client ?? client).get<RepoGetArchiveResponses, RepoGetArchiveErrors, ThrowOnError>({
+    responseType: 'blob',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4408,6 +4554,7 @@ export const repoGetArchive = <ThrowOnError extends boolean = false>(options: Op
  * Return all users that have write access and can be assigned to issues
  */
 export const repoGetAssignees = <ThrowOnError extends boolean = false>(options: Options<RepoGetAssigneesData, ThrowOnError>) => (options.client ?? client).get<RepoGetAssigneesResponses, RepoGetAssigneesErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4437,6 +4584,7 @@ export const repoGetAssignees = <ThrowOnError extends boolean = false>(options: 
  * Delete a repository's avatar
  */
 export const repoDeleteAvatar = <ThrowOnError extends boolean = false>(options: Options<RepoDeleteAvatarData, ThrowOnError>) => (options.client ?? client).delete<RepoDeleteAvatarResponses, RepoDeleteAvatarErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4466,6 +4614,7 @@ export const repoDeleteAvatar = <ThrowOnError extends boolean = false>(options: 
  * Update a repository's avatar
  */
 export const repoUpdateAvatar = <ThrowOnError extends boolean = false>(options: Options<RepoUpdateAvatarData, ThrowOnError>) => (options.client ?? client).post<RepoUpdateAvatarResponses, RepoUpdateAvatarErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4499,6 +4648,7 @@ export const repoUpdateAvatar = <ThrowOnError extends boolean = false>(options: 
  * List branch protections for a repository
  */
 export const repoListBranchProtection = <ThrowOnError extends boolean = false>(options: Options<RepoListBranchProtectionData, ThrowOnError>) => (options.client ?? client).get<RepoListBranchProtectionResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4528,6 +4678,7 @@ export const repoListBranchProtection = <ThrowOnError extends boolean = false>(o
  * Create a branch protections for a repository
  */
 export const repoCreateBranchProtection = <ThrowOnError extends boolean = false>(options: Options<RepoCreateBranchProtectionData, ThrowOnError>) => (options.client ?? client).post<RepoCreateBranchProtectionResponses, RepoCreateBranchProtectionErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4561,6 +4712,7 @@ export const repoCreateBranchProtection = <ThrowOnError extends boolean = false>
  * Delete a specific branch protection for the repository
  */
 export const repoDeleteBranchProtection = <ThrowOnError extends boolean = false>(options: Options<RepoDeleteBranchProtectionData, ThrowOnError>) => (options.client ?? client).delete<RepoDeleteBranchProtectionResponses, RepoDeleteBranchProtectionErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4590,6 +4742,7 @@ export const repoDeleteBranchProtection = <ThrowOnError extends boolean = false>
  * Get a specific branch protection for the repository
  */
 export const repoGetBranchProtection = <ThrowOnError extends boolean = false>(options: Options<RepoGetBranchProtectionData, ThrowOnError>) => (options.client ?? client).get<RepoGetBranchProtectionResponses, RepoGetBranchProtectionErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4619,6 +4772,7 @@ export const repoGetBranchProtection = <ThrowOnError extends boolean = false>(op
  * Edit a branch protections for a repository. Only fields that are set will be changed
  */
 export const repoEditBranchProtection = <ThrowOnError extends boolean = false>(options: Options<RepoEditBranchProtectionData, ThrowOnError>) => (options.client ?? client).patch<RepoEditBranchProtectionResponses, RepoEditBranchProtectionErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4652,6 +4806,7 @@ export const repoEditBranchProtection = <ThrowOnError extends boolean = false>(o
  * List a repository's branches
  */
 export const repoListBranches = <ThrowOnError extends boolean = false>(options: Options<RepoListBranchesData, ThrowOnError>) => (options.client ?? client).get<RepoListBranchesResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4681,6 +4836,7 @@ export const repoListBranches = <ThrowOnError extends boolean = false>(options: 
  * Create a branch
  */
 export const repoCreateBranch = <ThrowOnError extends boolean = false>(options: Options<RepoCreateBranchData, ThrowOnError>) => (options.client ?? client).post<RepoCreateBranchResponses, RepoCreateBranchErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4714,6 +4870,7 @@ export const repoCreateBranch = <ThrowOnError extends boolean = false>(options: 
  * Delete a specific branch from a repository
  */
 export const repoDeleteBranch = <ThrowOnError extends boolean = false>(options: Options<RepoDeleteBranchData, ThrowOnError>) => (options.client ?? client).delete<RepoDeleteBranchResponses, RepoDeleteBranchErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4743,6 +4900,7 @@ export const repoDeleteBranch = <ThrowOnError extends boolean = false>(options: 
  * Retrieve a specific branch from a repository, including its effective branch protection
  */
 export const repoGetBranch = <ThrowOnError extends boolean = false>(options: Options<RepoGetBranchData, ThrowOnError>) => (options.client ?? client).get<RepoGetBranchResponses, RepoGetBranchErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4772,6 +4930,7 @@ export const repoGetBranch = <ThrowOnError extends boolean = false>(options: Opt
  * Update a branch
  */
 export const repoUpdateBranch = <ThrowOnError extends boolean = false>(options: Options<RepoUpdateBranchData, ThrowOnError>) => (options.client ?? client).patch<RepoUpdateBranchResponses, RepoUpdateBranchErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4805,6 +4964,7 @@ export const repoUpdateBranch = <ThrowOnError extends boolean = false>(options: 
  * List a repository's collaborators
  */
 export const repoListCollaborators = <ThrowOnError extends boolean = false>(options: Options<RepoListCollaboratorsData, ThrowOnError>) => (options.client ?? client).get<RepoListCollaboratorsResponses, RepoListCollaboratorsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4834,6 +4994,7 @@ export const repoListCollaborators = <ThrowOnError extends boolean = false>(opti
  * Delete a collaborator from a repository
  */
 export const repoDeleteCollaborator = <ThrowOnError extends boolean = false>(options: Options<RepoDeleteCollaboratorData, ThrowOnError>) => (options.client ?? client).delete<RepoDeleteCollaboratorResponses, RepoDeleteCollaboratorErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4865,6 +5026,7 @@ export const repoDeleteCollaborator = <ThrowOnError extends boolean = false>(opt
  * If the user is a collaborator, return 204. If the user is not a collaborator, return 404.
  */
 export const repoCheckCollaborator = <ThrowOnError extends boolean = false>(options: Options<RepoCheckCollaboratorData, ThrowOnError>) => (options.client ?? client).get<RepoCheckCollaboratorResponses, RepoCheckCollaboratorErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4894,6 +5056,7 @@ export const repoCheckCollaborator = <ThrowOnError extends boolean = false>(opti
  * Add a collaborator to a repository
  */
 export const repoAddCollaborator = <ThrowOnError extends boolean = false>(options: Options<RepoAddCollaboratorData, ThrowOnError>) => (options.client ?? client).put<RepoAddCollaboratorResponses, RepoAddCollaboratorErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4927,6 +5090,7 @@ export const repoAddCollaborator = <ThrowOnError extends boolean = false>(option
  * Get repository permissions for a user
  */
 export const repoGetRepoPermissions = <ThrowOnError extends boolean = false>(options: Options<RepoGetRepoPermissionsData, ThrowOnError>) => (options.client ?? client).get<RepoGetRepoPermissionsResponses, RepoGetRepoPermissionsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4956,6 +5120,7 @@ export const repoGetRepoPermissions = <ThrowOnError extends boolean = false>(opt
  * Get a list of all commits from a repository
  */
 export const repoGetAllCommits = <ThrowOnError extends boolean = false>(options: Options<RepoGetAllCommitsData, ThrowOnError>) => (options.client ?? client).get<RepoGetAllCommitsResponses, RepoGetAllCommitsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -4985,6 +5150,7 @@ export const repoGetAllCommits = <ThrowOnError extends boolean = false>(options:
  * Get a commit's combined status, by branch/tag/commit reference
  */
 export const repoGetCombinedStatusByRef = <ThrowOnError extends boolean = false>(options: Options<RepoGetCombinedStatusByRefData, ThrowOnError>) => (options.client ?? client).get<RepoGetCombinedStatusByRefResponses, RepoGetCombinedStatusByRefErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5014,6 +5180,7 @@ export const repoGetCombinedStatusByRef = <ThrowOnError extends boolean = false>
  * Get a commit's statuses, by branch/tag/commit reference
  */
 export const repoListStatusesByRef = <ThrowOnError extends boolean = false>(options: Options<RepoListStatusesByRefData, ThrowOnError>) => (options.client ?? client).get<RepoListStatusesByRefResponses, RepoListStatusesByRefErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5043,6 +5210,7 @@ export const repoListStatusesByRef = <ThrowOnError extends boolean = false>(opti
  * Get the pull request of the commit
  */
 export const repoGetCommitPullRequest = <ThrowOnError extends boolean = false>(options: Options<RepoGetCommitPullRequestData, ThrowOnError>) => (options.client ?? client).get<RepoGetCommitPullRequestResponses, RepoGetCommitPullRequestErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5072,6 +5240,7 @@ export const repoGetCommitPullRequest = <ThrowOnError extends boolean = false>(o
  * Get commit comparison information
  */
 export const repoCompareDiff = <ThrowOnError extends boolean = false>(options: Options<RepoCompareDiffData, ThrowOnError>) => (options.client ?? client).get<RepoCompareDiffResponses, RepoCompareDiffErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5101,6 +5270,7 @@ export const repoCompareDiff = <ThrowOnError extends boolean = false>(options: O
  * Gets the metadata of all the entries of the root dir
  */
 export const repoGetContentsList = <ThrowOnError extends boolean = false>(options: Options<RepoGetContentsListData, ThrowOnError>) => (options.client ?? client).get<RepoGetContentsListResponses, RepoGetContentsListErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5130,6 +5300,7 @@ export const repoGetContentsList = <ThrowOnError extends boolean = false>(option
  * Modify multiple files in a repository
  */
 export const repoChangeFiles = <ThrowOnError extends boolean = false>(options: Options<RepoChangeFilesData, ThrowOnError>) => (options.client ?? client).post<RepoChangeFilesResponses, RepoChangeFilesErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5163,6 +5334,7 @@ export const repoChangeFiles = <ThrowOnError extends boolean = false>(options: O
  * Delete a file in a repository
  */
 export const repoDeleteFile = <ThrowOnError extends boolean = false>(options: Options<RepoDeleteFileData, ThrowOnError>) => (options.client ?? client).delete<RepoDeleteFileResponses, RepoDeleteFileErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5196,6 +5368,7 @@ export const repoDeleteFile = <ThrowOnError extends boolean = false>(options: Op
  * Gets the metadata and contents (if a file) of an entry in a repository, or a list of entries if a dir
  */
 export const repoGetContents = <ThrowOnError extends boolean = false>(options: Options<RepoGetContentsData, ThrowOnError>) => (options.client ?? client).get<RepoGetContentsResponses, RepoGetContentsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5225,6 +5398,7 @@ export const repoGetContents = <ThrowOnError extends boolean = false>(options: O
  * Create a file in a repository
  */
 export const repoCreateFile = <ThrowOnError extends boolean = false>(options: Options<RepoCreateFileData, ThrowOnError>) => (options.client ?? client).post<RepoCreateFileResponses, RepoCreateFileErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5258,6 +5432,7 @@ export const repoCreateFile = <ThrowOnError extends boolean = false>(options: Op
  * Update a file in a repository
  */
 export const repoUpdateFile = <ThrowOnError extends boolean = false>(options: Options<RepoUpdateFileData, ThrowOnError>) => (options.client ?? client).put<RepoUpdateFileResponses, RepoUpdateFileErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5291,6 +5466,7 @@ export const repoUpdateFile = <ThrowOnError extends boolean = false>(options: Op
  * Convert a mirror repo to a normal repo.
  */
 export const repoConvert = <ThrowOnError extends boolean = false>(options: Options<RepoConvertData, ThrowOnError>) => (options.client ?? client).post<RepoConvertResponses, RepoConvertErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5320,6 +5496,7 @@ export const repoConvert = <ThrowOnError extends boolean = false>(options: Optio
  * Apply diff patch to repository
  */
 export const repoApplyDiffPatch = <ThrowOnError extends boolean = false>(options: Options<RepoApplyDiffPatchData, ThrowOnError>) => (options.client ?? client).post<RepoApplyDiffPatchResponses, RepoApplyDiffPatchErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5353,6 +5530,7 @@ export const repoApplyDiffPatch = <ThrowOnError extends boolean = false>(options
  * Get the EditorConfig definitions of a file in a repository
  */
 export const repoGetEditorConfig = <ThrowOnError extends boolean = false>(options: Options<RepoGetEditorConfigData, ThrowOnError>) => (options.client ?? client).get<RepoGetEditorConfigResponses, RepoGetEditorConfigErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5382,6 +5560,7 @@ export const repoGetEditorConfig = <ThrowOnError extends boolean = false>(option
  * Remove all flags from a repository
  */
 export const repoDeleteAllFlags = <ThrowOnError extends boolean = false>(options: Options<RepoDeleteAllFlagsData, ThrowOnError>) => (options.client ?? client).delete<RepoDeleteAllFlagsResponses, RepoDeleteAllFlagsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5411,6 +5590,7 @@ export const repoDeleteAllFlags = <ThrowOnError extends boolean = false>(options
  * List a repository's flags
  */
 export const repoListFlags = <ThrowOnError extends boolean = false>(options: Options<RepoListFlagsData, ThrowOnError>) => (options.client ?? client).get<RepoListFlagsResponses, RepoListFlagsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5440,6 +5620,7 @@ export const repoListFlags = <ThrowOnError extends boolean = false>(options: Opt
  * Replace all flags of a repository
  */
 export const repoReplaceAllFlags = <ThrowOnError extends boolean = false>(options: Options<RepoReplaceAllFlagsData, ThrowOnError>) => (options.client ?? client).put<RepoReplaceAllFlagsResponses, RepoReplaceAllFlagsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5473,6 +5654,7 @@ export const repoReplaceAllFlags = <ThrowOnError extends boolean = false>(option
  * Remove a flag from a repository
  */
 export const repoDeleteFlag = <ThrowOnError extends boolean = false>(options: Options<RepoDeleteFlagData, ThrowOnError>) => (options.client ?? client).delete<RepoDeleteFlagResponses, RepoDeleteFlagErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5502,6 +5684,7 @@ export const repoDeleteFlag = <ThrowOnError extends boolean = false>(options: Op
  * Check if a repository has a given flag
  */
 export const repoCheckFlag = <ThrowOnError extends boolean = false>(options: Options<RepoCheckFlagData, ThrowOnError>) => (options.client ?? client).get<RepoCheckFlagResponses, RepoCheckFlagErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5531,6 +5714,7 @@ export const repoCheckFlag = <ThrowOnError extends boolean = false>(options: Opt
  * Add a flag to a repository
  */
 export const repoAddFlag = <ThrowOnError extends boolean = false>(options: Options<RepoAddFlagData, ThrowOnError>) => (options.client ?? client).put<RepoAddFlagResponses, RepoAddFlagErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5560,6 +5744,7 @@ export const repoAddFlag = <ThrowOnError extends boolean = false>(options: Optio
  * List a repository's forks
  */
 export const listForks = <ThrowOnError extends boolean = false>(options: Options<ListForksData, ThrowOnError>) => (options.client ?? client).get<ListForksResponses, ListForksErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5589,6 +5774,7 @@ export const listForks = <ThrowOnError extends boolean = false>(options: Options
  * Fork a repository
  */
 export const createFork = <ThrowOnError extends boolean = false>(options: Options<CreateForkData, ThrowOnError>) => (options.client ?? client).post<CreateForkResponses, CreateForkErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5622,6 +5808,7 @@ export const createFork = <ThrowOnError extends boolean = false>(options: Option
  * Gets multiple blobs of a repository.
  */
 export const getBlobs = <ThrowOnError extends boolean = false>(options: Options<GetBlobsData, ThrowOnError>) => (options.client ?? client).get<GetBlobsResponses, GetBlobsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5651,6 +5838,7 @@ export const getBlobs = <ThrowOnError extends boolean = false>(options: Options<
  * Gets the blob of a repository.
  */
 export const getBlob = <ThrowOnError extends boolean = false>(options: Options<GetBlobData, ThrowOnError>) => (options.client ?? client).get<GetBlobResponses, GetBlobErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5680,6 +5868,7 @@ export const getBlob = <ThrowOnError extends boolean = false>(options: Options<G
  * Get a single commit from a repository
  */
 export const repoGetSingleCommit = <ThrowOnError extends boolean = false>(options: Options<RepoGetSingleCommitData, ThrowOnError>) => (options.client ?? client).get<RepoGetSingleCommitResponses, RepoGetSingleCommitErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5709,6 +5898,7 @@ export const repoGetSingleCommit = <ThrowOnError extends boolean = false>(option
  * Get a commit's diff or patch
  */
 export const repoDownloadCommitDiffOrPatch = <ThrowOnError extends boolean = false>(options: Options<RepoDownloadCommitDiffOrPatchData, ThrowOnError>) => (options.client ?? client).get<RepoDownloadCommitDiffOrPatchResponses, RepoDownloadCommitDiffOrPatchErrors, ThrowOnError>({
+    responseType: 'text',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5738,6 +5928,7 @@ export const repoDownloadCommitDiffOrPatch = <ThrowOnError extends boolean = fal
  * Removes a note corresponding to a single commit from a repository
  */
 export const repoRemoveNote = <ThrowOnError extends boolean = false>(options: Options<RepoRemoveNoteData, ThrowOnError>) => (options.client ?? client).delete<RepoRemoveNoteResponses, RepoRemoveNoteErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5767,6 +5958,7 @@ export const repoRemoveNote = <ThrowOnError extends boolean = false>(options: Op
  * Get a note corresponding to a single commit from a repository
  */
 export const repoGetNote = <ThrowOnError extends boolean = false>(options: Options<RepoGetNoteData, ThrowOnError>) => (options.client ?? client).get<RepoGetNoteResponses, RepoGetNoteErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5796,6 +5988,7 @@ export const repoGetNote = <ThrowOnError extends boolean = false>(options: Optio
  * Set a note corresponding to a single commit from a repository
  */
 export const repoSetNote = <ThrowOnError extends boolean = false>(options: Options<RepoSetNoteData, ThrowOnError>) => (options.client ?? client).post<RepoSetNoteResponses, RepoSetNoteErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5829,6 +6022,7 @@ export const repoSetNote = <ThrowOnError extends boolean = false>(options: Optio
  * Get specified ref or filtered repository's refs
  */
 export const repoListAllGitRefs = <ThrowOnError extends boolean = false>(options: Options<RepoListAllGitRefsData, ThrowOnError>) => (options.client ?? client).get<RepoListAllGitRefsResponses, RepoListAllGitRefsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5858,6 +6052,7 @@ export const repoListAllGitRefs = <ThrowOnError extends boolean = false>(options
  * Get specified ref or filtered repository's refs
  */
 export const repoListGitRefs = <ThrowOnError extends boolean = false>(options: Options<RepoListGitRefsData, ThrowOnError>) => (options.client ?? client).get<RepoListGitRefsResponses, RepoListGitRefsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5887,6 +6082,7 @@ export const repoListGitRefs = <ThrowOnError extends boolean = false>(options: O
  * Gets the tag object of an annotated tag (not lightweight tags)
  */
 export const getAnnotatedTag = <ThrowOnError extends boolean = false>(options: Options<GetAnnotatedTagData, ThrowOnError>) => (options.client ?? client).get<GetAnnotatedTagResponses, GetAnnotatedTagErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5916,6 +6112,7 @@ export const getAnnotatedTag = <ThrowOnError extends boolean = false>(options: O
  * Gets the tree of a repository.
  */
 export const getTree = <ThrowOnError extends boolean = false>(options: Options<GetTreeData, ThrowOnError>) => (options.client ?? client).get<GetTreeResponses, GetTreeErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5945,6 +6142,7 @@ export const getTree = <ThrowOnError extends boolean = false>(options: Options<G
  * List the hooks in a repository
  */
 export const repoListHooks = <ThrowOnError extends boolean = false>(options: Options<RepoListHooksData, ThrowOnError>) => (options.client ?? client).get<RepoListHooksResponses, RepoListHooksErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -5974,6 +6172,7 @@ export const repoListHooks = <ThrowOnError extends boolean = false>(options: Opt
  * Create a hook
  */
 export const repoCreateHook = <ThrowOnError extends boolean = false>(options: Options<RepoCreateHookData, ThrowOnError>) => (options.client ?? client).post<RepoCreateHookResponses, RepoCreateHookErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6007,6 +6206,7 @@ export const repoCreateHook = <ThrowOnError extends boolean = false>(options: Op
  * List the Git hooks in a repository
  */
 export const repoListGitHooks = <ThrowOnError extends boolean = false>(options: Options<RepoListGitHooksData, ThrowOnError>) => (options.client ?? client).get<RepoListGitHooksResponses, RepoListGitHooksErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6036,6 +6236,7 @@ export const repoListGitHooks = <ThrowOnError extends boolean = false>(options: 
  * Delete a Git hook in a repository
  */
 export const repoDeleteGitHook = <ThrowOnError extends boolean = false>(options: Options<RepoDeleteGitHookData, ThrowOnError>) => (options.client ?? client).delete<RepoDeleteGitHookResponses, RepoDeleteGitHookErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6065,6 +6266,7 @@ export const repoDeleteGitHook = <ThrowOnError extends boolean = false>(options:
  * Get a Git hook
  */
 export const repoGetGitHook = <ThrowOnError extends boolean = false>(options: Options<RepoGetGitHookData, ThrowOnError>) => (options.client ?? client).get<RepoGetGitHookResponses, RepoGetGitHookErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6094,6 +6296,7 @@ export const repoGetGitHook = <ThrowOnError extends boolean = false>(options: Op
  * Edit a Git hook in a repository
  */
 export const repoEditGitHook = <ThrowOnError extends boolean = false>(options: Options<RepoEditGitHookData, ThrowOnError>) => (options.client ?? client).patch<RepoEditGitHookResponses, RepoEditGitHookErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6127,6 +6330,7 @@ export const repoEditGitHook = <ThrowOnError extends boolean = false>(options: O
  * Delete a hook in a repository
  */
 export const repoDeleteHook = <ThrowOnError extends boolean = false>(options: Options<RepoDeleteHookData, ThrowOnError>) => (options.client ?? client).delete<RepoDeleteHookResponses, RepoDeleteHookErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6156,6 +6360,7 @@ export const repoDeleteHook = <ThrowOnError extends boolean = false>(options: Op
  * Get a hook
  */
 export const repoGetHook = <ThrowOnError extends boolean = false>(options: Options<RepoGetHookData, ThrowOnError>) => (options.client ?? client).get<RepoGetHookResponses, RepoGetHookErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6185,6 +6390,7 @@ export const repoGetHook = <ThrowOnError extends boolean = false>(options: Optio
  * Edit a hook in a repository
  */
 export const repoEditHook = <ThrowOnError extends boolean = false>(options: Options<RepoEditHookData, ThrowOnError>) => (options.client ?? client).patch<RepoEditHookResponses, RepoEditHookErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6218,6 +6424,7 @@ export const repoEditHook = <ThrowOnError extends boolean = false>(options: Opti
  * Test a push webhook
  */
 export const repoTestHook = <ThrowOnError extends boolean = false>(options: Options<RepoTestHookData, ThrowOnError>) => (options.client ?? client).post<RepoTestHookResponses, RepoTestHookErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6247,6 +6454,7 @@ export const repoTestHook = <ThrowOnError extends boolean = false>(options: Opti
  * Returns the issue config for a repo
  */
 export const repoGetIssueConfig = <ThrowOnError extends boolean = false>(options: Options<RepoGetIssueConfigData, ThrowOnError>) => (options.client ?? client).get<RepoGetIssueConfigResponses, RepoGetIssueConfigErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6276,6 +6484,7 @@ export const repoGetIssueConfig = <ThrowOnError extends boolean = false>(options
  * Returns the validation information for a issue config
  */
 export const repoValidateIssueConfig = <ThrowOnError extends boolean = false>(options: Options<RepoValidateIssueConfigData, ThrowOnError>) => (options.client ?? client).get<RepoValidateIssueConfigResponses, RepoValidateIssueConfigErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6305,6 +6514,7 @@ export const repoValidateIssueConfig = <ThrowOnError extends boolean = false>(op
  * Get available issue templates for a repository
  */
 export const repoGetIssueTemplates = <ThrowOnError extends boolean = false>(options: Options<RepoGetIssueTemplatesData, ThrowOnError>) => (options.client ?? client).get<RepoGetIssueTemplatesResponses, RepoGetIssueTemplatesErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6334,6 +6544,7 @@ export const repoGetIssueTemplates = <ThrowOnError extends boolean = false>(opti
  * List a repository's issues
  */
 export const issueListIssues = <ThrowOnError extends boolean = false>(options: Options<IssueListIssuesData, ThrowOnError>) => (options.client ?? client).get<IssueListIssuesResponses, IssueListIssuesErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6363,6 +6574,7 @@ export const issueListIssues = <ThrowOnError extends boolean = false>(options: O
  * Create an issue. If using deadline only the date will be taken into account, and time of day ignored.
  */
 export const issueCreateIssue = <ThrowOnError extends boolean = false>(options: Options<IssueCreateIssueData, ThrowOnError>) => (options.client ?? client).post<IssueCreateIssueResponses, IssueCreateIssueErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6396,6 +6608,7 @@ export const issueCreateIssue = <ThrowOnError extends boolean = false>(options: 
  * List all comments in a repository
  */
 export const issueGetRepoComments = <ThrowOnError extends boolean = false>(options: Options<IssueGetRepoCommentsData, ThrowOnError>) => (options.client ?? client).get<IssueGetRepoCommentsResponses, IssueGetRepoCommentsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6425,6 +6638,7 @@ export const issueGetRepoComments = <ThrowOnError extends boolean = false>(optio
  * Delete a comment
  */
 export const issueDeleteComment = <ThrowOnError extends boolean = false>(options: Options<IssueDeleteCommentData, ThrowOnError>) => (options.client ?? client).delete<IssueDeleteCommentResponses, IssueDeleteCommentErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6454,6 +6668,7 @@ export const issueDeleteComment = <ThrowOnError extends boolean = false>(options
  * Get a comment
  */
 export const issueGetComment = <ThrowOnError extends boolean = false>(options: Options<IssueGetCommentData, ThrowOnError>) => (options.client ?? client).get<IssueGetCommentResponses, IssueGetCommentErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6483,6 +6698,7 @@ export const issueGetComment = <ThrowOnError extends boolean = false>(options: O
  * Edit a comment
  */
 export const issueEditComment = <ThrowOnError extends boolean = false>(options: Options<IssueEditCommentData, ThrowOnError>) => (options.client ?? client).patch<IssueEditCommentResponses, IssueEditCommentErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6516,6 +6732,7 @@ export const issueEditComment = <ThrowOnError extends boolean = false>(options: 
  * List comment's attachments
  */
 export const issueListIssueCommentAttachments = <ThrowOnError extends boolean = false>(options: Options<IssueListIssueCommentAttachmentsData, ThrowOnError>) => (options.client ?? client).get<IssueListIssueCommentAttachmentsResponses, IssueListIssueCommentAttachmentsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6546,6 +6763,7 @@ export const issueListIssueCommentAttachments = <ThrowOnError extends boolean = 
  */
 export const issueCreateIssueCommentAttachment = <ThrowOnError extends boolean = false>(options: Options<IssueCreateIssueCommentAttachmentData, ThrowOnError>) => (options.client ?? client).post<IssueCreateIssueCommentAttachmentResponses, IssueCreateIssueCommentAttachmentErrors, ThrowOnError>({
     ...formDataBodySerializer,
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6579,6 +6797,7 @@ export const issueCreateIssueCommentAttachment = <ThrowOnError extends boolean =
  * Delete a comment attachment
  */
 export const issueDeleteIssueCommentAttachment = <ThrowOnError extends boolean = false>(options: Options<IssueDeleteIssueCommentAttachmentData, ThrowOnError>) => (options.client ?? client).delete<IssueDeleteIssueCommentAttachmentResponses, IssueDeleteIssueCommentAttachmentErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6608,6 +6827,7 @@ export const issueDeleteIssueCommentAttachment = <ThrowOnError extends boolean =
  * Get a comment attachment
  */
 export const issueGetIssueCommentAttachment = <ThrowOnError extends boolean = false>(options: Options<IssueGetIssueCommentAttachmentData, ThrowOnError>) => (options.client ?? client).get<IssueGetIssueCommentAttachmentResponses, IssueGetIssueCommentAttachmentErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6637,6 +6857,7 @@ export const issueGetIssueCommentAttachment = <ThrowOnError extends boolean = fa
  * Edit a comment attachment
  */
 export const issueEditIssueCommentAttachment = <ThrowOnError extends boolean = false>(options: Options<IssueEditIssueCommentAttachmentData, ThrowOnError>) => (options.client ?? client).patch<IssueEditIssueCommentAttachmentResponses, IssueEditIssueCommentAttachmentErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6670,6 +6891,7 @@ export const issueEditIssueCommentAttachment = <ThrowOnError extends boolean = f
  * Remove a reaction from a comment of an issue
  */
 export const issueDeleteCommentReaction = <ThrowOnError extends boolean = false>(options: Options<IssueDeleteCommentReactionData, ThrowOnError>) => (options.client ?? client).delete<IssueDeleteCommentReactionResponses, IssueDeleteCommentReactionErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6703,6 +6925,7 @@ export const issueDeleteCommentReaction = <ThrowOnError extends boolean = false>
  * Get a list of reactions from a comment of an issue
  */
 export const issueGetCommentReactions = <ThrowOnError extends boolean = false>(options: Options<IssueGetCommentReactionsData, ThrowOnError>) => (options.client ?? client).get<IssueGetCommentReactionsResponses, IssueGetCommentReactionsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6732,6 +6955,7 @@ export const issueGetCommentReactions = <ThrowOnError extends boolean = false>(o
  * Add a reaction to a comment of an issue
  */
 export const issuePostCommentReaction = <ThrowOnError extends boolean = false>(options: Options<IssuePostCommentReactionData, ThrowOnError>) => (options.client ?? client).post<IssuePostCommentReactionResponses, IssuePostCommentReactionErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6765,6 +6989,7 @@ export const issuePostCommentReaction = <ThrowOnError extends boolean = false>(o
  * List a repo's pinned issues
  */
 export const repoListPinnedIssues = <ThrowOnError extends boolean = false>(options: Options<RepoListPinnedIssuesData, ThrowOnError>) => (options.client ?? client).get<RepoListPinnedIssuesResponses, RepoListPinnedIssuesErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6794,6 +7019,7 @@ export const repoListPinnedIssues = <ThrowOnError extends boolean = false>(optio
  * Delete an issue
  */
 export const issueDelete = <ThrowOnError extends boolean = false>(options: Options<IssueDeleteData, ThrowOnError>) => (options.client ?? client).delete<IssueDeleteResponses, IssueDeleteErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6823,6 +7049,7 @@ export const issueDelete = <ThrowOnError extends boolean = false>(options: Optio
  * Get an issue
  */
 export const issueGetIssue = <ThrowOnError extends boolean = false>(options: Options<IssueGetIssueData, ThrowOnError>) => (options.client ?? client).get<IssueGetIssueResponses, IssueGetIssueErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6852,6 +7079,7 @@ export const issueGetIssue = <ThrowOnError extends boolean = false>(options: Opt
  * Edit an issue. If using deadline only the date will be taken into account, and time of day ignored.
  */
 export const issueEditIssue = <ThrowOnError extends boolean = false>(options: Options<IssueEditIssueData, ThrowOnError>) => (options.client ?? client).patch<IssueEditIssueResponses, IssueEditIssueErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6885,6 +7113,7 @@ export const issueEditIssue = <ThrowOnError extends boolean = false>(options: Op
  * List issue's attachments
  */
 export const issueListIssueAttachments = <ThrowOnError extends boolean = false>(options: Options<IssueListIssueAttachmentsData, ThrowOnError>) => (options.client ?? client).get<IssueListIssueAttachmentsResponses, IssueListIssueAttachmentsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6915,6 +7144,7 @@ export const issueListIssueAttachments = <ThrowOnError extends boolean = false>(
  */
 export const issueCreateIssueAttachment = <ThrowOnError extends boolean = false>(options: Options<IssueCreateIssueAttachmentData, ThrowOnError>) => (options.client ?? client).post<IssueCreateIssueAttachmentResponses, IssueCreateIssueAttachmentErrors, ThrowOnError>({
     ...formDataBodySerializer,
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6948,6 +7178,7 @@ export const issueCreateIssueAttachment = <ThrowOnError extends boolean = false>
  * Delete an issue attachment
  */
 export const issueDeleteIssueAttachment = <ThrowOnError extends boolean = false>(options: Options<IssueDeleteIssueAttachmentData, ThrowOnError>) => (options.client ?? client).delete<IssueDeleteIssueAttachmentResponses, IssueDeleteIssueAttachmentErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -6977,6 +7208,7 @@ export const issueDeleteIssueAttachment = <ThrowOnError extends boolean = false>
  * Get an issue attachment
  */
 export const issueGetIssueAttachment = <ThrowOnError extends boolean = false>(options: Options<IssueGetIssueAttachmentData, ThrowOnError>) => (options.client ?? client).get<IssueGetIssueAttachmentResponses, IssueGetIssueAttachmentErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7006,6 +7238,7 @@ export const issueGetIssueAttachment = <ThrowOnError extends boolean = false>(op
  * Edit an issue attachment
  */
 export const issueEditIssueAttachment = <ThrowOnError extends boolean = false>(options: Options<IssueEditIssueAttachmentData, ThrowOnError>) => (options.client ?? client).patch<IssueEditIssueAttachmentResponses, IssueEditIssueAttachmentErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7039,6 +7272,7 @@ export const issueEditIssueAttachment = <ThrowOnError extends boolean = false>(o
  * Unblock the issue given in the body by the issue in path
  */
 export const issueRemoveIssueBlocking = <ThrowOnError extends boolean = false>(options: Options<IssueRemoveIssueBlockingData, ThrowOnError>) => (options.client ?? client).delete<IssueRemoveIssueBlockingResponses, IssueRemoveIssueBlockingErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7072,6 +7306,7 @@ export const issueRemoveIssueBlocking = <ThrowOnError extends boolean = false>(o
  * List issues that are blocked by this issue
  */
 export const issueListBlocks = <ThrowOnError extends boolean = false>(options: Options<IssueListBlocksData, ThrowOnError>) => (options.client ?? client).get<IssueListBlocksResponses, IssueListBlocksErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7101,6 +7336,7 @@ export const issueListBlocks = <ThrowOnError extends boolean = false>(options: O
  * Block the issue given in the body by the issue in path
  */
 export const issueCreateIssueBlocking = <ThrowOnError extends boolean = false>(options: Options<IssueCreateIssueBlockingData, ThrowOnError>) => (options.client ?? client).post<IssueCreateIssueBlockingResponses, IssueCreateIssueBlockingErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7134,6 +7370,7 @@ export const issueCreateIssueBlocking = <ThrowOnError extends boolean = false>(o
  * List all comments on an issue
  */
 export const issueGetComments = <ThrowOnError extends boolean = false>(options: Options<IssueGetCommentsData, ThrowOnError>) => (options.client ?? client).get<IssueGetCommentsResponses, IssueGetCommentsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7163,6 +7400,7 @@ export const issueGetComments = <ThrowOnError extends boolean = false>(options: 
  * Add a comment to an issue
  */
 export const issueCreateComment = <ThrowOnError extends boolean = false>(options: Options<IssueCreateCommentData, ThrowOnError>) => (options.client ?? client).post<IssueCreateCommentResponses, IssueCreateCommentErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7198,6 +7436,7 @@ export const issueCreateComment = <ThrowOnError extends boolean = false>(options
  * @deprecated
  */
 export const issueDeleteCommentDeprecated = <ThrowOnError extends boolean = false>(options: Options<IssueDeleteCommentDeprecatedData, ThrowOnError>) => (options.client ?? client).delete<IssueDeleteCommentDeprecatedResponses, IssueDeleteCommentDeprecatedErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7229,6 +7468,7 @@ export const issueDeleteCommentDeprecated = <ThrowOnError extends boolean = fals
  * @deprecated
  */
 export const issueEditCommentDeprecated = <ThrowOnError extends boolean = false>(options: Options<IssueEditCommentDeprecatedData, ThrowOnError>) => (options.client ?? client).patch<IssueEditCommentDeprecatedResponses, IssueEditCommentDeprecatedErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7262,6 +7502,7 @@ export const issueEditCommentDeprecated = <ThrowOnError extends boolean = false>
  * Set an issue deadline. If set to null, the deadline is deleted. If using deadline only the date will be taken into account, and time of day ignored.
  */
 export const issueEditIssueDeadline = <ThrowOnError extends boolean = false>(options: Options<IssueEditIssueDeadlineData, ThrowOnError>) => (options.client ?? client).post<IssueEditIssueDeadlineResponses, IssueEditIssueDeadlineErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7295,6 +7536,7 @@ export const issueEditIssueDeadline = <ThrowOnError extends boolean = false>(opt
  * Remove an issue dependency
  */
 export const issueRemoveIssueDependencies = <ThrowOnError extends boolean = false>(options: Options<IssueRemoveIssueDependenciesData, ThrowOnError>) => (options.client ?? client).delete<IssueRemoveIssueDependenciesResponses, IssueRemoveIssueDependenciesErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7328,6 +7570,7 @@ export const issueRemoveIssueDependencies = <ThrowOnError extends boolean = fals
  * List an issue's dependencies, i.e all issues that block this issue.
  */
 export const issueListIssueDependencies = <ThrowOnError extends boolean = false>(options: Options<IssueListIssueDependenciesData, ThrowOnError>) => (options.client ?? client).get<IssueListIssueDependenciesResponses, IssueListIssueDependenciesErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7357,6 +7600,7 @@ export const issueListIssueDependencies = <ThrowOnError extends boolean = false>
  * Make the issue in the url depend on the issue in the form.
  */
 export const issueCreateIssueDependencies = <ThrowOnError extends boolean = false>(options: Options<IssueCreateIssueDependenciesData, ThrowOnError>) => (options.client ?? client).post<IssueCreateIssueDependenciesResponses, IssueCreateIssueDependenciesErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7390,6 +7634,7 @@ export const issueCreateIssueDependencies = <ThrowOnError extends boolean = fals
  * Remove all labels from an issue
  */
 export const issueClearLabels = <ThrowOnError extends boolean = false>(options: Options<IssueClearLabelsData, ThrowOnError>) => (options.client ?? client).delete<IssueClearLabelsResponses, IssueClearLabelsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7423,6 +7668,7 @@ export const issueClearLabels = <ThrowOnError extends boolean = false>(options: 
  * Get an issue's labels
  */
 export const issueGetLabels = <ThrowOnError extends boolean = false>(options: Options<IssueGetLabelsData, ThrowOnError>) => (options.client ?? client).get<IssueGetLabelsResponses, IssueGetLabelsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7452,6 +7698,7 @@ export const issueGetLabels = <ThrowOnError extends boolean = false>(options: Op
  * Add a label to an issue
  */
 export const issueAddLabel = <ThrowOnError extends boolean = false>(options: Options<IssueAddLabelData, ThrowOnError>) => (options.client ?? client).post<IssueAddLabelResponses, IssueAddLabelErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7485,6 +7732,7 @@ export const issueAddLabel = <ThrowOnError extends boolean = false>(options: Opt
  * Replace an issue's labels
  */
 export const issueReplaceLabels = <ThrowOnError extends boolean = false>(options: Options<IssueReplaceLabelsData, ThrowOnError>) => (options.client ?? client).put<IssueReplaceLabelsResponses, IssueReplaceLabelsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7518,6 +7766,7 @@ export const issueReplaceLabels = <ThrowOnError extends boolean = false>(options
  * Remove a label from an issue
  */
 export const issueRemoveLabel = <ThrowOnError extends boolean = false>(options: Options<IssueRemoveLabelData, ThrowOnError>) => (options.client ?? client).delete<IssueRemoveLabelResponses, IssueRemoveLabelErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7551,6 +7800,7 @@ export const issueRemoveLabel = <ThrowOnError extends boolean = false>(options: 
  * Unpin an Issue
  */
 export const unpinIssue = <ThrowOnError extends boolean = false>(options: Options<UnpinIssueData, ThrowOnError>) => (options.client ?? client).delete<UnpinIssueResponses, UnpinIssueErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7580,6 +7830,7 @@ export const unpinIssue = <ThrowOnError extends boolean = false>(options: Option
  * Pin an Issue
  */
 export const pinIssue = <ThrowOnError extends boolean = false>(options: Options<PinIssueData, ThrowOnError>) => (options.client ?? client).post<PinIssueResponses, PinIssueErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7609,6 +7860,7 @@ export const pinIssue = <ThrowOnError extends boolean = false>(options: Options<
  * Moves the Pin to the given Position
  */
 export const moveIssuePin = <ThrowOnError extends boolean = false>(options: Options<MoveIssuePinData, ThrowOnError>) => (options.client ?? client).patch<MoveIssuePinResponses, MoveIssuePinErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7638,6 +7890,7 @@ export const moveIssuePin = <ThrowOnError extends boolean = false>(options: Opti
  * Remove a reaction from an issue
  */
 export const issueDeleteIssueReaction = <ThrowOnError extends boolean = false>(options: Options<IssueDeleteIssueReactionData, ThrowOnError>) => (options.client ?? client).delete<IssueDeleteIssueReactionResponses, IssueDeleteIssueReactionErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7671,6 +7924,7 @@ export const issueDeleteIssueReaction = <ThrowOnError extends boolean = false>(o
  * Get a list reactions of an issue
  */
 export const issueGetIssueReactions = <ThrowOnError extends boolean = false>(options: Options<IssueGetIssueReactionsData, ThrowOnError>) => (options.client ?? client).get<IssueGetIssueReactionsResponses, IssueGetIssueReactionsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7700,6 +7954,7 @@ export const issueGetIssueReactions = <ThrowOnError extends boolean = false>(opt
  * Add a reaction to an issue
  */
 export const issuePostIssueReaction = <ThrowOnError extends boolean = false>(options: Options<IssuePostIssueReactionData, ThrowOnError>) => (options.client ?? client).post<IssuePostIssueReactionResponses, IssuePostIssueReactionErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7733,6 +7988,7 @@ export const issuePostIssueReaction = <ThrowOnError extends boolean = false>(opt
  * Delete an issue's existing stopwatch.
  */
 export const issueDeleteStopWatch = <ThrowOnError extends boolean = false>(options: Options<IssueDeleteStopWatchData, ThrowOnError>) => (options.client ?? client).delete<IssueDeleteStopWatchResponses, IssueDeleteStopWatchErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7762,6 +8018,7 @@ export const issueDeleteStopWatch = <ThrowOnError extends boolean = false>(optio
  * Start stopwatch on an issue.
  */
 export const issueStartStopWatch = <ThrowOnError extends boolean = false>(options: Options<IssueStartStopWatchData, ThrowOnError>) => (options.client ?? client).post<IssueStartStopWatchResponses, IssueStartStopWatchErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7791,6 +8048,7 @@ export const issueStartStopWatch = <ThrowOnError extends boolean = false>(option
  * Stop an issue's existing stopwatch.
  */
 export const issueStopStopWatch = <ThrowOnError extends boolean = false>(options: Options<IssueStopStopWatchData, ThrowOnError>) => (options.client ?? client).post<IssueStopStopWatchResponses, IssueStopStopWatchErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7820,6 +8078,7 @@ export const issueStopStopWatch = <ThrowOnError extends boolean = false>(options
  * Get users who subscribed on an issue.
  */
 export const issueSubscriptions = <ThrowOnError extends boolean = false>(options: Options<IssueSubscriptionsData, ThrowOnError>) => (options.client ?? client).get<IssueSubscriptionsResponses, IssueSubscriptionsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7849,6 +8108,7 @@ export const issueSubscriptions = <ThrowOnError extends boolean = false>(options
  * Check if user is subscribed to an issue
  */
 export const issueCheckSubscription = <ThrowOnError extends boolean = false>(options: Options<IssueCheckSubscriptionData, ThrowOnError>) => (options.client ?? client).get<IssueCheckSubscriptionResponses, IssueCheckSubscriptionErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7878,6 +8138,7 @@ export const issueCheckSubscription = <ThrowOnError extends boolean = false>(opt
  * Unsubscribe user from issue
  */
 export const issueDeleteSubscription = <ThrowOnError extends boolean = false>(options: Options<IssueDeleteSubscriptionData, ThrowOnError>) => (options.client ?? client).delete<IssueDeleteSubscriptionResponses, IssueDeleteSubscriptionErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7907,6 +8168,7 @@ export const issueDeleteSubscription = <ThrowOnError extends boolean = false>(op
  * Subscribe user to issue
  */
 export const issueAddSubscription = <ThrowOnError extends boolean = false>(options: Options<IssueAddSubscriptionData, ThrowOnError>) => (options.client ?? client).put<IssueAddSubscriptionResponses, IssueAddSubscriptionErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7936,6 +8198,7 @@ export const issueAddSubscription = <ThrowOnError extends boolean = false>(optio
  * List all comments and events on an issue
  */
 export const issueGetCommentsAndTimeline = <ThrowOnError extends boolean = false>(options: Options<IssueGetCommentsAndTimelineData, ThrowOnError>) => (options.client ?? client).get<IssueGetCommentsAndTimelineResponses, IssueGetCommentsAndTimelineErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7965,6 +8228,7 @@ export const issueGetCommentsAndTimeline = <ThrowOnError extends boolean = false
  * Reset a tracked time of an issue
  */
 export const issueResetTime = <ThrowOnError extends boolean = false>(options: Options<IssueResetTimeData, ThrowOnError>) => (options.client ?? client).delete<IssueResetTimeResponses, IssueResetTimeErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -7994,6 +8258,7 @@ export const issueResetTime = <ThrowOnError extends boolean = false>(options: Op
  * List an issue's tracked times
  */
 export const issueTrackedTimes = <ThrowOnError extends boolean = false>(options: Options<IssueTrackedTimesData, ThrowOnError>) => (options.client ?? client).get<IssueTrackedTimesResponses, IssueTrackedTimesErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8023,6 +8288,7 @@ export const issueTrackedTimes = <ThrowOnError extends boolean = false>(options:
  * Add tracked time to a issue
  */
 export const issueAddTime = <ThrowOnError extends boolean = false>(options: Options<IssueAddTimeData, ThrowOnError>) => (options.client ?? client).post<IssueAddTimeResponses, IssueAddTimeErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8056,6 +8322,7 @@ export const issueAddTime = <ThrowOnError extends boolean = false>(options: Opti
  * Delete specific tracked time
  */
 export const issueDeleteTime = <ThrowOnError extends boolean = false>(options: Options<IssueDeleteTimeData, ThrowOnError>) => (options.client ?? client).delete<IssueDeleteTimeResponses, IssueDeleteTimeErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8085,6 +8352,7 @@ export const issueDeleteTime = <ThrowOnError extends boolean = false>(options: O
  * List a repository's keys
  */
 export const repoListKeys = <ThrowOnError extends boolean = false>(options: Options<RepoListKeysData, ThrowOnError>) => (options.client ?? client).get<RepoListKeysResponses, RepoListKeysErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8114,6 +8382,7 @@ export const repoListKeys = <ThrowOnError extends boolean = false>(options: Opti
  * Add a key to a repository
  */
 export const repoCreateKey = <ThrowOnError extends boolean = false>(options: Options<RepoCreateKeyData, ThrowOnError>) => (options.client ?? client).post<RepoCreateKeyResponses, RepoCreateKeyErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8147,6 +8416,7 @@ export const repoCreateKey = <ThrowOnError extends boolean = false>(options: Opt
  * Delete a key from a repository
  */
 export const repoDeleteKey = <ThrowOnError extends boolean = false>(options: Options<RepoDeleteKeyData, ThrowOnError>) => (options.client ?? client).delete<RepoDeleteKeyResponses, RepoDeleteKeyErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8176,6 +8446,7 @@ export const repoDeleteKey = <ThrowOnError extends boolean = false>(options: Opt
  * Get a repository's key by id
  */
 export const repoGetKey = <ThrowOnError extends boolean = false>(options: Options<RepoGetKeyData, ThrowOnError>) => (options.client ?? client).get<RepoGetKeyResponses, RepoGetKeyErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8205,6 +8476,7 @@ export const repoGetKey = <ThrowOnError extends boolean = false>(options: Option
  * Get all of a repository's labels
  */
 export const issueListLabels = <ThrowOnError extends boolean = false>(options: Options<IssueListLabelsData, ThrowOnError>) => (options.client ?? client).get<IssueListLabelsResponses, IssueListLabelsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8234,6 +8506,7 @@ export const issueListLabels = <ThrowOnError extends boolean = false>(options: O
  * Create a label
  */
 export const issueCreateLabel = <ThrowOnError extends boolean = false>(options: Options<IssueCreateLabelData, ThrowOnError>) => (options.client ?? client).post<IssueCreateLabelResponses, IssueCreateLabelErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8267,6 +8540,7 @@ export const issueCreateLabel = <ThrowOnError extends boolean = false>(options: 
  * Delete a label
  */
 export const issueDeleteLabel = <ThrowOnError extends boolean = false>(options: Options<IssueDeleteLabelData, ThrowOnError>) => (options.client ?? client).delete<IssueDeleteLabelResponses, IssueDeleteLabelErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8296,6 +8570,7 @@ export const issueDeleteLabel = <ThrowOnError extends boolean = false>(options: 
  * Get a single label
  */
 export const issueGetLabel = <ThrowOnError extends boolean = false>(options: Options<IssueGetLabelData, ThrowOnError>) => (options.client ?? client).get<IssueGetLabelResponses, IssueGetLabelErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8325,6 +8600,7 @@ export const issueGetLabel = <ThrowOnError extends boolean = false>(options: Opt
  * Update a label
  */
 export const issueEditLabel = <ThrowOnError extends boolean = false>(options: Options<IssueEditLabelData, ThrowOnError>) => (options.client ?? client).patch<IssueEditLabelResponses, IssueEditLabelErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8358,6 +8634,7 @@ export const issueEditLabel = <ThrowOnError extends boolean = false>(options: Op
  * Get languages and number of bytes of code written
  */
 export const repoGetLanguages = <ThrowOnError extends boolean = false>(options: Options<RepoGetLanguagesData, ThrowOnError>) => (options.client ?? client).get<RepoGetLanguagesResponses, RepoGetLanguagesErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8387,6 +8664,7 @@ export const repoGetLanguages = <ThrowOnError extends boolean = false>(options: 
  * Get a file or it's LFS object from a repository
  */
 export const repoGetRawFileOrLfs = <ThrowOnError extends boolean = false>(options: Options<RepoGetRawFileOrLfsData, ThrowOnError>) => (options.client ?? client).get<RepoGetRawFileOrLfsResponses, RepoGetRawFileOrLfsErrors, ThrowOnError>({
+    responseType: 'blob',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8416,6 +8694,7 @@ export const repoGetRawFileOrLfs = <ThrowOnError extends boolean = false>(option
  * Get all of a repository's opened milestones
  */
 export const issueGetMilestonesList = <ThrowOnError extends boolean = false>(options: Options<IssueGetMilestonesListData, ThrowOnError>) => (options.client ?? client).get<IssueGetMilestonesListResponses, IssueGetMilestonesListErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8445,6 +8724,7 @@ export const issueGetMilestonesList = <ThrowOnError extends boolean = false>(opt
  * Create a milestone
  */
 export const issueCreateMilestone = <ThrowOnError extends boolean = false>(options: Options<IssueCreateMilestoneData, ThrowOnError>) => (options.client ?? client).post<IssueCreateMilestoneResponses, IssueCreateMilestoneErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8478,6 +8758,7 @@ export const issueCreateMilestone = <ThrowOnError extends boolean = false>(optio
  * Delete a milestone
  */
 export const issueDeleteMilestone = <ThrowOnError extends boolean = false>(options: Options<IssueDeleteMilestoneData, ThrowOnError>) => (options.client ?? client).delete<IssueDeleteMilestoneResponses, IssueDeleteMilestoneErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8507,6 +8788,7 @@ export const issueDeleteMilestone = <ThrowOnError extends boolean = false>(optio
  * Get a milestone
  */
 export const issueGetMilestone = <ThrowOnError extends boolean = false>(options: Options<IssueGetMilestoneData, ThrowOnError>) => (options.client ?? client).get<IssueGetMilestoneResponses, IssueGetMilestoneErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8536,6 +8818,7 @@ export const issueGetMilestone = <ThrowOnError extends boolean = false>(options:
  * Update a milestone
  */
 export const issueEditMilestone = <ThrowOnError extends boolean = false>(options: Options<IssueEditMilestoneData, ThrowOnError>) => (options.client ?? client).patch<IssueEditMilestoneResponses, IssueEditMilestoneErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8569,6 +8852,7 @@ export const issueEditMilestone = <ThrowOnError extends boolean = false>(options
  * Sync a mirrored repository
  */
 export const repoMirrorSync = <ThrowOnError extends boolean = false>(options: Options<RepoMirrorSyncData, ThrowOnError>) => (options.client ?? client).post<RepoMirrorSyncResponses, RepoMirrorSyncErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8598,6 +8882,7 @@ export const repoMirrorSync = <ThrowOnError extends boolean = false>(options: Op
  * Returns if new Issue Pins are allowed
  */
 export const repoNewPinAllowed = <ThrowOnError extends boolean = false>(options: Options<RepoNewPinAllowedData, ThrowOnError>) => (options.client ?? client).get<RepoNewPinAllowedResponses, RepoNewPinAllowedErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8627,6 +8912,7 @@ export const repoNewPinAllowed = <ThrowOnError extends boolean = false>(options:
  * List users's notification threads on a specific repo
  */
 export const notifyGetRepoList = <ThrowOnError extends boolean = false>(options: Options<NotifyGetRepoListData, ThrowOnError>) => (options.client ?? client).get<NotifyGetRepoListResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8656,6 +8942,7 @@ export const notifyGetRepoList = <ThrowOnError extends boolean = false>(options:
  * Mark notification threads as read, pinned or unread on a specific repo
  */
 export const notifyReadRepoList = <ThrowOnError extends boolean = false>(options: Options<NotifyReadRepoListData, ThrowOnError>) => (options.client ?? client).put<NotifyReadRepoListResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8685,6 +8972,7 @@ export const notifyReadRepoList = <ThrowOnError extends boolean = false>(options
  * List a repo's pull requests. If a pull request is selected but fails to be retrieved for any reason, it will be a null value in the list of results.
  */
 export const repoListPullRequests = <ThrowOnError extends boolean = false>(options: Options<RepoListPullRequestsData, ThrowOnError>) => (options.client ?? client).get<RepoListPullRequestsResponses, RepoListPullRequestsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8714,6 +9002,7 @@ export const repoListPullRequests = <ThrowOnError extends boolean = false>(optio
  * Create a pull request
  */
 export const repoCreatePullRequest = <ThrowOnError extends boolean = false>(options: Options<RepoCreatePullRequestData, ThrowOnError>) => (options.client ?? client).post<RepoCreatePullRequestResponses, RepoCreatePullRequestErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8747,6 +9036,7 @@ export const repoCreatePullRequest = <ThrowOnError extends boolean = false>(opti
  * List a repo's pinned pull requests
  */
 export const repoListPinnedPullRequests = <ThrowOnError extends boolean = false>(options: Options<RepoListPinnedPullRequestsData, ThrowOnError>) => (options.client ?? client).get<RepoListPinnedPullRequestsResponses, RepoListPinnedPullRequestsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8776,6 +9066,7 @@ export const repoListPinnedPullRequests = <ThrowOnError extends boolean = false>
  * Get a pull request by base and head
  */
 export const repoGetPullRequestByBaseHead = <ThrowOnError extends boolean = false>(options: Options<RepoGetPullRequestByBaseHeadData, ThrowOnError>) => (options.client ?? client).get<RepoGetPullRequestByBaseHeadResponses, RepoGetPullRequestByBaseHeadErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8805,6 +9096,7 @@ export const repoGetPullRequestByBaseHead = <ThrowOnError extends boolean = fals
  * Get a pull request
  */
 export const repoGetPullRequest = <ThrowOnError extends boolean = false>(options: Options<RepoGetPullRequestData, ThrowOnError>) => (options.client ?? client).get<RepoGetPullRequestResponses, RepoGetPullRequestErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8834,6 +9126,7 @@ export const repoGetPullRequest = <ThrowOnError extends boolean = false>(options
  * Update a pull request. If using deadline only the date will be taken into account, and time of day ignored.
  */
 export const repoEditPullRequest = <ThrowOnError extends boolean = false>(options: Options<RepoEditPullRequestData, ThrowOnError>) => (options.client ?? client).patch<RepoEditPullRequestResponses, RepoEditPullRequestErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8867,6 +9160,7 @@ export const repoEditPullRequest = <ThrowOnError extends boolean = false>(option
  * Get a pull request diff or patch
  */
 export const repoDownloadPullDiffOrPatch = <ThrowOnError extends boolean = false>(options: Options<RepoDownloadPullDiffOrPatchData, ThrowOnError>) => (options.client ?? client).get<RepoDownloadPullDiffOrPatchResponses, RepoDownloadPullDiffOrPatchErrors, ThrowOnError>({
+    responseType: 'text',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8896,6 +9190,7 @@ export const repoDownloadPullDiffOrPatch = <ThrowOnError extends boolean = false
  * Get commits for a pull request
  */
 export const repoGetPullRequestCommits = <ThrowOnError extends boolean = false>(options: Options<RepoGetPullRequestCommitsData, ThrowOnError>) => (options.client ?? client).get<RepoGetPullRequestCommitsResponses, RepoGetPullRequestCommitsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8925,6 +9220,7 @@ export const repoGetPullRequestCommits = <ThrowOnError extends boolean = false>(
  * Get changed files for a pull request
  */
 export const repoGetPullRequestFiles = <ThrowOnError extends boolean = false>(options: Options<RepoGetPullRequestFilesData, ThrowOnError>) => (options.client ?? client).get<RepoGetPullRequestFilesResponses, RepoGetPullRequestFilesErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8954,6 +9250,7 @@ export const repoGetPullRequestFiles = <ThrowOnError extends boolean = false>(op
  * Cancel the scheduled auto merge for the given pull request
  */
 export const repoCancelScheduledAutoMerge = <ThrowOnError extends boolean = false>(options: Options<RepoCancelScheduledAutoMergeData, ThrowOnError>) => (options.client ?? client).delete<RepoCancelScheduledAutoMergeResponses, RepoCancelScheduledAutoMergeErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -8983,6 +9280,7 @@ export const repoCancelScheduledAutoMerge = <ThrowOnError extends boolean = fals
  * Check if a pull request has been merged
  */
 export const repoPullRequestIsMerged = <ThrowOnError extends boolean = false>(options: Options<RepoPullRequestIsMergedData, ThrowOnError>) => (options.client ?? client).get<RepoPullRequestIsMergedResponses, RepoPullRequestIsMergedErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9012,6 +9310,7 @@ export const repoPullRequestIsMerged = <ThrowOnError extends boolean = false>(op
  * Merge a pull request
  */
 export const repoMergePullRequest = <ThrowOnError extends boolean = false>(options: Options<RepoMergePullRequestData, ThrowOnError>) => (options.client ?? client).post<RepoMergePullRequestResponses, RepoMergePullRequestErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9045,6 +9344,7 @@ export const repoMergePullRequest = <ThrowOnError extends boolean = false>(optio
  * Cancel review requests for a pull request
  */
 export const repoDeletePullReviewRequests = <ThrowOnError extends boolean = false>(options: Options<RepoDeletePullReviewRequestsData, ThrowOnError>) => (options.client ?? client).delete<RepoDeletePullReviewRequestsResponses, RepoDeletePullReviewRequestsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9078,6 +9378,7 @@ export const repoDeletePullReviewRequests = <ThrowOnError extends boolean = fals
  * Create review requests for a pull request
  */
 export const repoCreatePullReviewRequests = <ThrowOnError extends boolean = false>(options: Options<RepoCreatePullReviewRequestsData, ThrowOnError>) => (options.client ?? client).post<RepoCreatePullReviewRequestsResponses, RepoCreatePullReviewRequestsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9111,6 +9412,7 @@ export const repoCreatePullReviewRequests = <ThrowOnError extends boolean = fals
  * List all reviews for a pull request
  */
 export const repoListPullReviews = <ThrowOnError extends boolean = false>(options: Options<RepoListPullReviewsData, ThrowOnError>) => (options.client ?? client).get<RepoListPullReviewsResponses, RepoListPullReviewsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9140,6 +9442,7 @@ export const repoListPullReviews = <ThrowOnError extends boolean = false>(option
  * Create a review to an pull request
  */
 export const repoCreatePullReview = <ThrowOnError extends boolean = false>(options: Options<RepoCreatePullReviewData, ThrowOnError>) => (options.client ?? client).post<RepoCreatePullReviewResponses, RepoCreatePullReviewErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9173,6 +9476,7 @@ export const repoCreatePullReview = <ThrowOnError extends boolean = false>(optio
  * Delete a specific review from a pull request
  */
 export const repoDeletePullReview = <ThrowOnError extends boolean = false>(options: Options<RepoDeletePullReviewData, ThrowOnError>) => (options.client ?? client).delete<RepoDeletePullReviewResponses, RepoDeletePullReviewErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9202,6 +9506,7 @@ export const repoDeletePullReview = <ThrowOnError extends boolean = false>(optio
  * Get a specific review for a pull request
  */
 export const repoGetPullReview = <ThrowOnError extends boolean = false>(options: Options<RepoGetPullReviewData, ThrowOnError>) => (options.client ?? client).get<RepoGetPullReviewResponses, RepoGetPullReviewErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9231,6 +9536,7 @@ export const repoGetPullReview = <ThrowOnError extends boolean = false>(options:
  * Submit a pending review to an pull request
  */
 export const repoSubmitPullReview = <ThrowOnError extends boolean = false>(options: Options<RepoSubmitPullReviewData, ThrowOnError>) => (options.client ?? client).post<RepoSubmitPullReviewResponses, RepoSubmitPullReviewErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9264,6 +9570,7 @@ export const repoSubmitPullReview = <ThrowOnError extends boolean = false>(optio
  * Get a specific review for a pull request
  */
 export const repoGetPullReviewComments = <ThrowOnError extends boolean = false>(options: Options<RepoGetPullReviewCommentsData, ThrowOnError>) => (options.client ?? client).get<RepoGetPullReviewCommentsResponses, RepoGetPullReviewCommentsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9293,6 +9600,7 @@ export const repoGetPullReviewComments = <ThrowOnError extends boolean = false>(
  * Add a new comment to a pull request review
  */
 export const repoCreatePullReviewComment = <ThrowOnError extends boolean = false>(options: Options<RepoCreatePullReviewCommentData, ThrowOnError>) => (options.client ?? client).post<RepoCreatePullReviewCommentResponses, RepoCreatePullReviewCommentErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9326,6 +9634,7 @@ export const repoCreatePullReviewComment = <ThrowOnError extends boolean = false
  * Delete a pull review comment
  */
 export const repoDeletePullReviewComment = <ThrowOnError extends boolean = false>(options: Options<RepoDeletePullReviewCommentData, ThrowOnError>) => (options.client ?? client).delete<RepoDeletePullReviewCommentResponses, RepoDeletePullReviewCommentErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9355,6 +9664,7 @@ export const repoDeletePullReviewComment = <ThrowOnError extends boolean = false
  * Get a pull review comment
  */
 export const repoGetPullReviewComment = <ThrowOnError extends boolean = false>(options: Options<RepoGetPullReviewCommentData, ThrowOnError>) => (options.client ?? client).get<RepoGetPullReviewCommentResponses, RepoGetPullReviewCommentErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9384,6 +9694,7 @@ export const repoGetPullReviewComment = <ThrowOnError extends boolean = false>(o
  * Dismiss a review for a pull request
  */
 export const repoDismissPullReview = <ThrowOnError extends boolean = false>(options: Options<RepoDismissPullReviewData, ThrowOnError>) => (options.client ?? client).post<RepoDismissPullReviewResponses, RepoDismissPullReviewErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9417,6 +9728,7 @@ export const repoDismissPullReview = <ThrowOnError extends boolean = false>(opti
  * Cancel to dismiss a review for a pull request
  */
 export const repoUnDismissPullReview = <ThrowOnError extends boolean = false>(options: Options<RepoUnDismissPullReviewData, ThrowOnError>) => (options.client ?? client).post<RepoUnDismissPullReviewResponses, RepoUnDismissPullReviewErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9446,6 +9758,7 @@ export const repoUnDismissPullReview = <ThrowOnError extends boolean = false>(op
  * Merge PR's baseBranch into headBranch
  */
 export const repoUpdatePullRequest = <ThrowOnError extends boolean = false>(options: Options<RepoUpdatePullRequestData, ThrowOnError>) => (options.client ?? client).post<RepoUpdatePullRequestResponses, RepoUpdatePullRequestErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9475,6 +9788,7 @@ export const repoUpdatePullRequest = <ThrowOnError extends boolean = false>(opti
  * Get all push mirrors of the repository
  */
 export const repoListPushMirrors = <ThrowOnError extends boolean = false>(options: Options<RepoListPushMirrorsData, ThrowOnError>) => (options.client ?? client).get<RepoListPushMirrorsResponses, RepoListPushMirrorsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9504,6 +9818,7 @@ export const repoListPushMirrors = <ThrowOnError extends boolean = false>(option
  * Set up a new push mirror in a repository
  */
 export const repoAddPushMirror = <ThrowOnError extends boolean = false>(options: Options<RepoAddPushMirrorData, ThrowOnError>) => (options.client ?? client).post<RepoAddPushMirrorResponses, RepoAddPushMirrorErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9537,6 +9852,7 @@ export const repoAddPushMirror = <ThrowOnError extends boolean = false>(options:
  * Sync all push mirrored repository
  */
 export const repoPushMirrorSync = <ThrowOnError extends boolean = false>(options: Options<RepoPushMirrorSyncData, ThrowOnError>) => (options.client ?? client).post<RepoPushMirrorSyncResponses, RepoPushMirrorSyncErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9566,6 +9882,7 @@ export const repoPushMirrorSync = <ThrowOnError extends boolean = false>(options
  * Remove a push mirror from a repository by remoteName
  */
 export const repoDeletePushMirror = <ThrowOnError extends boolean = false>(options: Options<RepoDeletePushMirrorData, ThrowOnError>) => (options.client ?? client).delete<RepoDeletePushMirrorResponses, RepoDeletePushMirrorErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9595,6 +9912,7 @@ export const repoDeletePushMirror = <ThrowOnError extends boolean = false>(optio
  * Get push mirror of the repository by remoteName
  */
 export const repoGetPushMirrorByRemoteName = <ThrowOnError extends boolean = false>(options: Options<RepoGetPushMirrorByRemoteNameData, ThrowOnError>) => (options.client ?? client).get<RepoGetPushMirrorByRemoteNameResponses, RepoGetPushMirrorByRemoteNameErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9624,6 +9942,7 @@ export const repoGetPushMirrorByRemoteName = <ThrowOnError extends boolean = fal
  * Get a file from a repository
  */
 export const repoGetRawFile = <ThrowOnError extends boolean = false>(options: Options<RepoGetRawFileData, ThrowOnError>) => (options.client ?? client).get<RepoGetRawFileResponses, RepoGetRawFileErrors, ThrowOnError>({
+    responseType: 'blob',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9653,6 +9972,7 @@ export const repoGetRawFile = <ThrowOnError extends boolean = false>(options: Op
  * List a repo's releases
  */
 export const repoListReleases = <ThrowOnError extends boolean = false>(options: Options<RepoListReleasesData, ThrowOnError>) => (options.client ?? client).get<RepoListReleasesResponses, RepoListReleasesErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9682,6 +10002,7 @@ export const repoListReleases = <ThrowOnError extends boolean = false>(options: 
  * Create a release
  */
 export const repoCreateRelease = <ThrowOnError extends boolean = false>(options: Options<RepoCreateReleaseData, ThrowOnError>) => (options.client ?? client).post<RepoCreateReleaseResponses, RepoCreateReleaseErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9715,6 +10036,7 @@ export const repoCreateRelease = <ThrowOnError extends boolean = false>(options:
  * Gets the most recent non-prerelease, non-draft release of a repository, sorted by created_at
  */
 export const repoGetLatestRelease = <ThrowOnError extends boolean = false>(options: Options<RepoGetLatestReleaseData, ThrowOnError>) => (options.client ?? client).get<RepoGetLatestReleaseResponses, RepoGetLatestReleaseErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9744,6 +10066,7 @@ export const repoGetLatestRelease = <ThrowOnError extends boolean = false>(optio
  * Delete a release by tag name
  */
 export const repoDeleteReleaseByTag = <ThrowOnError extends boolean = false>(options: Options<RepoDeleteReleaseByTagData, ThrowOnError>) => (options.client ?? client).delete<RepoDeleteReleaseByTagResponses, RepoDeleteReleaseByTagErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9773,6 +10096,7 @@ export const repoDeleteReleaseByTag = <ThrowOnError extends boolean = false>(opt
  * Get a release by tag name
  */
 export const repoGetReleaseByTag = <ThrowOnError extends boolean = false>(options: Options<RepoGetReleaseByTagData, ThrowOnError>) => (options.client ?? client).get<RepoGetReleaseByTagResponses, RepoGetReleaseByTagErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9802,6 +10126,7 @@ export const repoGetReleaseByTag = <ThrowOnError extends boolean = false>(option
  * Delete a release
  */
 export const repoDeleteRelease = <ThrowOnError extends boolean = false>(options: Options<RepoDeleteReleaseData, ThrowOnError>) => (options.client ?? client).delete<RepoDeleteReleaseResponses, RepoDeleteReleaseErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9831,6 +10156,7 @@ export const repoDeleteRelease = <ThrowOnError extends boolean = false>(options:
  * Get a release
  */
 export const repoGetRelease = <ThrowOnError extends boolean = false>(options: Options<RepoGetReleaseData, ThrowOnError>) => (options.client ?? client).get<RepoGetReleaseResponses, RepoGetReleaseErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9860,6 +10186,7 @@ export const repoGetRelease = <ThrowOnError extends boolean = false>(options: Op
  * Update a release
  */
 export const repoEditRelease = <ThrowOnError extends boolean = false>(options: Options<RepoEditReleaseData, ThrowOnError>) => (options.client ?? client).patch<RepoEditReleaseResponses, RepoEditReleaseErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9893,6 +10220,7 @@ export const repoEditRelease = <ThrowOnError extends boolean = false>(options: O
  * List release's attachments
  */
 export const repoListReleaseAttachments = <ThrowOnError extends boolean = false>(options: Options<RepoListReleaseAttachmentsData, ThrowOnError>) => (options.client ?? client).get<RepoListReleaseAttachmentsResponses, RepoListReleaseAttachmentsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9923,6 +10251,7 @@ export const repoListReleaseAttachments = <ThrowOnError extends boolean = false>
  */
 export const repoCreateReleaseAttachment = <ThrowOnError extends boolean = false>(options: Options<RepoCreateReleaseAttachmentData, ThrowOnError>) => (options.client ?? client).post<RepoCreateReleaseAttachmentResponses, RepoCreateReleaseAttachmentErrors, ThrowOnError>({
     ...formDataBodySerializer,
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9956,6 +10285,7 @@ export const repoCreateReleaseAttachment = <ThrowOnError extends boolean = false
  * Delete a release attachment
  */
 export const repoDeleteReleaseAttachment = <ThrowOnError extends boolean = false>(options: Options<RepoDeleteReleaseAttachmentData, ThrowOnError>) => (options.client ?? client).delete<RepoDeleteReleaseAttachmentResponses, RepoDeleteReleaseAttachmentErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -9985,6 +10315,7 @@ export const repoDeleteReleaseAttachment = <ThrowOnError extends boolean = false
  * Get a release attachment
  */
 export const repoGetReleaseAttachment = <ThrowOnError extends boolean = false>(options: Options<RepoGetReleaseAttachmentData, ThrowOnError>) => (options.client ?? client).get<RepoGetReleaseAttachmentResponses, RepoGetReleaseAttachmentErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10014,6 +10345,7 @@ export const repoGetReleaseAttachment = <ThrowOnError extends boolean = false>(o
  * Edit a release attachment
  */
 export const repoEditReleaseAttachment = <ThrowOnError extends boolean = false>(options: Options<RepoEditReleaseAttachmentData, ThrowOnError>) => (options.client ?? client).patch<RepoEditReleaseAttachmentResponses, RepoEditReleaseAttachmentErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10047,6 +10379,7 @@ export const repoEditReleaseAttachment = <ThrowOnError extends boolean = false>(
  * Return all users that can be requested to review in this repo
  */
 export const repoGetReviewers = <ThrowOnError extends boolean = false>(options: Options<RepoGetReviewersData, ThrowOnError>) => (options.client ?? client).get<RepoGetReviewersResponses, RepoGetReviewersErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10076,6 +10409,7 @@ export const repoGetReviewers = <ThrowOnError extends boolean = false>(options: 
  * Get signing-key.gpg for given repository
  */
 export const repoSigningKey = <ThrowOnError extends boolean = false>(options: Options<RepoSigningKeyData, ThrowOnError>) => (options.client ?? client).get<RepoSigningKeyResponses, unknown, ThrowOnError>({
+    responseType: 'text',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10105,6 +10439,7 @@ export const repoSigningKey = <ThrowOnError extends boolean = false>(options: Op
  * List a repo's stargazers
  */
 export const repoListStargazers = <ThrowOnError extends boolean = false>(options: Options<RepoListStargazersData, ThrowOnError>) => (options.client ?? client).get<RepoListStargazersResponses, RepoListStargazersErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10134,6 +10469,7 @@ export const repoListStargazers = <ThrowOnError extends boolean = false>(options
  * Get a commit's statuses
  */
 export const repoListStatuses = <ThrowOnError extends boolean = false>(options: Options<RepoListStatusesData, ThrowOnError>) => (options.client ?? client).get<RepoListStatusesResponses, RepoListStatusesErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10163,6 +10499,7 @@ export const repoListStatuses = <ThrowOnError extends boolean = false>(options: 
  * Create a commit status
  */
 export const repoCreateStatus = <ThrowOnError extends boolean = false>(options: Options<RepoCreateStatusData, ThrowOnError>) => (options.client ?? client).post<RepoCreateStatusResponses, RepoCreateStatusErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10196,6 +10533,7 @@ export const repoCreateStatus = <ThrowOnError extends boolean = false>(options: 
  * List a repo's watchers
  */
 export const repoListSubscribers = <ThrowOnError extends boolean = false>(options: Options<RepoListSubscribersData, ThrowOnError>) => (options.client ?? client).get<RepoListSubscribersResponses, RepoListSubscribersErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10225,6 +10563,7 @@ export const repoListSubscribers = <ThrowOnError extends boolean = false>(option
  * Unwatch a repo
  */
 export const userCurrentDeleteSubscription = <ThrowOnError extends boolean = false>(options: Options<UserCurrentDeleteSubscriptionData, ThrowOnError>) => (options.client ?? client).delete<UserCurrentDeleteSubscriptionResponses, UserCurrentDeleteSubscriptionErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10254,6 +10593,7 @@ export const userCurrentDeleteSubscription = <ThrowOnError extends boolean = fal
  * Check if the current user is watching a repo
  */
 export const userCurrentCheckSubscription = <ThrowOnError extends boolean = false>(options: Options<UserCurrentCheckSubscriptionData, ThrowOnError>) => (options.client ?? client).get<UserCurrentCheckSubscriptionResponses, UserCurrentCheckSubscriptionErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10283,6 +10623,7 @@ export const userCurrentCheckSubscription = <ThrowOnError extends boolean = fals
  * Watch a repo
  */
 export const userCurrentPutSubscription = <ThrowOnError extends boolean = false>(options: Options<UserCurrentPutSubscriptionData, ThrowOnError>) => (options.client ?? client).put<UserCurrentPutSubscriptionResponses, UserCurrentPutSubscriptionErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10312,6 +10653,7 @@ export const userCurrentPutSubscription = <ThrowOnError extends boolean = false>
  * Gets information about syncing the fork default branch with the base branch
  */
 export const repoSyncForkDefaultInfo = <ThrowOnError extends boolean = false>(options: Options<RepoSyncForkDefaultInfoData, ThrowOnError>) => (options.client ?? client).get<RepoSyncForkDefaultInfoResponses, RepoSyncForkDefaultInfoErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10341,6 +10683,7 @@ export const repoSyncForkDefaultInfo = <ThrowOnError extends boolean = false>(op
  * Syncs the default branch of a fork with the base branch
  */
 export const repoSyncForkDefault = <ThrowOnError extends boolean = false>(options: Options<RepoSyncForkDefaultData, ThrowOnError>) => (options.client ?? client).post<RepoSyncForkDefaultResponses, RepoSyncForkDefaultErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10370,6 +10713,7 @@ export const repoSyncForkDefault = <ThrowOnError extends boolean = false>(option
  * Gets information about syncing a fork branch with the base branch
  */
 export const repoSyncForkBranchInfo = <ThrowOnError extends boolean = false>(options: Options<RepoSyncForkBranchInfoData, ThrowOnError>) => (options.client ?? client).get<RepoSyncForkBranchInfoResponses, RepoSyncForkBranchInfoErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10399,6 +10743,7 @@ export const repoSyncForkBranchInfo = <ThrowOnError extends boolean = false>(opt
  * Syncs a fork branch with the base branch
  */
 export const repoSyncForkBranch = <ThrowOnError extends boolean = false>(options: Options<RepoSyncForkBranchData, ThrowOnError>) => (options.client ?? client).post<RepoSyncForkBranchResponses, RepoSyncForkBranchErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10428,6 +10773,7 @@ export const repoSyncForkBranch = <ThrowOnError extends boolean = false>(options
  * List tag protections for a repository
  */
 export const repoListTagProtection = <ThrowOnError extends boolean = false>(options: Options<RepoListTagProtectionData, ThrowOnError>) => (options.client ?? client).get<RepoListTagProtectionResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10457,6 +10803,7 @@ export const repoListTagProtection = <ThrowOnError extends boolean = false>(opti
  * Create a tag protections for a repository
  */
 export const repoCreateTagProtection = <ThrowOnError extends boolean = false>(options: Options<RepoCreateTagProtectionData, ThrowOnError>) => (options.client ?? client).post<RepoCreateTagProtectionResponses, RepoCreateTagProtectionErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10490,6 +10837,7 @@ export const repoCreateTagProtection = <ThrowOnError extends boolean = false>(op
  * Delete a specific tag protection for the repository
  */
 export const repoDeleteTagProtection = <ThrowOnError extends boolean = false>(options: Options<RepoDeleteTagProtectionData, ThrowOnError>) => (options.client ?? client).delete<RepoDeleteTagProtectionResponses, RepoDeleteTagProtectionErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10519,6 +10867,7 @@ export const repoDeleteTagProtection = <ThrowOnError extends boolean = false>(op
  * Get a specific tag protection for the repository
  */
 export const repoGetTagProtection = <ThrowOnError extends boolean = false>(options: Options<RepoGetTagProtectionData, ThrowOnError>) => (options.client ?? client).get<RepoGetTagProtectionResponses, RepoGetTagProtectionErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10548,6 +10897,7 @@ export const repoGetTagProtection = <ThrowOnError extends boolean = false>(optio
  * Edit a tag protections for a repository. Only fields that are set will be changed
  */
 export const repoEditTagProtection = <ThrowOnError extends boolean = false>(options: Options<RepoEditTagProtectionData, ThrowOnError>) => (options.client ?? client).patch<RepoEditTagProtectionResponses, RepoEditTagProtectionErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10581,6 +10931,7 @@ export const repoEditTagProtection = <ThrowOnError extends boolean = false>(opti
  * List a repository's tags
  */
 export const repoListTags = <ThrowOnError extends boolean = false>(options: Options<RepoListTagsData, ThrowOnError>) => (options.client ?? client).get<RepoListTagsResponses, RepoListTagsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10610,6 +10961,7 @@ export const repoListTags = <ThrowOnError extends boolean = false>(options: Opti
  * Create a new git tag in a repository
  */
 export const repoCreateTag = <ThrowOnError extends boolean = false>(options: Options<RepoCreateTagData, ThrowOnError>) => (options.client ?? client).post<RepoCreateTagResponses, RepoCreateTagErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10643,6 +10995,7 @@ export const repoCreateTag = <ThrowOnError extends boolean = false>(options: Opt
  * Delete a repository's tag by name
  */
 export const repoDeleteTag = <ThrowOnError extends boolean = false>(options: Options<RepoDeleteTagData, ThrowOnError>) => (options.client ?? client).delete<RepoDeleteTagResponses, RepoDeleteTagErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10672,6 +11025,7 @@ export const repoDeleteTag = <ThrowOnError extends boolean = false>(options: Opt
  * Get the tag of a repository by tag name
  */
 export const repoGetTag = <ThrowOnError extends boolean = false>(options: Options<RepoGetTagData, ThrowOnError>) => (options.client ?? client).get<RepoGetTagResponses, RepoGetTagErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10701,6 +11055,7 @@ export const repoGetTag = <ThrowOnError extends boolean = false>(options: Option
  * List a repository's teams
  */
 export const repoListTeams = <ThrowOnError extends boolean = false>(options: Options<RepoListTeamsData, ThrowOnError>) => (options.client ?? client).get<RepoListTeamsResponses, RepoListTeamsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10730,6 +11085,7 @@ export const repoListTeams = <ThrowOnError extends boolean = false>(options: Opt
  * Delete a team from a repository
  */
 export const repoDeleteTeam = <ThrowOnError extends boolean = false>(options: Options<RepoDeleteTeamData, ThrowOnError>) => (options.client ?? client).delete<RepoDeleteTeamResponses, RepoDeleteTeamErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10759,6 +11115,7 @@ export const repoDeleteTeam = <ThrowOnError extends boolean = false>(options: Op
  * Check if a team is assigned to a repository
  */
 export const repoCheckTeam = <ThrowOnError extends boolean = false>(options: Options<RepoCheckTeamData, ThrowOnError>) => (options.client ?? client).get<RepoCheckTeamResponses, RepoCheckTeamErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10788,6 +11145,7 @@ export const repoCheckTeam = <ThrowOnError extends boolean = false>(options: Opt
  * Add a team to a repository
  */
 export const repoAddTeam = <ThrowOnError extends boolean = false>(options: Options<RepoAddTeamData, ThrowOnError>) => (options.client ?? client).put<RepoAddTeamResponses, RepoAddTeamErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10817,6 +11175,7 @@ export const repoAddTeam = <ThrowOnError extends boolean = false>(options: Optio
  * List a repo's tracked times
  */
 export const repoTrackedTimes = <ThrowOnError extends boolean = false>(options: Options<RepoTrackedTimesData, ThrowOnError>) => (options.client ?? client).get<RepoTrackedTimesResponses, RepoTrackedTimesErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10848,6 +11207,7 @@ export const repoTrackedTimes = <ThrowOnError extends boolean = false>(options: 
  * @deprecated
  */
 export const userTrackedTimes = <ThrowOnError extends boolean = false>(options: Options<UserTrackedTimesData, ThrowOnError>) => (options.client ?? client).get<UserTrackedTimesResponses, UserTrackedTimesErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10877,6 +11237,7 @@ export const userTrackedTimes = <ThrowOnError extends boolean = false>(options: 
  * Get list of topics that a repository has
  */
 export const repoListTopics = <ThrowOnError extends boolean = false>(options: Options<RepoListTopicsData, ThrowOnError>) => (options.client ?? client).get<RepoListTopicsResponses, RepoListTopicsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10906,6 +11267,7 @@ export const repoListTopics = <ThrowOnError extends boolean = false>(options: Op
  * Replace list of topics for a repository
  */
 export const repoUpdateTopics = <ThrowOnError extends boolean = false>(options: Options<RepoUpdateTopicsData, ThrowOnError>) => (options.client ?? client).put<RepoUpdateTopicsResponses, RepoUpdateTopicsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10939,6 +11301,7 @@ export const repoUpdateTopics = <ThrowOnError extends boolean = false>(options: 
  * Delete a topic from a repository
  */
 export const repoDeleteTopic = <ThrowOnError extends boolean = false>(options: Options<RepoDeleteTopicData, ThrowOnError>) => (options.client ?? client).delete<RepoDeleteTopicResponses, RepoDeleteTopicErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10968,6 +11331,7 @@ export const repoDeleteTopic = <ThrowOnError extends boolean = false>(options: O
  * Add a topic to a repository
  */
 export const repoAddTopic = <ThrowOnError extends boolean = false>(options: Options<RepoAddTopicData, ThrowOnError>) => (options.client ?? client).put<RepoAddTopicResponses, RepoAddTopicErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -10997,6 +11361,7 @@ export const repoAddTopic = <ThrowOnError extends boolean = false>(options: Opti
  * Transfer a repo ownership
  */
 export const repoTransfer = <ThrowOnError extends boolean = false>(options: Options<RepoTransferData, ThrowOnError>) => (options.client ?? client).post<RepoTransferResponses, RepoTransferErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11030,6 +11395,7 @@ export const repoTransfer = <ThrowOnError extends boolean = false>(options: Opti
  * Accept a repo transfer
  */
 export const acceptRepoTransfer = <ThrowOnError extends boolean = false>(options: Options<AcceptRepoTransferData, ThrowOnError>) => (options.client ?? client).post<AcceptRepoTransferResponses, AcceptRepoTransferErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11059,6 +11425,7 @@ export const acceptRepoTransfer = <ThrowOnError extends boolean = false>(options
  * Reject a repo transfer
  */
 export const rejectRepoTransfer = <ThrowOnError extends boolean = false>(options: Options<RejectRepoTransferData, ThrowOnError>) => (options.client ?? client).post<RejectRepoTransferResponses, RejectRepoTransferErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11088,6 +11455,7 @@ export const rejectRepoTransfer = <ThrowOnError extends boolean = false>(options
  * Create a wiki page
  */
 export const repoCreateWikiPage = <ThrowOnError extends boolean = false>(options: Options<RepoCreateWikiPageData, ThrowOnError>) => (options.client ?? client).post<RepoCreateWikiPageResponses, RepoCreateWikiPageErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11121,6 +11489,7 @@ export const repoCreateWikiPage = <ThrowOnError extends boolean = false>(options
  * Delete a wiki page
  */
 export const repoDeleteWikiPage = <ThrowOnError extends boolean = false>(options: Options<RepoDeleteWikiPageData, ThrowOnError>) => (options.client ?? client).delete<RepoDeleteWikiPageResponses, RepoDeleteWikiPageErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11150,6 +11519,7 @@ export const repoDeleteWikiPage = <ThrowOnError extends boolean = false>(options
  * Get a wiki page
  */
 export const repoGetWikiPage = <ThrowOnError extends boolean = false>(options: Options<RepoGetWikiPageData, ThrowOnError>) => (options.client ?? client).get<RepoGetWikiPageResponses, RepoGetWikiPageErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11179,6 +11549,7 @@ export const repoGetWikiPage = <ThrowOnError extends boolean = false>(options: O
  * Edit a wiki page
  */
 export const repoEditWikiPage = <ThrowOnError extends boolean = false>(options: Options<RepoEditWikiPageData, ThrowOnError>) => (options.client ?? client).patch<RepoEditWikiPageResponses, RepoEditWikiPageErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11212,6 +11583,7 @@ export const repoEditWikiPage = <ThrowOnError extends boolean = false>(options: 
  * Get all wiki pages
  */
 export const repoGetWikiPages = <ThrowOnError extends boolean = false>(options: Options<RepoGetWikiPagesData, ThrowOnError>) => (options.client ?? client).get<RepoGetWikiPagesResponses, RepoGetWikiPagesErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11241,6 +11613,7 @@ export const repoGetWikiPages = <ThrowOnError extends boolean = false>(options: 
  * Get revisions of a wiki page
  */
 export const repoGetWikiPageRevisions = <ThrowOnError extends boolean = false>(options: Options<RepoGetWikiPageRevisionsData, ThrowOnError>) => (options.client ?? client).get<RepoGetWikiPageRevisionsResponses, RepoGetWikiPageRevisionsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11270,6 +11643,7 @@ export const repoGetWikiPageRevisions = <ThrowOnError extends boolean = false>(o
  * Create a repository using a template
  */
 export const generateRepo = <ThrowOnError extends boolean = false>(options: Options<GenerateRepoData, ThrowOnError>) => (options.client ?? client).post<GenerateRepoResponses, GenerateRepoErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11303,6 +11677,7 @@ export const generateRepo = <ThrowOnError extends boolean = false>(options: Opti
  * Get a repository by id
  */
 export const repoGetById = <ThrowOnError extends boolean = false>(options: Options<RepoGetByIdData, ThrowOnError>) => (options.client ?? client).get<RepoGetByIdResponses, RepoGetByIdErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11332,6 +11707,7 @@ export const repoGetById = <ThrowOnError extends boolean = false>(options: Optio
  * Get instance's global settings for api
  */
 export const getGeneralApiSettings = <ThrowOnError extends boolean = false>(options?: Options<GetGeneralApiSettingsData, ThrowOnError>) => (options?.client ?? client).get<GetGeneralApiSettingsResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11361,6 +11737,7 @@ export const getGeneralApiSettings = <ThrowOnError extends boolean = false>(opti
  * Get instance's global settings for Attachment
  */
 export const getGeneralAttachmentSettings = <ThrowOnError extends boolean = false>(options?: Options<GetGeneralAttachmentSettingsData, ThrowOnError>) => (options?.client ?? client).get<GetGeneralAttachmentSettingsResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11390,6 +11767,7 @@ export const getGeneralAttachmentSettings = <ThrowOnError extends boolean = fals
  * Get instance's global settings for repositories
  */
 export const getGeneralRepositorySettings = <ThrowOnError extends boolean = false>(options?: Options<GetGeneralRepositorySettingsData, ThrowOnError>) => (options?.client ?? client).get<GetGeneralRepositorySettingsResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11419,6 +11797,7 @@ export const getGeneralRepositorySettings = <ThrowOnError extends boolean = fals
  * Get instance's global settings for ui
  */
 export const getGeneralUiSettings = <ThrowOnError extends boolean = false>(options?: Options<GetGeneralUiSettingsData, ThrowOnError>) => (options?.client ?? client).get<GetGeneralUiSettingsResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11448,6 +11827,7 @@ export const getGeneralUiSettings = <ThrowOnError extends boolean = false>(optio
  * Get default signing-key.gpg
  */
 export const getSigningKey = <ThrowOnError extends boolean = false>(options?: Options<GetSigningKeyData, ThrowOnError>) => (options?.client ?? client).get<GetSigningKeyResponses, unknown, ThrowOnError>({
+    responseType: 'text',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11477,6 +11857,7 @@ export const getSigningKey = <ThrowOnError extends boolean = false>(options?: Op
  * Get default signing-key.ssh
  */
 export const getSshSigningKey = <ThrowOnError extends boolean = false>(options?: Options<GetSshSigningKeyData, ThrowOnError>) => (options?.client ?? client).get<GetSshSigningKeyResponses, GetSshSigningKeyErrors, ThrowOnError>({
+    responseType: 'text',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11506,6 +11887,7 @@ export const getSshSigningKey = <ThrowOnError extends boolean = false>(options?:
  * Delete a team
  */
 export const orgDeleteTeam = <ThrowOnError extends boolean = false>(options: Options<OrgDeleteTeamData, ThrowOnError>) => (options.client ?? client).delete<OrgDeleteTeamResponses, OrgDeleteTeamErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11535,6 +11917,7 @@ export const orgDeleteTeam = <ThrowOnError extends boolean = false>(options: Opt
  * Get a team
  */
 export const orgGetTeam = <ThrowOnError extends boolean = false>(options: Options<OrgGetTeamData, ThrowOnError>) => (options.client ?? client).get<OrgGetTeamResponses, OrgGetTeamErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11564,6 +11947,7 @@ export const orgGetTeam = <ThrowOnError extends boolean = false>(options: Option
  * Edit a team
  */
 export const orgEditTeam = <ThrowOnError extends boolean = false>(options: Options<OrgEditTeamData, ThrowOnError>) => (options.client ?? client).patch<OrgEditTeamResponses, OrgEditTeamErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11597,6 +11981,7 @@ export const orgEditTeam = <ThrowOnError extends boolean = false>(options: Optio
  * List a team's activity feeds
  */
 export const orgListTeamActivityFeeds = <ThrowOnError extends boolean = false>(options: Options<OrgListTeamActivityFeedsData, ThrowOnError>) => (options.client ?? client).get<OrgListTeamActivityFeedsResponses, OrgListTeamActivityFeedsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11626,6 +12011,7 @@ export const orgListTeamActivityFeeds = <ThrowOnError extends boolean = false>(o
  * List a team's members
  */
 export const orgListTeamMembers = <ThrowOnError extends boolean = false>(options: Options<OrgListTeamMembersData, ThrowOnError>) => (options.client ?? client).get<OrgListTeamMembersResponses, OrgListTeamMembersErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11655,6 +12041,7 @@ export const orgListTeamMembers = <ThrowOnError extends boolean = false>(options
  * Remove a team member
  */
 export const orgRemoveTeamMember = <ThrowOnError extends boolean = false>(options: Options<OrgRemoveTeamMemberData, ThrowOnError>) => (options.client ?? client).delete<OrgRemoveTeamMemberResponses, OrgRemoveTeamMemberErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11684,6 +12071,7 @@ export const orgRemoveTeamMember = <ThrowOnError extends boolean = false>(option
  * List a particular member of team
  */
 export const orgListTeamMember = <ThrowOnError extends boolean = false>(options: Options<OrgListTeamMemberData, ThrowOnError>) => (options.client ?? client).get<OrgListTeamMemberResponses, OrgListTeamMemberErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11713,6 +12101,7 @@ export const orgListTeamMember = <ThrowOnError extends boolean = false>(options:
  * Add a team member
  */
 export const orgAddTeamMember = <ThrowOnError extends boolean = false>(options: Options<OrgAddTeamMemberData, ThrowOnError>) => (options.client ?? client).put<OrgAddTeamMemberResponses, OrgAddTeamMemberErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11742,6 +12131,7 @@ export const orgAddTeamMember = <ThrowOnError extends boolean = false>(options: 
  * List a team's repos
  */
 export const orgListTeamRepos = <ThrowOnError extends boolean = false>(options: Options<OrgListTeamReposData, ThrowOnError>) => (options.client ?? client).get<OrgListTeamReposResponses, OrgListTeamReposErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11773,6 +12163,7 @@ export const orgListTeamRepos = <ThrowOnError extends boolean = false>(options: 
  * This does not delete the repository, it only removes the repository from the team.
  */
 export const orgRemoveTeamRepository = <ThrowOnError extends boolean = false>(options: Options<OrgRemoveTeamRepositoryData, ThrowOnError>) => (options.client ?? client).delete<OrgRemoveTeamRepositoryResponses, OrgRemoveTeamRepositoryErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11802,6 +12193,7 @@ export const orgRemoveTeamRepository = <ThrowOnError extends boolean = false>(op
  * List a particular repo of team
  */
 export const orgListTeamRepo = <ThrowOnError extends boolean = false>(options: Options<OrgListTeamRepoData, ThrowOnError>) => (options.client ?? client).get<OrgListTeamRepoResponses, OrgListTeamRepoErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11831,6 +12223,7 @@ export const orgListTeamRepo = <ThrowOnError extends boolean = false>(options: O
  * Add a repository to a team
  */
 export const orgAddTeamRepository = <ThrowOnError extends boolean = false>(options: Options<OrgAddTeamRepositoryData, ThrowOnError>) => (options.client ?? client).put<OrgAddTeamRepositoryResponses, OrgAddTeamRepositoryErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11860,6 +12253,7 @@ export const orgAddTeamRepository = <ThrowOnError extends boolean = false>(optio
  * Search for topics by keyword
  */
 export const topicSearch = <ThrowOnError extends boolean = false>(options: Options<TopicSearchData, ThrowOnError>) => (options.client ?? client).get<TopicSearchResponses, TopicSearchErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11889,6 +12283,7 @@ export const topicSearch = <ThrowOnError extends boolean = false>(options: Optio
  * Get the authenticated user
  */
 export const userGetCurrent = <ThrowOnError extends boolean = false>(options?: Options<UserGetCurrentData, ThrowOnError>) => (options?.client ?? client).get<UserGetCurrentResponses, UserGetCurrentErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11918,6 +12313,7 @@ export const userGetCurrent = <ThrowOnError extends boolean = false>(options?: O
  * Search for user's action jobs according filter conditions
  */
 export const userSearchRunJobs = <ThrowOnError extends boolean = false>(options?: Options<UserSearchRunJobsData, ThrowOnError>) => (options?.client ?? client).get<UserSearchRunJobsResponses, UserSearchRunJobsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11947,6 +12343,7 @@ export const userSearchRunJobs = <ThrowOnError extends boolean = false>(options?
  * Get an user's actions runner registration token
  */
 export const userGetRunnerRegistrationToken = <ThrowOnError extends boolean = false>(options?: Options<UserGetRunnerRegistrationTokenData, ThrowOnError>) => (options?.client ?? client).get<UserGetRunnerRegistrationTokenResponses, UserGetRunnerRegistrationTokenErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -11976,6 +12373,7 @@ export const userGetRunnerRegistrationToken = <ThrowOnError extends boolean = fa
  * Delete a secret in a user scope
  */
 export const deleteUserSecret = <ThrowOnError extends boolean = false>(options: Options<DeleteUserSecretData, ThrowOnError>) => (options.client ?? client).delete<DeleteUserSecretResponses, DeleteUserSecretErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12005,6 +12403,7 @@ export const deleteUserSecret = <ThrowOnError extends boolean = false>(options: 
  * Create or Update a secret value in a user scope
  */
 export const updateUserSecret = <ThrowOnError extends boolean = false>(options: Options<UpdateUserSecretData, ThrowOnError>) => (options.client ?? client).put<UpdateUserSecretResponses, UpdateUserSecretErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12038,6 +12437,7 @@ export const updateUserSecret = <ThrowOnError extends boolean = false>(options: 
  * Get the user-level list of variables which is created by current doer
  */
 export const getUserVariablesList = <ThrowOnError extends boolean = false>(options?: Options<GetUserVariablesListData, ThrowOnError>) => (options?.client ?? client).get<GetUserVariablesListResponses, GetUserVariablesListErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12067,6 +12467,7 @@ export const getUserVariablesList = <ThrowOnError extends boolean = false>(optio
  * Delete a user-level variable which is created by current doer
  */
 export const deleteUserVariable = <ThrowOnError extends boolean = false>(options: Options<DeleteUserVariableData, ThrowOnError>) => (options.client ?? client).delete<DeleteUserVariableResponses, DeleteUserVariableErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12096,6 +12497,7 @@ export const deleteUserVariable = <ThrowOnError extends boolean = false>(options
  * Get a user-level variable which is created by current doer
  */
 export const getUserVariable = <ThrowOnError extends boolean = false>(options: Options<GetUserVariableData, ThrowOnError>) => (options.client ?? client).get<GetUserVariableResponses, GetUserVariableErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12125,6 +12527,7 @@ export const getUserVariable = <ThrowOnError extends boolean = false>(options: O
  * Create a user-level variable
  */
 export const createUserVariable = <ThrowOnError extends boolean = false>(options: Options<CreateUserVariableData, ThrowOnError>) => (options.client ?? client).post<CreateUserVariableResponses, CreateUserVariableErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12158,6 +12561,7 @@ export const createUserVariable = <ThrowOnError extends boolean = false>(options
  * Update a user-level variable which is created by current doer
  */
 export const updateUserVariable = <ThrowOnError extends boolean = false>(options: Options<UpdateUserVariableData, ThrowOnError>) => (options.client ?? client).put<UpdateUserVariableResponses, UpdateUserVariableErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12191,6 +12595,7 @@ export const updateUserVariable = <ThrowOnError extends boolean = false>(options
  * List the authenticated user's oauth2 applications
  */
 export const userGetOAuth2Applications = <ThrowOnError extends boolean = false>(options?: Options<UserGetOAuth2ApplicationsData, ThrowOnError>) => (options?.client ?? client).get<UserGetOAuth2ApplicationsResponses, UserGetOAuth2ApplicationsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12220,6 +12625,7 @@ export const userGetOAuth2Applications = <ThrowOnError extends boolean = false>(
  * Creates a new OAuth2 application
  */
 export const userCreateOAuth2Application = <ThrowOnError extends boolean = false>(options: Options<UserCreateOAuth2ApplicationData, ThrowOnError>) => (options.client ?? client).post<UserCreateOAuth2ApplicationResponses, UserCreateOAuth2ApplicationErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12253,6 +12659,7 @@ export const userCreateOAuth2Application = <ThrowOnError extends boolean = false
  * Delete an OAuth2 application
  */
 export const userDeleteOAuth2Application = <ThrowOnError extends boolean = false>(options: Options<UserDeleteOAuth2ApplicationData, ThrowOnError>) => (options.client ?? client).delete<UserDeleteOAuth2ApplicationResponses, UserDeleteOAuth2ApplicationErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12282,6 +12689,7 @@ export const userDeleteOAuth2Application = <ThrowOnError extends boolean = false
  * Get an OAuth2 application
  */
 export const userGetOAuth2Application = <ThrowOnError extends boolean = false>(options: Options<UserGetOAuth2ApplicationData, ThrowOnError>) => (options.client ?? client).get<UserGetOAuth2ApplicationResponses, UserGetOAuth2ApplicationErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12311,6 +12719,7 @@ export const userGetOAuth2Application = <ThrowOnError extends boolean = false>(o
  * Update an OAuth2 application, this includes regenerating the client secret
  */
 export const userUpdateOAuth2Application = <ThrowOnError extends boolean = false>(options: Options<UserUpdateOAuth2ApplicationData, ThrowOnError>) => (options.client ?? client).patch<UserUpdateOAuth2ApplicationResponses, UserUpdateOAuth2ApplicationErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12344,6 +12753,7 @@ export const userUpdateOAuth2Application = <ThrowOnError extends boolean = false
  * Delete avatar of the current user. It will be replaced by a default one
  */
 export const userDeleteAvatar = <ThrowOnError extends boolean = false>(options?: Options<UserDeleteAvatarData, ThrowOnError>) => (options?.client ?? client).delete<UserDeleteAvatarResponses, UserDeleteAvatarErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12373,6 +12783,7 @@ export const userDeleteAvatar = <ThrowOnError extends boolean = false>(options?:
  * Update avatar of the current user
  */
 export const userUpdateAvatar = <ThrowOnError extends boolean = false>(options?: Options<UserUpdateAvatarData, ThrowOnError>) => (options?.client ?? client).post<UserUpdateAvatarResponses, UserUpdateAvatarErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12406,6 +12817,7 @@ export const userUpdateAvatar = <ThrowOnError extends boolean = false>(options?:
  * Blocks a user from the doer
  */
 export const userBlockUser = <ThrowOnError extends boolean = false>(options: Options<UserBlockUserData, ThrowOnError>) => (options.client ?? client).put<UserBlockUserResponses, UserBlockUserErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12435,6 +12847,7 @@ export const userBlockUser = <ThrowOnError extends boolean = false>(options: Opt
  * Delete email addresses from the current user's account
  */
 export const userDeleteEmail = <ThrowOnError extends boolean = false>(options?: Options<UserDeleteEmailData, ThrowOnError>) => (options?.client ?? client).delete<UserDeleteEmailResponses, UserDeleteEmailErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12468,6 +12881,7 @@ export const userDeleteEmail = <ThrowOnError extends boolean = false>(options?: 
  * List all email addresses of the current user
  */
 export const userListEmails = <ThrowOnError extends boolean = false>(options?: Options<UserListEmailsData, ThrowOnError>) => (options?.client ?? client).get<UserListEmailsResponses, UserListEmailsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12497,6 +12911,7 @@ export const userListEmails = <ThrowOnError extends boolean = false>(options?: O
  * Add an email addresses to the current user's account
  */
 export const userAddEmail = <ThrowOnError extends boolean = false>(options?: Options<UserAddEmailData, ThrowOnError>) => (options?.client ?? client).post<UserAddEmailResponses, UserAddEmailErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12530,6 +12945,7 @@ export const userAddEmail = <ThrowOnError extends boolean = false>(options?: Opt
  * List the authenticated user's followers
  */
 export const userCurrentListFollowers = <ThrowOnError extends boolean = false>(options?: Options<UserCurrentListFollowersData, ThrowOnError>) => (options?.client ?? client).get<UserCurrentListFollowersResponses, UserCurrentListFollowersErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12559,6 +12975,7 @@ export const userCurrentListFollowers = <ThrowOnError extends boolean = false>(o
  * List the users that the authenticated user is following
  */
 export const userCurrentListFollowing = <ThrowOnError extends boolean = false>(options?: Options<UserCurrentListFollowingData, ThrowOnError>) => (options?.client ?? client).get<UserCurrentListFollowingResponses, UserCurrentListFollowingErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12588,6 +13005,7 @@ export const userCurrentListFollowing = <ThrowOnError extends boolean = false>(o
  * Unfollow a user
  */
 export const userCurrentDeleteFollow = <ThrowOnError extends boolean = false>(options: Options<UserCurrentDeleteFollowData, ThrowOnError>) => (options.client ?? client).delete<UserCurrentDeleteFollowResponses, UserCurrentDeleteFollowErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12617,6 +13035,7 @@ export const userCurrentDeleteFollow = <ThrowOnError extends boolean = false>(op
  * Check whether a user is followed by the authenticated user
  */
 export const userCurrentCheckFollowing = <ThrowOnError extends boolean = false>(options: Options<UserCurrentCheckFollowingData, ThrowOnError>) => (options.client ?? client).get<UserCurrentCheckFollowingResponses, UserCurrentCheckFollowingErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12646,6 +13065,7 @@ export const userCurrentCheckFollowing = <ThrowOnError extends boolean = false>(
  * Follow a user
  */
 export const userCurrentPutFollow = <ThrowOnError extends boolean = false>(options: Options<UserCurrentPutFollowData, ThrowOnError>) => (options.client ?? client).put<UserCurrentPutFollowResponses, UserCurrentPutFollowErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12675,6 +13095,7 @@ export const userCurrentPutFollow = <ThrowOnError extends boolean = false>(optio
  * Get a Token to verify
  */
 export const getVerificationToken = <ThrowOnError extends boolean = false>(options?: Options<GetVerificationTokenData, ThrowOnError>) => (options?.client ?? client).get<GetVerificationTokenResponses, GetVerificationTokenErrors, ThrowOnError>({
+    responseType: 'text',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12704,6 +13125,7 @@ export const getVerificationToken = <ThrowOnError extends boolean = false>(optio
  * Verify a GPG key
  */
 export const userVerifyGpgKey = <ThrowOnError extends boolean = false>(options?: Options<UserVerifyGpgKeyData, ThrowOnError>) => (options?.client ?? client).post<UserVerifyGpgKeyResponses, UserVerifyGpgKeyErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12737,6 +13159,7 @@ export const userVerifyGpgKey = <ThrowOnError extends boolean = false>(options?:
  * List the authenticated user's GPG keys
  */
 export const userCurrentListGpgKeys = <ThrowOnError extends boolean = false>(options?: Options<UserCurrentListGpgKeysData, ThrowOnError>) => (options?.client ?? client).get<UserCurrentListGpgKeysResponses, UserCurrentListGpgKeysErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12766,6 +13189,7 @@ export const userCurrentListGpgKeys = <ThrowOnError extends boolean = false>(opt
  * Add a GPG public key to current user's account
  */
 export const userCurrentPostGpgKey = <ThrowOnError extends boolean = false>(options?: Options<UserCurrentPostGpgKeyData, ThrowOnError>) => (options?.client ?? client).post<UserCurrentPostGpgKeyResponses, UserCurrentPostGpgKeyErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12799,6 +13223,7 @@ export const userCurrentPostGpgKey = <ThrowOnError extends boolean = false>(opti
  * Remove a GPG public key from current user's account
  */
 export const userCurrentDeleteGpgKey = <ThrowOnError extends boolean = false>(options: Options<UserCurrentDeleteGpgKeyData, ThrowOnError>) => (options.client ?? client).delete<UserCurrentDeleteGpgKeyResponses, UserCurrentDeleteGpgKeyErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12828,6 +13253,7 @@ export const userCurrentDeleteGpgKey = <ThrowOnError extends boolean = false>(op
  * Get a GPG key
  */
 export const userCurrentGetGpgKey = <ThrowOnError extends boolean = false>(options: Options<UserCurrentGetGpgKeyData, ThrowOnError>) => (options.client ?? client).get<UserCurrentGetGpgKeyResponses, UserCurrentGetGpgKeyErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12857,6 +13283,7 @@ export const userCurrentGetGpgKey = <ThrowOnError extends boolean = false>(optio
  * List the authenticated user's webhooks
  */
 export const userListHooks = <ThrowOnError extends boolean = false>(options?: Options<UserListHooksData, ThrowOnError>) => (options?.client ?? client).get<UserListHooksResponses, UserListHooksErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12886,6 +13313,7 @@ export const userListHooks = <ThrowOnError extends boolean = false>(options?: Op
  * Create a hook
  */
 export const userCreateHook = <ThrowOnError extends boolean = false>(options: Options<UserCreateHookData, ThrowOnError>) => (options.client ?? client).post<UserCreateHookResponses, UserCreateHookErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12919,6 +13347,7 @@ export const userCreateHook = <ThrowOnError extends boolean = false>(options: Op
  * Delete a hook
  */
 export const userDeleteHook = <ThrowOnError extends boolean = false>(options: Options<UserDeleteHookData, ThrowOnError>) => (options.client ?? client).delete<UserDeleteHookResponses, UserDeleteHookErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12948,6 +13377,7 @@ export const userDeleteHook = <ThrowOnError extends boolean = false>(options: Op
  * Get a hook
  */
 export const userGetHook = <ThrowOnError extends boolean = false>(options: Options<UserGetHookData, ThrowOnError>) => (options.client ?? client).get<UserGetHookResponses, UserGetHookErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -12977,6 +13407,7 @@ export const userGetHook = <ThrowOnError extends boolean = false>(options: Optio
  * Update a hook
  */
 export const userEditHook = <ThrowOnError extends boolean = false>(options: Options<UserEditHookData, ThrowOnError>) => (options.client ?? client).patch<UserEditHookResponses, UserEditHookErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13010,6 +13441,7 @@ export const userEditHook = <ThrowOnError extends boolean = false>(options: Opti
  * List the authenticated user's public keys
  */
 export const userCurrentListKeys = <ThrowOnError extends boolean = false>(options?: Options<UserCurrentListKeysData, ThrowOnError>) => (options?.client ?? client).get<UserCurrentListKeysResponses, UserCurrentListKeysErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13039,6 +13471,7 @@ export const userCurrentListKeys = <ThrowOnError extends boolean = false>(option
  * Create a public key
  */
 export const userCurrentPostKey = <ThrowOnError extends boolean = false>(options?: Options<UserCurrentPostKeyData, ThrowOnError>) => (options?.client ?? client).post<UserCurrentPostKeyResponses, UserCurrentPostKeyErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13072,6 +13505,7 @@ export const userCurrentPostKey = <ThrowOnError extends boolean = false>(options
  * Delete a public key
  */
 export const userCurrentDeleteKey = <ThrowOnError extends boolean = false>(options: Options<UserCurrentDeleteKeyData, ThrowOnError>) => (options.client ?? client).delete<UserCurrentDeleteKeyResponses, UserCurrentDeleteKeyErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13101,6 +13535,7 @@ export const userCurrentDeleteKey = <ThrowOnError extends boolean = false>(optio
  * Get a public key
  */
 export const userCurrentGetKey = <ThrowOnError extends boolean = false>(options: Options<UserCurrentGetKeyData, ThrowOnError>) => (options.client ?? client).get<UserCurrentGetKeyResponses, UserCurrentGetKeyErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13130,6 +13565,7 @@ export const userCurrentGetKey = <ThrowOnError extends boolean = false>(options:
  * List the authenticated user's blocked users
  */
 export const userListBlockedUsers = <ThrowOnError extends boolean = false>(options?: Options<UserListBlockedUsersData, ThrowOnError>) => (options?.client ?? client).get<UserListBlockedUsersResponses, UserListBlockedUsersErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13159,6 +13595,7 @@ export const userListBlockedUsers = <ThrowOnError extends boolean = false>(optio
  * List the current user's organizations
  */
 export const orgListCurrentUserOrgs = <ThrowOnError extends boolean = false>(options?: Options<OrgListCurrentUserOrgsData, ThrowOnError>) => (options?.client ?? client).get<OrgListCurrentUserOrgsResponses, OrgListCurrentUserOrgsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13188,6 +13625,7 @@ export const orgListCurrentUserOrgs = <ThrowOnError extends boolean = false>(opt
  * Get quota information for the authenticated user
  */
 export const userGetQuota = <ThrowOnError extends boolean = false>(options?: Options<UserGetQuotaData, ThrowOnError>) => (options?.client ?? client).get<UserGetQuotaResponses, UserGetQuotaErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13217,6 +13655,7 @@ export const userGetQuota = <ThrowOnError extends boolean = false>(options?: Opt
  * List the artifacts affecting the authenticated user's quota
  */
 export const userListQuotaArtifacts = <ThrowOnError extends boolean = false>(options?: Options<UserListQuotaArtifactsData, ThrowOnError>) => (options?.client ?? client).get<UserListQuotaArtifactsResponses, UserListQuotaArtifactsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13246,6 +13685,7 @@ export const userListQuotaArtifacts = <ThrowOnError extends boolean = false>(opt
  * List the attachments affecting the authenticated user's quota
  */
 export const userListQuotaAttachments = <ThrowOnError extends boolean = false>(options?: Options<UserListQuotaAttachmentsData, ThrowOnError>) => (options?.client ?? client).get<UserListQuotaAttachmentsResponses, UserListQuotaAttachmentsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13275,6 +13715,7 @@ export const userListQuotaAttachments = <ThrowOnError extends boolean = false>(o
  * Check if the authenticated user is over quota for a given subject
  */
 export const userCheckQuota = <ThrowOnError extends boolean = false>(options: Options<UserCheckQuotaData, ThrowOnError>) => (options.client ?? client).get<UserCheckQuotaResponses, UserCheckQuotaErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13304,6 +13745,7 @@ export const userCheckQuota = <ThrowOnError extends boolean = false>(options: Op
  * List the packages affecting the authenticated user's quota
  */
 export const userListQuotaPackages = <ThrowOnError extends boolean = false>(options?: Options<UserListQuotaPackagesData, ThrowOnError>) => (options?.client ?? client).get<UserListQuotaPackagesResponses, UserListQuotaPackagesErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13333,6 +13775,7 @@ export const userListQuotaPackages = <ThrowOnError extends boolean = false>(opti
  * List the repos that the authenticated user owns
  */
 export const userCurrentListRepos = <ThrowOnError extends boolean = false>(options?: Options<UserCurrentListReposData, ThrowOnError>) => (options?.client ?? client).get<UserCurrentListReposResponses, UserCurrentListReposErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13362,6 +13805,7 @@ export const userCurrentListRepos = <ThrowOnError extends boolean = false>(optio
  * Create a repository
  */
 export const createCurrentUserRepo = <ThrowOnError extends boolean = false>(options?: Options<CreateCurrentUserRepoData, ThrowOnError>) => (options?.client ?? client).post<CreateCurrentUserRepoResponses, CreateCurrentUserRepoErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13395,6 +13839,7 @@ export const createCurrentUserRepo = <ThrowOnError extends boolean = false>(opti
  * Get current user's account settings
  */
 export const getUserSettings = <ThrowOnError extends boolean = false>(options?: Options<GetUserSettingsData, ThrowOnError>) => (options?.client ?? client).get<GetUserSettingsResponses, GetUserSettingsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13424,6 +13869,7 @@ export const getUserSettings = <ThrowOnError extends boolean = false>(options?: 
  * Update settings in current user's account
  */
 export const updateUserSettings = <ThrowOnError extends boolean = false>(options?: Options<UpdateUserSettingsData, ThrowOnError>) => (options?.client ?? client).patch<UpdateUserSettingsResponses, UpdateUserSettingsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13457,6 +13903,7 @@ export const updateUserSettings = <ThrowOnError extends boolean = false>(options
  * The repos that the authenticated user has starred
  */
 export const userCurrentListStarred = <ThrowOnError extends boolean = false>(options?: Options<UserCurrentListStarredData, ThrowOnError>) => (options?.client ?? client).get<UserCurrentListStarredResponses, UserCurrentListStarredErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13486,6 +13933,7 @@ export const userCurrentListStarred = <ThrowOnError extends boolean = false>(opt
  * Unstar the given repo
  */
 export const userCurrentDeleteStar = <ThrowOnError extends boolean = false>(options: Options<UserCurrentDeleteStarData, ThrowOnError>) => (options.client ?? client).delete<UserCurrentDeleteStarResponses, UserCurrentDeleteStarErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13515,6 +13963,7 @@ export const userCurrentDeleteStar = <ThrowOnError extends boolean = false>(opti
  * Whether the authenticated is starring the repo
  */
 export const userCurrentCheckStarring = <ThrowOnError extends boolean = false>(options: Options<UserCurrentCheckStarringData, ThrowOnError>) => (options.client ?? client).get<UserCurrentCheckStarringResponses, UserCurrentCheckStarringErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13544,6 +13993,7 @@ export const userCurrentCheckStarring = <ThrowOnError extends boolean = false>(o
  * Star the given repo
  */
 export const userCurrentPutStar = <ThrowOnError extends boolean = false>(options: Options<UserCurrentPutStarData, ThrowOnError>) => (options.client ?? client).put<UserCurrentPutStarResponses, UserCurrentPutStarErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13573,6 +14023,7 @@ export const userCurrentPutStar = <ThrowOnError extends boolean = false>(options
  * Get list of all existing stopwatches
  */
 export const userGetStopWatches = <ThrowOnError extends boolean = false>(options?: Options<UserGetStopWatchesData, ThrowOnError>) => (options?.client ?? client).get<UserGetStopWatchesResponses, UserGetStopWatchesErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13602,6 +14053,7 @@ export const userGetStopWatches = <ThrowOnError extends boolean = false>(options
  * List repositories watched by the authenticated user
  */
 export const userCurrentListSubscriptions = <ThrowOnError extends boolean = false>(options?: Options<UserCurrentListSubscriptionsData, ThrowOnError>) => (options?.client ?? client).get<UserCurrentListSubscriptionsResponses, UserCurrentListSubscriptionsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13631,6 +14083,7 @@ export const userCurrentListSubscriptions = <ThrowOnError extends boolean = fals
  * List all the teams a user belongs to
  */
 export const userListTeams = <ThrowOnError extends boolean = false>(options?: Options<UserListTeamsData, ThrowOnError>) => (options?.client ?? client).get<UserListTeamsResponses, UserListTeamsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13660,6 +14113,7 @@ export const userListTeams = <ThrowOnError extends boolean = false>(options?: Op
  * List the current user's tracked times
  */
 export const userCurrentTrackedTimes = <ThrowOnError extends boolean = false>(options?: Options<UserCurrentTrackedTimesData, ThrowOnError>) => (options?.client ?? client).get<UserCurrentTrackedTimesResponses, UserCurrentTrackedTimesErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13689,6 +14143,7 @@ export const userCurrentTrackedTimes = <ThrowOnError extends boolean = false>(op
  * Unblocks a user from the doer
  */
 export const userUnblockUser = <ThrowOnError extends boolean = false>(options: Options<UserUnblockUserData, ThrowOnError>) => (options.client ?? client).put<UserUnblockUserResponses, UserUnblockUserErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13718,6 +14173,7 @@ export const userUnblockUser = <ThrowOnError extends boolean = false>(options: O
  * Search for users
  */
 export const userSearch = <ThrowOnError extends boolean = false>(options?: Options<UserSearchData, ThrowOnError>) => (options?.client ?? client).get<UserSearchResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13747,6 +14203,7 @@ export const userSearch = <ThrowOnError extends boolean = false>(options?: Optio
  * Get a user
  */
 export const userGet = <ThrowOnError extends boolean = false>(options: Options<UserGetData, ThrowOnError>) => (options.client ?? client).get<UserGetResponses, UserGetErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13776,6 +14233,7 @@ export const userGet = <ThrowOnError extends boolean = false>(options: Options<U
  * List a user's activity feeds
  */
 export const userListActivityFeeds = <ThrowOnError extends boolean = false>(options: Options<UserListActivityFeedsData, ThrowOnError>) => (options.client ?? client).get<UserListActivityFeedsResponses, UserListActivityFeedsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13805,6 +14263,7 @@ export const userListActivityFeeds = <ThrowOnError extends boolean = false>(opti
  * List the given user's followers
  */
 export const userListFollowers = <ThrowOnError extends boolean = false>(options: Options<UserListFollowersData, ThrowOnError>) => (options.client ?? client).get<UserListFollowersResponses, UserListFollowersErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13834,6 +14293,7 @@ export const userListFollowers = <ThrowOnError extends boolean = false>(options:
  * List the users that the given user is following
  */
 export const userListFollowing = <ThrowOnError extends boolean = false>(options: Options<UserListFollowingData, ThrowOnError>) => (options.client ?? client).get<UserListFollowingResponses, UserListFollowingErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13863,6 +14323,7 @@ export const userListFollowing = <ThrowOnError extends boolean = false>(options:
  * Check if one user is following another user
  */
 export const userCheckFollowing = <ThrowOnError extends boolean = false>(options: Options<UserCheckFollowingData, ThrowOnError>) => (options.client ?? client).get<UserCheckFollowingResponses, UserCheckFollowingErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13892,6 +14353,7 @@ export const userCheckFollowing = <ThrowOnError extends boolean = false>(options
  * List the given user's GPG keys
  */
 export const userListGpgKeys = <ThrowOnError extends boolean = false>(options: Options<UserListGpgKeysData, ThrowOnError>) => (options.client ?? client).get<UserListGpgKeysResponses, UserListGpgKeysErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13921,6 +14383,7 @@ export const userListGpgKeys = <ThrowOnError extends boolean = false>(options: O
  * Get a user's heatmap
  */
 export const userGetHeatmapData = <ThrowOnError extends boolean = false>(options: Options<UserGetHeatmapDataData, ThrowOnError>) => (options.client ?? client).get<UserGetHeatmapDataResponses, UserGetHeatmapDataErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13950,6 +14413,7 @@ export const userGetHeatmapData = <ThrowOnError extends boolean = false>(options
  * List the given user's public keys
  */
 export const userListKeys = <ThrowOnError extends boolean = false>(options: Options<UserListKeysData, ThrowOnError>) => (options.client ?? client).get<UserListKeysResponses, UserListKeysErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -13979,6 +14443,7 @@ export const userListKeys = <ThrowOnError extends boolean = false>(options: Opti
  * List a user's organizations
  */
 export const orgListUserOrgs = <ThrowOnError extends boolean = false>(options: Options<OrgListUserOrgsData, ThrowOnError>) => (options.client ?? client).get<OrgListUserOrgsResponses, OrgListUserOrgsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -14008,6 +14473,7 @@ export const orgListUserOrgs = <ThrowOnError extends boolean = false>(options: O
  * Get user permissions in organization
  */
 export const orgGetUserPermissions = <ThrowOnError extends boolean = false>(options: Options<OrgGetUserPermissionsData, ThrowOnError>) => (options.client ?? client).get<OrgGetUserPermissionsResponses, OrgGetUserPermissionsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -14037,6 +14503,7 @@ export const orgGetUserPermissions = <ThrowOnError extends boolean = false>(opti
  * List the repos owned by the given user
  */
 export const userListRepos = <ThrowOnError extends boolean = false>(options: Options<UserListReposData, ThrowOnError>) => (options.client ?? client).get<UserListReposResponses, UserListReposErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -14066,6 +14533,7 @@ export const userListRepos = <ThrowOnError extends boolean = false>(options: Opt
  * The repos that the given user has starred
  */
 export const userListStarred = <ThrowOnError extends boolean = false>(options: Options<UserListStarredData, ThrowOnError>) => (options.client ?? client).get<UserListStarredResponses, UserListStarredErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -14095,6 +14563,7 @@ export const userListStarred = <ThrowOnError extends boolean = false>(options: O
  * List the repositories watched by a user
  */
 export const userListSubscriptions = <ThrowOnError extends boolean = false>(options: Options<UserListSubscriptionsData, ThrowOnError>) => (options.client ?? client).get<UserListSubscriptionsResponses, UserListSubscriptionsErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -14124,6 +14593,7 @@ export const userListSubscriptions = <ThrowOnError extends boolean = false>(opti
  * List the specified user's access tokens
  */
 export const userGetTokens = <ThrowOnError extends boolean = false>(options: Options<UserGetTokensData, ThrowOnError>) => (options.client ?? client).get<UserGetTokensResponses, UserGetTokensErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -14153,6 +14623,7 @@ export const userGetTokens = <ThrowOnError extends boolean = false>(options: Opt
  * Generate an access token for the specified user
  */
 export const userCreateToken = <ThrowOnError extends boolean = false>(options: Options<UserCreateTokenData, ThrowOnError>) => (options.client ?? client).post<UserCreateTokenResponses, UserCreateTokenErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -14186,6 +14657,7 @@ export const userCreateToken = <ThrowOnError extends boolean = false>(options: O
  * Delete an access token from the specified user's account
  */
 export const userDeleteAccessToken = <ThrowOnError extends boolean = false>(options: Options<UserDeleteAccessTokenData, ThrowOnError>) => (options.client ?? client).delete<UserDeleteAccessTokenResponses, UserDeleteAccessTokenErrors, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {
@@ -14215,6 +14687,7 @@ export const userDeleteAccessToken = <ThrowOnError extends boolean = false>(opti
  * Returns the version of the running application
  */
 export const getVersion = <ThrowOnError extends boolean = false>(options?: Options<GetVersionData, ThrowOnError>) => (options?.client ?? client).get<GetVersionResponses, unknown, ThrowOnError>({
+    responseType: 'json',
     security: [
         { scheme: 'basic', type: 'http' },
         {

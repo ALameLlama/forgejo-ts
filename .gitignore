@@ -10,3 +10,4 @@ dist/
 swagger.json
 version.json
 examples
+test
