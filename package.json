@@ -12,13 +12,16 @@
       "require": "./dist/index.js"
     },
     "./client": {
-      "types": "./dist/client/index.d.ts",
-      "import": "./dist/client/index.mjs",
-      "require": "./dist/client/index.js"
+      "types": "./client.d.ts",
+      "import": "./client.mjs",
+      "require": "./client.js"
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "client.js",
+    "client.mjs",
+    "client.d.ts"
   ],
   "scripts": {
     "generate": "node scripts/generate.mjs",
