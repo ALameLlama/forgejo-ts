@@ -60,95 +60,6 @@ export type AccessToken = {
 };
 
 /**
- * ActionRun represents an action run
- */
-export type ActionRun = {
-    /**
-     * the cron id for the schedule trigger
-     */
-    ScheduleID?: number;
-    /**
-     * who approved this action run
-     */
-    approved_by?: number;
-    /**
-     * the commit sha the action run ran on
-     */
-    commit_sha?: string;
-    /**
-     * when the action run was created
-     */
-    created?: string;
-    duration?: Duration;
-    /**
-     * the webhook event that causes the workflow to run
-     */
-    event?: string;
-    /**
-     * the payload of the webhook event that causes the workflow to run
-     */
-    event_payload?: string;
-    /**
-     * the url of this action run
-     */
-    html_url?: string;
-    /**
-     * the action run id
-     */
-    id?: number;
-    /**
-     * a unique number for each run of a repository
-     */
-    index_in_repo?: number;
-    /**
-     * If this is triggered by a PR from a forked repository or an untrusted user, we need to check if it is approved and limit permissions when running the workflow.
-     */
-    is_fork_pull_request?: boolean;
-    /**
-     * has the commit/tag/… the action run ran on been deleted
-     */
-    is_ref_deleted?: boolean;
-    /**
-     * may need approval if it's a fork pull request
-     */
-    need_approval?: boolean;
-    /**
-     * the commit/tag/… the action run ran on
-     */
-    prettyref?: string;
-    repository?: Repository;
-    /**
-     * when the action run was started
-     */
-    started?: string;
-    /**
-     * the current status of this run
-     */
-    status?: string;
-    /**
-     * when the action run was stopped
-     */
-    stopped?: string;
-    /**
-     * the action run's title
-     */
-    title?: string;
-    /**
-     * the trigger event defined in the `on` configuration of the triggered workflow
-     */
-    trigger_event?: string;
-    trigger_user?: User;
-    /**
-     * when the action run was last updated
-     */
-    updated?: string;
-    /**
-     * the name of workflow file
-     */
-    workflow_id?: string;
-};
-
-/**
  * ActionRunJob represents a job of a run
  */
 export type ActionRunJob = {
@@ -547,7 +458,7 @@ export type CommitStatus = {
 
 /**
  * CommitStatusState holds the state of a CommitStatus
- * It can be "pending", "success", "error", "failure" and "warning"
+ * It can be "pending", "success", "error" and "failure"
  */
 export type CommitStatusState = string;
 
@@ -586,7 +497,6 @@ export type ContentsResponse = {
     git_url?: string;
     html_url?: string;
     last_commit_sha?: string;
-    last_commit_when?: string;
     name?: string;
     path?: string;
     sha?: string;
@@ -909,7 +819,6 @@ export type CreatePullReviewOptions = {
  * CreatePushMirrorOption represents need information to create a push mirror of a repository.
  */
 export type CreatePushMirrorOption = {
-    branch_filter?: string;
     interval?: string;
     remote_address?: string;
     remote_password?: string;
@@ -1229,13 +1138,6 @@ export type DispatchWorkflowRun = {
      */
     run_number?: number;
 };
-
-/**
- * A Duration represents the elapsed time between two instants
- * as an int64 nanosecond count. The representation limits the
- * largest representable duration to approximately 290 years.
- */
-export type Duration = number;
 
 /**
  * EditAttachmentOptions options for editing attachments
@@ -1590,7 +1492,6 @@ export type EditUserOption = {
     description?: string;
     email?: string;
     full_name?: string;
-    hide_email?: boolean;
     location?: string;
     login_name?: string;
     max_repo_creation?: number;
@@ -1702,13 +1603,6 @@ export type FilesResponse = {
  * ForgeLike activity data type
  */
 export type ForgeLike = {
-    [key: string]: unknown;
-};
-
-/**
- * ActivityStream OrderedCollection of activities
- */
-export type ForgeOutbox = {
     [key: string]: unknown;
 };
 
@@ -1836,9 +1730,9 @@ export type GenerateRepoOption = {
 };
 
 /**
- * GitBlob represents a git blob
+ * GitBlobResponse represents a git blob
  */
-export type GitBlob = {
+export type GitBlobResponse = {
     content?: string;
     encoding?: string;
     sha?: string;
@@ -2102,14 +1996,6 @@ export type LicensesTemplateListEntry = {
     key?: string;
     name?: string;
     url?: string;
-};
-
-/**
- * ListActionRunResponse return a list of ActionRun
- */
-export type ListActionRunResponse = {
-    total_count?: number;
-    workflow_runs?: Array<ActionRun>;
 };
 
 /**
@@ -2615,7 +2501,6 @@ export type PullReviewRequestOptions = {
  * PushMirror represents information of a push mirror
  */
 export type PushMirror = {
-    branch_filter?: string;
     created?: string;
     interval?: string;
     last_error?: string;
@@ -2857,13 +2742,6 @@ export type Reference = {
 };
 
 /**
- * RegistrationToken is a string used to register a runner with a server
- */
-export type RegistrationToken = {
-    token?: string;
-};
-
-/**
  * Release represents a repository release
  */
 export type Release = {
@@ -3101,16 +2979,6 @@ export type StopWatch = {
 export type SubmitPullReviewOptions = {
     body?: string;
     event?: ReviewStateType;
-};
-
-/**
- * SyncForkInfo information about syncing a fork
- */
-export type SyncForkInfo = {
-    allowed?: boolean;
-    base_commit?: string;
-    commits_behind?: number;
-    fork_commit?: string;
 };
 
 /**
@@ -3476,17 +3344,6 @@ export type UserSettingsOptions = {
 };
 
 /**
- * VerifyGPGKeyOption options verifies user GPG key
- */
-export type VerifyGpgKeyOption = {
-    armored_signature?: string;
-    /**
-     * An Signature for a GPG key token
-     */
-    key_id: string;
-};
-
-/**
  * WatchInfo represents an API watch status of one repository
  */
 export type WatchInfo = {
@@ -3573,22 +3430,6 @@ export type ActivitypubInstanceActorInboxResponses = {
     204: unknown;
 };
 
-export type ActivitypubInstanceActorOutboxData = {
-    body?: never;
-    path?: never;
-    query?: never;
-    url: '/activitypub/actor/outbox';
-};
-
-export type ActivitypubInstanceActorOutboxResponses = {
-    /**
-     * Outbox
-     */
-    200: ForgeOutbox;
-};
-
-export type ActivitypubInstanceActorOutboxResponse = ActivitypubInstanceActorOutboxResponses[keyof ActivitypubInstanceActorOutboxResponses];
-
 export type ActivitypubRepositoryData = {
     body?: never;
     path: {
@@ -3629,27 +3470,6 @@ export type ActivitypubRepositoryInboxResponses = {
     204: unknown;
 };
 
-export type ActivitypubRepositoryOutboxData = {
-    body?: never;
-    path: {
-        /**
-         * repository ID of the repo
-         */
-        'repository-id': number;
-    };
-    query?: never;
-    url: '/activitypub/repository-id/{repository-id}/outbox';
-};
-
-export type ActivitypubRepositoryOutboxResponses = {
-    /**
-     * Outbox
-     */
-    200: ForgeOutbox;
-};
-
-export type ActivitypubRepositoryOutboxResponse = ActivitypubRepositoryOutboxResponses[keyof ActivitypubRepositoryOutboxResponses];
-
 export type ActivitypubPersonData = {
     body?: never;
     path: {
@@ -3671,56 +3491,6 @@ export type ActivitypubPersonResponses = {
 
 export type ActivitypubPersonResponse = ActivitypubPersonResponses[keyof ActivitypubPersonResponses];
 
-export type ActivitypubPersonActivityNoteData = {
-    body?: never;
-    path: {
-        /**
-         * user ID of the user
-         */
-        'user-id': number;
-        /**
-         * activity ID of the sought activity
-         */
-        'activity-id': number;
-    };
-    query?: never;
-    url: '/activitypub/user-id/{user-id}/activities/{activity-id}';
-};
-
-export type ActivitypubPersonActivityNoteResponses = {
-    /**
-     * ActivityPub
-     */
-    200: ActivityPub;
-};
-
-export type ActivitypubPersonActivityNoteResponse = ActivitypubPersonActivityNoteResponses[keyof ActivitypubPersonActivityNoteResponses];
-
-export type ActivitypubPersonActivityData = {
-    body?: never;
-    path: {
-        /**
-         * user ID of the user
-         */
-        'user-id': number;
-        /**
-         * activity ID of the sought activity
-         */
-        'activity-id': number;
-    };
-    query?: never;
-    url: '/activitypub/user-id/{user-id}/activities/{activity-id}/activity';
-};
-
-export type ActivitypubPersonActivityResponses = {
-    /**
-     * ActivityPub
-     */
-    200: ActivityPub;
-};
-
-export type ActivitypubPersonActivityResponse = ActivitypubPersonActivityResponses[keyof ActivitypubPersonActivityResponses];
-
 export type ActivitypubPersonInboxData = {
     body?: never;
     path: {
@@ -3737,38 +3507,8 @@ export type ActivitypubPersonInboxResponses = {
     /**
      * APIEmpty is an empty response
      */
-    202: unknown;
+    204: unknown;
 };
-
-export type ActivitypubPersonFeedData = {
-    body?: never;
-    path: {
-        /**
-         * user ID of the user
-         */
-        'user-id': number;
-    };
-    query?: never;
-    url: '/activitypub/user-id/{user-id}/outbox';
-};
-
-export type ActivitypubPersonFeedErrors = {
-    /**
-     * APIForbiddenError is a forbidden error response
-     */
-    403: ApiForbiddenError;
-};
-
-export type ActivitypubPersonFeedError = ActivitypubPersonFeedErrors[keyof ActivitypubPersonFeedErrors];
-
-export type ActivitypubPersonFeedResponses = {
-    /**
-     * Outbox
-     */
-    200: ForgeOutbox;
-};
-
-export type ActivitypubPersonFeedResponse = ActivitypubPersonFeedResponses[keyof ActivitypubPersonFeedResponses];
 
 export type AdminCronListData = {
     body?: never;
@@ -4458,7 +4198,7 @@ export type AdminCreateQuotaRuleResponses = {
 
 export type AdminCreateQuotaRuleResponse = AdminCreateQuotaRuleResponses[keyof AdminCreateQuotaRuleResponses];
 
-export type AdminDeleteQuotaRuleData = {
+export type AdminDEleteQuotaRuleData = {
     body?: never;
     path: {
         /**
@@ -4470,7 +4210,7 @@ export type AdminDeleteQuotaRuleData = {
     url: '/admin/quota/rules/{quotarule}';
 };
 
-export type AdminDeleteQuotaRuleErrors = {
+export type AdminDEleteQuotaRuleErrors = {
     /**
      * APIError is error format response
      */
@@ -4485,9 +4225,9 @@ export type AdminDeleteQuotaRuleErrors = {
     404: ApiNotFound;
 };
 
-export type AdminDeleteQuotaRuleError = AdminDeleteQuotaRuleErrors[keyof AdminDeleteQuotaRuleErrors];
+export type AdminDEleteQuotaRuleError = AdminDEleteQuotaRuleErrors[keyof AdminDEleteQuotaRuleErrors];
 
-export type AdminDeleteQuotaRuleResponses = {
+export type AdminDEleteQuotaRuleResponses = {
     /**
      * APIEmpty is an empty response
      */
@@ -4615,10 +4355,8 @@ export type AdminGetRunnerRegistrationTokenResponses = {
     /**
      * RegistrationToken is a string used to register a runner with a server
      */
-    200: RegistrationToken;
+    200: unknown;
 };
-
-export type AdminGetRunnerRegistrationTokenResponse = AdminGetRunnerRegistrationTokenResponses[keyof AdminGetRunnerRegistrationTokenResponses];
 
 export type AdminUnadoptedListData = {
     body?: never;
@@ -4883,72 +4621,6 @@ export type AdminEditUserResponses = {
 };
 
 export type AdminEditUserResponse = AdminEditUserResponses[keyof AdminEditUserResponses];
-
-export type AdminDeleteUserEmailsData = {
-    body?: DeleteEmailOption;
-    path: {
-        /**
-         * username of user to delete email addresses from
-         */
-        username: string;
-    };
-    query?: never;
-    url: '/admin/users/{username}/emails';
-};
-
-export type AdminDeleteUserEmailsErrors = {
-    /**
-     * APIForbiddenError is a forbidden error response
-     */
-    403: ApiForbiddenError;
-    /**
-     * APIValidationError is error format response related to input validation
-     */
-    422: ApiValidationError;
-};
-
-export type AdminDeleteUserEmailsError = AdminDeleteUserEmailsErrors[keyof AdminDeleteUserEmailsErrors];
-
-export type AdminDeleteUserEmailsResponses = {
-    /**
-     * APIEmpty is an empty response
-     */
-    204: unknown;
-};
-
-export type AdminListUserEmailsData = {
-    body?: never;
-    path: {
-        /**
-         * username of user to get email addresses of
-         */
-        username: string;
-    };
-    query?: never;
-    url: '/admin/users/{username}/emails';
-};
-
-export type AdminListUserEmailsErrors = {
-    /**
-     * APIForbiddenError is a forbidden error response
-     */
-    403: ApiForbiddenError;
-    /**
-     * APINotFound is a not found error response
-     */
-    404: ApiNotFound;
-};
-
-export type AdminListUserEmailsError = AdminListUserEmailsErrors[keyof AdminListUserEmailsErrors];
-
-export type AdminListUserEmailsResponses = {
-    /**
-     * EmailList
-     */
-    200: Array<Email>;
-};
-
-export type AdminListUserEmailsResponse = AdminListUserEmailsResponses[keyof AdminListUserEmailsResponses];
 
 export type AdminCreatePublicKeyData = {
     body?: CreateKeyOption;
@@ -5464,7 +5136,7 @@ export type NotifyGetListData = {
         /**
          * filter notifications by subject type
          */
-        'subject-type'?: Array<'issue' | 'pull' | 'repository'>;
+        'subject-type'?: Array<'issue' | 'pull' | 'commit' | 'repository'>;
         /**
          * Only show notifications updated after the given time. This is a timestamp in RFC 3339 format
          */
@@ -5505,7 +5177,7 @@ export type NotifyReadListData = {
         /**
          * If true, mark all notifications on this repo. Default value is false
          */
-        all?: boolean;
+        all?: string;
         /**
          * Mark notifications with the provided status types. Options are: unread, read and/or pinned. Defaults to unread.
          */
@@ -5549,7 +5221,7 @@ export type NotifyGetThreadData = {
         /**
          * id of notification thread
          */
-        id: number;
+        id: string;
     };
     query?: never;
     url: '/notifications/threads/{id}';
@@ -5583,7 +5255,7 @@ export type NotifyReadThreadData = {
         /**
          * id of notification thread
          */
-        id: number;
+        id: string;
     };
     query?: {
         /**
@@ -5851,10 +5523,8 @@ export type OrgGetRunnerRegistrationTokenResponses = {
     /**
      * RegistrationToken is a string used to register a runner with a server
      */
-    200: RegistrationToken;
+    200: unknown;
 };
-
-export type OrgGetRunnerRegistrationTokenResponse = OrgGetRunnerRegistrationTokenResponses[keyof OrgGetRunnerRegistrationTokenResponses];
 
 export type OrgListActionsSecretsData = {
     body?: never;
@@ -6045,10 +5715,20 @@ export type DeleteOrgVariableError = DeleteOrgVariableErrors[keyof DeleteOrgVari
 
 export type DeleteOrgVariableResponses = {
     /**
+     * ActionVariable
+     */
+    200: ActionVariable;
+    /**
+     * response when deleting a variable
+     */
+    201: unknown;
+    /**
      * response when deleting a variable
      */
     204: unknown;
 };
+
+export type DeleteOrgVariableResponse = DeleteOrgVariableResponses[keyof DeleteOrgVariableResponses];
 
 export type GetOrgVariableData = {
     body?: never;
@@ -6481,10 +6161,6 @@ export type OrgListLabelsData = {
         org: string;
     };
     query?: {
-        /**
-         * Specifies the sorting method: mostissues, leastissues, or reversealphabetically.
-         */
-        sort?: 'mostissues' | 'leastissues' | 'reversealphabetically';
         /**
          * page number of results to return (1-based)
          */
@@ -7053,12 +6729,7 @@ export type OrgCheckQuotaData = {
          */
         org: string;
     };
-    query: {
-        /**
-         * subject of the quota
-         */
-        subject: string;
-    };
+    query?: never;
     url: '/orgs/{org}/quota/check';
 };
 
@@ -7081,12 +6752,10 @@ export type OrgCheckQuotaError = OrgCheckQuotaErrors[keyof OrgCheckQuotaErrors];
 
 export type OrgCheckQuotaResponses = {
     /**
-     * Returns true if the action is accepted.
+     * Boolean
      */
-    200: boolean;
+    200: unknown;
 };
-
-export type OrgCheckQuotaResponse = OrgCheckQuotaResponses[keyof OrgCheckQuotaResponses];
 
 export type OrgListQuotaPackagesData = {
     body?: never;
@@ -7353,8 +7022,6 @@ export type TeamSearchError = TeamSearchErrors[keyof TeamSearchErrors];
 
 export type TeamSearchResponses = {
     /**
-     * TeamSearchResults
-     *
      * SearchResults of a successful search
      */
     200: {
@@ -7720,10 +7387,6 @@ export type IssueSearchIssuesData = {
          * Number of items per page
          */
         limit?: number;
-        /**
-         * Type of sort
-         */
-        sort?: 'relevance' | 'latest' | 'oldest' | 'recentupdate' | 'leastupdate' | 'mostcomment' | 'leastcomment' | 'nearduedate' | 'farduedate';
     };
     url: '/repos/issues/search';
 };
@@ -7846,11 +7509,11 @@ export type RepoSearchData = {
         /**
          * sort repos by attribute. Supported values are "alpha", "created", "updated", "size", "git_size", "lfs_size", "stars", "forks" and "id". Default is "alpha"
          */
-        sort?: 'alpha' | 'created' | 'updated' | 'size' | 'git_size' | 'lfs_size' | 'id' | 'stars' | 'forks';
+        sort?: string;
         /**
          * sort order, either "asc" (ascending) or "desc" (descending). Default is "asc", ignored if "sort" is not specified.
          */
-        order?: 'asc' | 'desc';
+        order?: string;
         /**
          * page number of results to return (1-based)
          */
@@ -8055,121 +7718,8 @@ export type RepoGetRunnerRegistrationTokenResponses = {
     /**
      * RegistrationToken is a string used to register a runner with a server
      */
-    200: RegistrationToken;
+    200: unknown;
 };
-
-export type RepoGetRunnerRegistrationTokenResponse = RepoGetRunnerRegistrationTokenResponses[keyof RepoGetRunnerRegistrationTokenResponses];
-
-export type ListActionRunsData = {
-    body?: never;
-    path: {
-        /**
-         * owner of the repo
-         */
-        owner: string;
-        /**
-         * name of the repo
-         */
-        repo: string;
-    };
-    query?: {
-        /**
-         * page number of results to return (1-based)
-         */
-        page?: number;
-        /**
-         * page size of results, default maximum page size is 50
-         */
-        limit?: number;
-        /**
-         * Returns workflow run triggered by the specified events. For example, `push`, `pull_request` or `workflow_dispatch`.
-         */
-        event?: Array<string>;
-        /**
-         * Returns workflow runs with the check run status or conclusion that is specified. For example, a conclusion can be success or a status can be in_progress. Only Forgejo Actions can set a status of waiting, pending, or requested.
-         *
-         */
-        status?: Array<'unknown' | 'waiting' | 'running' | 'success' | 'failure' | 'cancelled' | 'skipped' | 'blocked'>;
-        /**
-         * Returns the workflow run associated with the run number.
-         *
-         */
-        run_number?: number;
-        /**
-         * Only returns workflow runs that are associated with the specified head_sha.
-         */
-        head_sha?: string;
-    };
-    url: '/repos/{owner}/{repo}/actions/runs';
-};
-
-export type ListActionRunsErrors = {
-    /**
-     * APIError is error format response
-     */
-    400: ApiError;
-    /**
-     * APIForbiddenError is a forbidden error response
-     */
-    403: ApiForbiddenError;
-};
-
-export type ListActionRunsError = ListActionRunsErrors[keyof ListActionRunsErrors];
-
-export type ListActionRunsResponses = {
-    /**
-     * ActionRunList
-     */
-    200: ListActionRunResponse;
-};
-
-export type ListActionRunsResponse = ListActionRunsResponses[keyof ListActionRunsResponses];
-
-export type ActionRunData = {
-    body?: never;
-    path: {
-        /**
-         * owner of the repo
-         */
-        owner: string;
-        /**
-         * name of the repo
-         */
-        repo: string;
-        /**
-         * id of the action run
-         */
-        run_id: number;
-    };
-    query?: never;
-    url: '/repos/{owner}/{repo}/actions/runs/{run_id}';
-};
-
-export type ActionRunErrors = {
-    /**
-     * APIError is error format response
-     */
-    400: ApiError;
-    /**
-     * APIForbiddenError is a forbidden error response
-     */
-    403: ApiForbiddenError;
-    /**
-     * APINotFound is a not found error response
-     */
-    404: ApiNotFound;
-};
-
-export type ActionRunError = ActionRunErrors[keyof ActionRunErrors];
-
-export type ActionRunResponses = {
-    /**
-     * ActionRun
-     */
-    200: ActionRun;
-};
-
-export type ActionRunResponse = ActionRunResponses[keyof ActionRunResponses];
 
 export type RepoListActionsSecretsData = {
     body?: never;
@@ -8439,10 +7989,20 @@ export type DeleteRepoVariableError = DeleteRepoVariableErrors[keyof DeleteRepoV
 
 export type DeleteRepoVariableResponses = {
     /**
+     * ActionVariable
+     */
+    200: ActionVariable;
+    /**
+     * response when deleting a variable
+     */
+    201: unknown;
+    /**
      * response when deleting a variable
      */
     204: unknown;
 };
+
+export type DeleteRepoVariableResponse = DeleteRepoVariableResponses[keyof DeleteRepoVariableResponses];
 
 export type GetRepoVariableData = {
     body?: never;
@@ -8588,10 +8148,10 @@ export type DispatchWorkflowData = {
         /**
          * name of the workflow
          */
-        workflowfilename: string;
+        workflowname: string;
     };
     query?: never;
-    url: '/repos/{owner}/{repo}/actions/workflows/{workflowfilename}/dispatches';
+    url: '/repos/{owner}/{repo}/actions/workflows/{workflowname}/dispatches';
 };
 
 export type DispatchWorkflowErrors = {
@@ -9728,10 +9288,6 @@ export type RepoChangeFilesErrors = {
      */
     404: ApiNotFound;
     /**
-     * APIConflict is a conflict empty response
-     */
-    409: unknown;
-    /**
      * QuotaExceeded
      */
     413: unknown;
@@ -9883,10 +9439,6 @@ export type RepoCreateFileErrors = {
      */
     404: ApiNotFound;
     /**
-     * APIConflict is a conflict empty response
-     */
-    409: unknown;
-    /**
      * QuotaExceeded
      */
     413: unknown;
@@ -9941,10 +9493,6 @@ export type RepoUpdateFileErrors = {
      */
     404: ApiNotFound;
     /**
-     * APIConflict is a conflict empty response
-     */
-    409: unknown;
-    /**
      * QuotaExceeded
      */
     413: unknown;
@@ -9968,48 +9516,6 @@ export type RepoUpdateFileResponses = {
 };
 
 export type RepoUpdateFileResponse = RepoUpdateFileResponses[keyof RepoUpdateFileResponses];
-
-export type RepoConvertData = {
-    body?: never;
-    path: {
-        /**
-         * owner of the repo to convert
-         */
-        owner: string;
-        /**
-         * name of the repo to convert
-         */
-        repo: string;
-    };
-    query?: never;
-    url: '/repos/{owner}/{repo}/convert';
-};
-
-export type RepoConvertErrors = {
-    /**
-     * APIForbiddenError is a forbidden error response
-     */
-    403: ApiForbiddenError;
-    /**
-     * APINotFound is a not found error response
-     */
-    404: ApiNotFound;
-    /**
-     * APIValidationError is error format response related to input validation
-     */
-    422: ApiValidationError;
-};
-
-export type RepoConvertError = RepoConvertErrors[keyof RepoConvertErrors];
-
-export type RepoConvertResponses = {
-    /**
-     * Repository
-     */
-    200: Repository;
-};
-
-export type RepoConvertResponse = RepoConvertResponses[keyof RepoConvertResponses];
 
 export type RepoApplyDiffPatchData = {
     body: UpdateFileOptions;
@@ -10089,14 +9595,10 @@ export type RepoGetEditorConfigError = RepoGetEditorConfigErrors[keyof RepoGetEd
 
 export type RepoGetEditorConfigResponses = {
     /**
-     * definitions
+     * success
      */
-    200: {
-        [key: string]: string;
-    };
+    200: unknown;
 };
-
-export type RepoGetEditorConfigResponse = RepoGetEditorConfigResponses[keyof RepoGetEditorConfigResponses];
 
 export type RepoDeleteAllFlagsData = {
     body?: never;
@@ -10421,45 +9923,6 @@ export type CreateForkResponses = {
 
 export type CreateForkResponse = CreateForkResponses[keyof CreateForkResponses];
 
-export type GetBlobsData = {
-    body?: never;
-    path: {
-        /**
-         * owner of the repo
-         */
-        owner: string;
-        /**
-         * name of the repo
-         */
-        repo: string;
-    };
-    query: {
-        /**
-         * a comma separated list of blob-sha (mind the overall URL-length limit of ~2,083 chars)
-         */
-        shas: string;
-    };
-    url: '/repos/{owner}/{repo}/git/blobs';
-};
-
-export type GetBlobsErrors = {
-    /**
-     * APIError is error format response
-     */
-    400: ApiError;
-};
-
-export type GetBlobsError = GetBlobsErrors[keyof GetBlobsErrors];
-
-export type GetBlobsResponses = {
-    /**
-     * GitBlobList
-     */
-    200: Array<GitBlob>;
-};
-
-export type GetBlobsResponse = GetBlobsResponses[keyof GetBlobsResponses];
-
 export type GetBlobData = {
     body?: never;
     path: {
@@ -10472,7 +9935,7 @@ export type GetBlobData = {
          */
         repo: string;
         /**
-         * sha of the blob to retrieve
+         * sha of the commit
          */
         sha: string;
     };
@@ -10495,9 +9958,9 @@ export type GetBlobError = GetBlobErrors[keyof GetBlobErrors];
 
 export type GetBlobResponses = {
     /**
-     * GitBlob
+     * GitBlobResponse
      */
-    200: GitBlob;
+    200: GitBlobResponse;
 };
 
 export type GetBlobResponse = GetBlobResponses[keyof GetBlobResponses];
@@ -12503,7 +11966,7 @@ export type IssueRemoveIssueBlockingData = {
         /**
          * index of the issue
          */
-        index: number;
+        index: string;
     };
     query?: never;
     url: '/repos/{owner}/{repo}/issues/{index}/blocks';
@@ -12541,7 +12004,7 @@ export type IssueListBlocksData = {
         /**
          * index of the issue
          */
-        index: number;
+        index: string;
     };
     query?: {
         /**
@@ -12588,7 +12051,7 @@ export type IssueCreateIssueBlockingData = {
         /**
          * index of the issue
          */
-        index: number;
+        index: string;
     };
     query?: never;
     url: '/repos/{owner}/{repo}/issues/{index}/blocks';
@@ -12869,7 +12332,7 @@ export type IssueRemoveIssueDependenciesData = {
         /**
          * index of the issue
          */
-        index: number;
+        index: string;
     };
     query?: never;
     url: '/repos/{owner}/{repo}/issues/{index}/dependencies';
@@ -12911,7 +12374,7 @@ export type IssueListIssueDependenciesData = {
         /**
          * index of the issue
          */
-        index: number;
+        index: string;
     };
     query?: {
         /**
@@ -12958,7 +12421,7 @@ export type IssueCreateIssueDependenciesData = {
         /**
          * index of the issue
          */
-        index: number;
+        index: string;
     };
     query?: never;
     url: '/repos/{owner}/{repo}/issues/{index}/dependencies';
@@ -13164,12 +12627,12 @@ export type IssueRemoveLabelData = {
          */
         index: number;
         /**
-         * name or id of the label to remove
+         * id of the label to remove
          */
-        identifier: string;
+        id: number;
     };
     query?: never;
-    url: '/repos/{owner}/{repo}/issues/{index}/labels/{identifier}';
+    url: '/repos/{owner}/{repo}/issues/{index}/labels/{id}';
 };
 
 export type IssueRemoveLabelErrors = {
@@ -14203,10 +13666,6 @@ export type IssueListLabelsData = {
     };
     query?: {
         /**
-         * Specifies the sorting method: mostissues, leastissues, or reversealphabetically.
-         */
-        sort?: 'mostissues' | 'leastissues' | 'reversealphabetically';
-        /**
          * page number of results to return (1-based)
          */
         page?: number;
@@ -14566,7 +14025,7 @@ export type IssueDeleteMilestoneData = {
         /**
          * the milestone to delete, identified by ID and if not available by name
          */
-        id: number;
+        id: string;
     };
     query?: never;
     url: '/repos/{owner}/{repo}/milestones/{id}';
@@ -14602,7 +14061,7 @@ export type IssueGetMilestoneData = {
         /**
          * the milestone to get, identified by ID and if not available by name
          */
-        id: number;
+        id: string;
     };
     query?: never;
     url: '/repos/{owner}/{repo}/milestones/{id}';
@@ -14640,7 +14099,7 @@ export type IssueEditMilestoneData = {
         /**
          * the milestone to edit, identified by ID and if not available by name
          */
-        id: number;
+        id: string;
     };
     query?: never;
     url: '/repos/{owner}/{repo}/milestones/{id}';
@@ -14762,7 +14221,7 @@ export type NotifyGetRepoListData = {
         /**
          * filter notifications by subject type
          */
-        'subject-type'?: Array<'issue' | 'pull' | 'repository'>;
+        'subject-type'?: Array<'issue' | 'pull' | 'commit' | 'repository'>;
         /**
          * Only show notifications updated after the given time. This is a timestamp in RFC 3339 format
          */
@@ -14808,7 +14267,7 @@ export type NotifyReadRepoListData = {
         /**
          * If true, mark all notifications on this repo. Default value is false
          */
-        all?: boolean;
+        all?: string;
         /**
          * Mark notifications with the provided status types. Options are: unread, read and/or pinned. Defaults to unread.
          */
@@ -14854,7 +14313,7 @@ export type RepoListPullRequestsData = {
         /**
          * Type of sort
          */
-        sort?: 'oldest' | 'recentupdate' | 'recentclose' | 'leastupdate' | 'mostcomment' | 'leastcomment' | 'priority';
+        sort?: 'oldest' | 'recentupdate' | 'leastupdate' | 'mostcomment' | 'leastcomment' | 'priority';
         /**
          * ID of the milestone
          */
@@ -17219,162 +16678,6 @@ export type UserCurrentPutSubscriptionResponses = {
 
 export type UserCurrentPutSubscriptionResponse = UserCurrentPutSubscriptionResponses[keyof UserCurrentPutSubscriptionResponses];
 
-export type RepoSyncForkDefaultInfoData = {
-    body?: never;
-    path: {
-        /**
-         * owner of the repo
-         */
-        owner: string;
-        /**
-         * name of the repo
-         */
-        repo: string;
-    };
-    query?: never;
-    url: '/repos/{owner}/{repo}/sync_fork';
-};
-
-export type RepoSyncForkDefaultInfoErrors = {
-    /**
-     * APIError is error format response
-     */
-    400: ApiError;
-    /**
-     * APINotFound is a not found error response
-     */
-    404: ApiNotFound;
-};
-
-export type RepoSyncForkDefaultInfoError = RepoSyncForkDefaultInfoErrors[keyof RepoSyncForkDefaultInfoErrors];
-
-export type RepoSyncForkDefaultInfoResponses = {
-    /**
-     * SyncForkInfo
-     */
-    200: SyncForkInfo;
-};
-
-export type RepoSyncForkDefaultInfoResponse = RepoSyncForkDefaultInfoResponses[keyof RepoSyncForkDefaultInfoResponses];
-
-export type RepoSyncForkDefaultData = {
-    body?: never;
-    path: {
-        /**
-         * owner of the repo
-         */
-        owner: string;
-        /**
-         * name of the repo
-         */
-        repo: string;
-    };
-    query?: never;
-    url: '/repos/{owner}/{repo}/sync_fork';
-};
-
-export type RepoSyncForkDefaultErrors = {
-    /**
-     * APIError is error format response
-     */
-    400: ApiError;
-    /**
-     * APINotFound is a not found error response
-     */
-    404: ApiNotFound;
-};
-
-export type RepoSyncForkDefaultError = RepoSyncForkDefaultErrors[keyof RepoSyncForkDefaultErrors];
-
-export type RepoSyncForkDefaultResponses = {
-    /**
-     * APIEmpty is an empty response
-     */
-    204: unknown;
-};
-
-export type RepoSyncForkBranchInfoData = {
-    body?: never;
-    path: {
-        /**
-         * owner of the repo
-         */
-        owner: string;
-        /**
-         * name of the repo
-         */
-        repo: string;
-        /**
-         * The branch
-         */
-        branch: string;
-    };
-    query?: never;
-    url: '/repos/{owner}/{repo}/sync_fork/{branch}';
-};
-
-export type RepoSyncForkBranchInfoErrors = {
-    /**
-     * APIError is error format response
-     */
-    400: ApiError;
-    /**
-     * APINotFound is a not found error response
-     */
-    404: ApiNotFound;
-};
-
-export type RepoSyncForkBranchInfoError = RepoSyncForkBranchInfoErrors[keyof RepoSyncForkBranchInfoErrors];
-
-export type RepoSyncForkBranchInfoResponses = {
-    /**
-     * SyncForkInfo
-     */
-    200: SyncForkInfo;
-};
-
-export type RepoSyncForkBranchInfoResponse = RepoSyncForkBranchInfoResponses[keyof RepoSyncForkBranchInfoResponses];
-
-export type RepoSyncForkBranchData = {
-    body?: never;
-    path: {
-        /**
-         * owner of the repo
-         */
-        owner: string;
-        /**
-         * name of the repo
-         */
-        repo: string;
-        /**
-         * The branch
-         */
-        branch: string;
-    };
-    query?: never;
-    url: '/repos/{owner}/{repo}/sync_fork/{branch}';
-};
-
-export type RepoSyncForkBranchErrors = {
-    /**
-     * APIError is error format response
-     */
-    400: ApiError;
-    /**
-     * APINotFound is a not found error response
-     */
-    404: ApiNotFound;
-};
-
-export type RepoSyncForkBranchError = RepoSyncForkBranchErrors[keyof RepoSyncForkBranchErrors];
-
-export type RepoSyncForkBranchResponses = {
-    /**
-     * APIEmpty is an empty response
-     */
-    204: unknown;
-};
-
 export type RepoListTagProtectionData = {
     body?: never;
     path: {
@@ -18746,31 +18049,6 @@ export type GetSigningKeyResponses = {
 
 export type GetSigningKeyResponse = GetSigningKeyResponses[keyof GetSigningKeyResponses];
 
-export type GetSshSigningKeyData = {
-    body?: never;
-    path?: never;
-    query?: never;
-    url: '/signing-key.ssh';
-};
-
-export type GetSshSigningKeyErrors = {
-    /**
-     * APINotFound is a not found error response
-     */
-    404: ApiNotFound;
-};
-
-export type GetSshSigningKeyError = GetSshSigningKeyErrors[keyof GetSshSigningKeyErrors];
-
-export type GetSshSigningKeyResponses = {
-    /**
-     * SSH public key in OpenSSH authorized key format
-     */
-    200: string;
-};
-
-export type GetSshSigningKeyResponse = GetSshSigningKeyResponses[keyof GetSshSigningKeyResponses];
-
 export type OrgDeleteTeamData = {
     body?: never;
     path: {
@@ -19201,7 +18479,7 @@ export type TopicSearchData = {
     path?: never;
     query: {
         /**
-         * keyword to search for
+         * keywords to search
          */
         q: string;
         /**
@@ -19231,13 +18509,9 @@ export type TopicSearchError = TopicSearchErrors[keyof TopicSearchErrors];
 
 export type TopicSearchResponses = {
     /**
-     * TopicSearchResults
-     *
-     * SearchResults of a successful search
+     * TopicListResponse
      */
-    200: {
-        topics?: Array<TopicResponse>;
-    };
+    200: Array<TopicResponse>;
 };
 
 export type TopicSearchResponse = TopicSearchResponses[keyof TopicSearchResponses];
@@ -19329,10 +18603,8 @@ export type UserGetRunnerRegistrationTokenResponses = {
     /**
      * RegistrationToken is a string used to register a runner with a server
      */
-    200: RegistrationToken;
+    200: unknown;
 };
-
-export type UserGetRunnerRegistrationTokenResponse = UserGetRunnerRegistrationTokenResponses[keyof UserGetRunnerRegistrationTokenResponses];
 
 export type DeleteUserSecretData = {
     body?: never;
@@ -20226,7 +19498,7 @@ export type GetVerificationTokenResponses = {
 export type GetVerificationTokenResponse = GetVerificationTokenResponses[keyof GetVerificationTokenResponses];
 
 export type UserVerifyGpgKeyData = {
-    body?: VerifyGpgKeyOption;
+    body?: never;
     path?: never;
     query?: never;
     url: '/user/gpg_key_verify';
@@ -20915,12 +20187,7 @@ export type UserListQuotaAttachmentsResponse = UserListQuotaAttachmentsResponses
 export type UserCheckQuotaData = {
     body?: never;
     path?: never;
-    query: {
-        /**
-         * subject of the quota
-         */
-        subject: string;
-    };
+    query?: never;
     url: '/user/quota/check';
 };
 
@@ -20943,12 +20210,10 @@ export type UserCheckQuotaError = UserCheckQuotaErrors[keyof UserCheckQuotaError
 
 export type UserCheckQuotaResponses = {
     /**
-     * Returns true if the action is accepted.
+     * Boolean
      */
-    200: boolean;
+    200: unknown;
 };
-
-export type UserCheckQuotaResponse = UserCheckQuotaResponses[keyof UserCheckQuotaResponses];
 
 export type UserListQuotaPackagesData = {
     body?: never;
@@ -21508,10 +20773,6 @@ export type UserSearchData = {
          */
         uid?: number;
         /**
-         * sort order of results
-         */
-        sort?: 'oldest' | 'newest' | 'alphabetically' | 'reversealphabetically' | 'recentupdate' | 'leastupdate';
-        /**
          * page number of results to return (1-based)
          */
         page?: number;
@@ -21525,8 +20786,6 @@ export type UserSearchData = {
 
 export type UserSearchResponses = {
     /**
-     * UserSearchResults
-     *
      * SearchResults of a successful search
      */
     200: {
