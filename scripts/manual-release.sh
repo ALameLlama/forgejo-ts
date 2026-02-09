@@ -83,6 +83,15 @@ git tag "v$VERSION"
 git push origin "$BRANCH" --force
 git push origin "v$VERSION"
 
+# Update 'latest' tag if this is a latest release
+if [ "$NPM_TAG" = "latest" ]; then
+	echo ">>> Updating 'latest' tag..."
+	git tag -d latest 2>/dev/null || true
+	git push origin :refs/tags/latest 2>/dev/null || true
+	git tag latest
+	git push origin latest
+fi
+
 # Publish to npm
 echo ">>> Publishing to npm with tag $NPM_TAG..."
 npm publish --tag "$NPM_TAG"
