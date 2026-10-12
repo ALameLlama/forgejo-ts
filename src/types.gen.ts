@@ -9289,6 +9289,10 @@ export type DispatchWorkflowData = {
 
 export type DispatchWorkflowErrors = {
     /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
      * APINotFound is a not found error response
      */
     404: ApiNotFound;
