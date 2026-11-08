@@ -172,6 +172,8 @@ The package version matches the Forgejo version it was generated from.
 
 To generate the client locally:
 
+Use TypeScript 5.9.x for generation and builds. TypeScript 7 does not export the compiler API that `@hey-api/openapi-ts` uses. TypeScript 6 rejects the deprecated `baseUrl` option that `tsup` adds when it builds declarations. Dependabot ignores TypeScript major updates until these tools support a newer compiler.
+
 ```bash
 # Clone the repository
 git clone https://github.com/your-username/forgejo-ts.git

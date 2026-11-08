@@ -54,7 +54,7 @@
     "@apidevtools/swagger-parser": "^12.1.0",
     "@hey-api/openapi-ts": "^0.99.0",
     "tsup": "^8.0.0",
-    "typescript": "^7.0.2"
+    "typescript": "^5.9.3"
   },
   "engines": {
     "node": ">=20"
