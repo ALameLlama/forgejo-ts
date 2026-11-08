@@ -48,15 +48,58 @@ export type ApiValidationError = {
     url?: string;
 };
 
+export type ApRemoteFollowOption = {
+    target?: string;
+};
+
 /**
  * AccessToken represents an API access token.
  */
 export type AccessToken = {
+    created_at?: string;
     id?: number;
     name?: string;
+    /**
+     * Indicates that an access token only has access to the specified repositories.  Will be null if the access token
+     * is not limited to a set of specified repositories.
+     */
+    repositories?: Array<RepositoryMeta>;
     scopes?: Array<string>;
     sha1?: string;
     token_last_eight?: string;
+};
+
+/**
+ * ActionArtifact represents an artifact of a workflow run
+ */
+export type ActionArtifact = {
+    /**
+     * the URL to download the artifact zip archive
+     */
+    archive_download_url?: string;
+    created_at?: string;
+    /**
+     * whether the artifact has expired
+     */
+    expired?: boolean;
+    expires_at?: string;
+    /**
+     * the artifact's ID
+     */
+    id?: number;
+    /**
+     * the artifact's name
+     */
+    name?: string;
+    /**
+     * the ID of the workflow run that produced this artifact
+     */
+    run_id?: number;
+    /**
+     * the total size of the artifact in bytes
+     */
+    size_in_bytes?: number;
+    updated_at?: string;
 };
 
 /**
@@ -153,7 +196,19 @@ export type ActionRun = {
  */
 export type ActionRunJob = {
     /**
-     * the action run job id
+     * How many times the job has been attempted including the current attempt.
+     */
+    attempt?: number;
+    /**
+     * Opaque identifier that uniquely identifies a single attempt of a job.
+     */
+    handle?: string;
+    /**
+     * HTMLURL is the URL where a user can view the job using their browser.
+     */
+    html_url?: string;
+    /**
+     * Identifier of this job.
      */
     id?: number;
     /**
@@ -173,6 +228,10 @@ export type ActionRunJob = {
      */
     repo_id?: number;
     /**
+     * Identifier of the workflow run this job belongs to.
+     */
+    run_id?: number;
+    /**
      * the action run job labels to run on
      */
     runs_on?: Array<string>;
@@ -181,9 +240,96 @@ export type ActionRunJob = {
      */
     status?: string;
     /**
+     * the steps that make up this workflow job's execution, including the
+     * "Set up job" entry (number=0) and "Complete job" tail. Only populated by
+     * endpoints that return a single job (e.g. GET /repos/{owner}/{repo}/actions/jobs/{job_id}).
+     */
+    steps?: Array<ActionRunJobStep>;
+    /**
      * the action run job latest task id
      */
     task_id?: number;
+};
+
+/**
+ * ActionRunJobStep is a step in a workflow job's execution. The slice on
+ * ActionRunJob.Steps always includes a "Set up job" entry at number=0 and a
+ * "Complete job" entry as the last element; the entries in between are the
+ * workflow's real steps in declaration order. The Number field is the value
+ * accepted by the job-logs endpoint's `?step=` filter.
+ */
+export type ActionRunJobStep = {
+    /**
+     * step name (workflow YAML `name:` for real steps; "Set up job" and
+     * "Complete job" for the head and tail respectively)
+     */
+    name?: string;
+    /**
+     * position in the job's step list. 0 is the "Set up job" entry; the last
+     * index is the "Complete job" entry; real steps are numbered 1..N in
+     * declaration order.
+     */
+    number?: number;
+    /**
+     * when the step started
+     */
+    started?: string;
+    /**
+     * step status (success, failure, running, waiting, skipped, cancelled, ...)
+     */
+    status?: string;
+    /**
+     * when the step stopped
+     */
+    stopped?: string;
+};
+
+/**
+ * ActionRunner represents a runner
+ */
+export type ActionRunner = {
+    /**
+     * Description provides optional details about this runner.
+     */
+    description?: string;
+    /**
+     * Indicates if runner is ephemeral runner
+     */
+    ephemeral?: boolean;
+    /**
+     * ID uniquely identifies this runner.
+     */
+    id?: number;
+    /**
+     * Labels is a list of labels attached to this runner.
+     */
+    labels?: Array<string>;
+    /**
+     * Name of the runner; not unique.
+     */
+    name?: string;
+    /**
+     * OwnerID is the identifier of the user or organization this runner belongs to. O if the runner is owned by a
+     * repository.
+     */
+    owner_id?: number;
+    /**
+     * RepoID is the identifier of the repository this runner belongs to. 0 if the runner belongs to a user or
+     * organization.
+     */
+    repo_id?: number;
+    /**
+     * Status indicates whether this runner is offline, or active, for example.
+     */
+    status?: 'offline' | 'idle' | 'active';
+    /**
+     * UUID uniquely identifies this runner.
+     */
+    uuid?: string;
+    /**
+     * Version is the self-reported version string of Forgejo Runner.
+     */
+    version?: string;
 };
 
 /**
@@ -353,9 +499,6 @@ export type BranchProtection = {
     block_on_official_review_requests?: boolean;
     block_on_outdated_branch?: boolean;
     block_on_rejected_reviews?: boolean;
-    /**
-     * Deprecated: true
-     */
     branch_name?: string;
     created_at?: string;
     dismiss_stale_approvals?: boolean;
@@ -422,6 +565,10 @@ export type ChangeFilesOptions = {
      */
     files: Array<ChangeFileOperation>;
     /**
+     * (optional) will do a force-push if the new branch already exists
+     */
+    force_overwrite_new_branch?: boolean;
+    /**
      * message (optional) for the commit of this file. if not supplied, a default message will be used
      */
     message?: string;
@@ -467,15 +614,45 @@ export type CombinedStatus = {
  * Comment represents a comment on a commit or issue
  */
 export type Comment = {
+    /**
+     * The attachments to the comment
+     */
     assets?: Array<Attachment>;
+    /**
+     * The body of the comment
+     */
     body?: string;
+    /**
+     * The time of the comment's creation
+     */
     created_at?: string;
+    /**
+     * The HTML URL of the comment
+     */
     html_url?: string;
+    /**
+     * The identifier of the comment
+     */
     id?: number;
+    /**
+     * The HTML URL of the issue if the comment is posted on an issue, else empty string
+     */
     issue_url?: string;
+    /**
+     * The original author that posted the comment if it was not posted locally, else empty string
+     */
     original_author?: string;
+    /**
+     * The ID of the original author that posted the comment if it was not posted locally, else 0
+     */
     original_author_id?: number;
+    /**
+     * The HTML URL of the pull request if the comment is posted on a pull request, else empty string
+     */
     pull_request_url?: string;
+    /**
+     * The time of the comment's update
+     */
     updated_at?: string;
     user?: User;
 };
@@ -547,7 +724,7 @@ export type CommitStatus = {
 
 /**
  * CommitStatusState holds the state of a CommitStatus
- * It can be "pending", "success", "error", "failure" and "warning"
+ * It can be "pending", "success", "error", "failure", "warning", or "skipped"
  */
 export type CommitStatusState = string;
 
@@ -611,6 +788,10 @@ export type ContentsResponse = {
  */
 export type CreateAccessTokenOption = {
     name: string;
+    /**
+     * If provided and not-empty, creates an access token with access only to specified repositories.
+     */
+    repositories?: Array<RepoTargetOption>;
     scopes?: Array<string>;
 };
 
@@ -624,9 +805,6 @@ export type CreateBranchProtectionOption = {
     block_on_official_review_requests?: boolean;
     block_on_outdated_branch?: boolean;
     block_on_rejected_reviews?: boolean;
-    /**
-     * Deprecated: true
-     */
     branch_name?: string;
     dismiss_stale_approvals?: boolean;
     enable_approvals_whitelist?: boolean;
@@ -657,7 +835,6 @@ export type CreateBranchRepoOption = {
      */
     new_branch_name: string;
     /**
-     * Deprecated: true
      * Name of the old branch to create from
      */
     old_branch_name?: string;
@@ -693,6 +870,10 @@ export type CreateFileOptions = {
      */
     content: string;
     dates?: CommitDateOptions;
+    /**
+     * (optional) will do a force-push if the new branch already exists
+     */
+    force_overwrite_new_branch?: boolean;
     /**
      * message (optional) for the commit of this file. if not supplied, a default message will be used
      */
@@ -756,7 +937,13 @@ export type CreateHookOptionConfig = {
  * CreateIssueCommentOption options for creating a comment on an issue
  */
 export type CreateIssueCommentOption = {
+    /**
+     * The body of the comment
+     */
     body: string;
+    /**
+     * The time of the comment's update, needs admin or repository owner permission
+     */
     updated_at?: string;
 };
 
@@ -833,11 +1020,12 @@ export type CreateOAuth2ApplicationOptions = {
 };
 
 /**
- * CreateOrUpdateSecretOption options when creating or updating secret
+ * CreateOrUpdateSecretOption defines the properties of the secret to create or update.
  */
 export type CreateOrUpdateSecretOption = {
     /**
-     * Data of the secret to update
+     * Data of the secret. Special characters will be retained. Line endings will be normalized to LF to match the
+     * behaviour of browsers. Encode the data with Base64 if line endings should be retained.
      */
     data: string;
 };
@@ -879,6 +1067,10 @@ export type CreatePullRequestOption = {
  */
 export type CreatePullReviewComment = {
     body?: string;
+    /**
+     * number of additional lines after the commented line (0 = single line comment)
+     */
+    extra_lines_count?: number;
     /**
      * if comment to new file line or 0
      */
@@ -981,7 +1173,7 @@ export type CreateRepoOption = {
      */
     description?: string;
     /**
-     * Gitignores to use
+     * Gitignores to use, separated by commas
      */
     gitignores?: string;
     /**
@@ -1055,6 +1247,10 @@ export type CreateTeamOption = {
     includes_all_repositories?: boolean;
     name: string;
     permission?: 'read' | 'write' | 'admin';
+    /**
+     *
+     * Deprecated: This variable should be replaced by UnitsMap and will be dropped in later versions.
+     */
     units?: Array<string>;
     units_map?: {
         [key: string]: string;
@@ -1071,7 +1267,7 @@ export type CreateUserOption = {
      * will be set to "now".
      */
     created_at?: string;
-    email: string;
+    email?: string;
     full_name?: string;
     login_name?: string;
     must_change_password?: boolean;
@@ -1084,11 +1280,12 @@ export type CreateUserOption = {
 };
 
 /**
- * CreateVariableOption the option when creating variable
+ * CreateVariableOption defines the properties of the variable to create.
  */
 export type CreateVariableOption = {
     /**
-     * Value of the variable to create
+     * Value of the variable to create. Special characters will be retained. Line endings will be normalized to LF to
+     * match the behaviour of browsers. Encode the data with Base64 if line endings should be retained.
      */
     value: string;
 };
@@ -1144,6 +1341,10 @@ export type DeleteFileOptions = {
     branch?: string;
     committer?: Identity;
     dates?: CommitDateOptions;
+    /**
+     * (optional) will do a force-push if the new branch already exists
+     */
+    force_overwrite_new_branch?: boolean;
     /**
      * message (optional) for the commit of this file. if not supplied, a default message will be used
      */
@@ -1281,7 +1482,7 @@ export type EditBranchProtectionOption = {
  * EditDeadlineOption options for creating a deadline
  */
 export type EditDeadlineOption = {
-    due_date: string;
+    due_date?: string;
 };
 
 /**
@@ -1308,7 +1509,13 @@ export type EditHookOption = {
  * EditIssueCommentOption options for editing a comment
  */
 export type EditIssueCommentOption = {
+    /**
+     * The body of the comment
+     */
     body: string;
+    /**
+     * The time of the comment's update, needs admin or repository owner permission
+     */
     updated_at?: string;
 };
 
@@ -1572,6 +1779,10 @@ export type EditTeamOption = {
     includes_all_repositories?: boolean;
     name: string;
     permission?: 'read' | 'write' | 'admin';
+    /**
+     *
+     * Deprecated: This variable should be replaced by UnitsMap and will be dropped in later versions.
+     */
     units?: Array<string>;
     units_map?: {
         [key: string]: string;
@@ -2036,13 +2247,17 @@ export type IssueLabelsOption = {
     updated_at?: string;
 };
 
+export type IssueLockOption = {
+    reason?: string;
+};
+
 /**
  * IssueMeta basic issue information
  */
 export type IssueMeta = {
-    index?: number;
-    owner?: string;
-    repo?: string;
+    index: number;
+    owner: string;
+    repo: string;
 };
 
 /**
@@ -2118,26 +2333,18 @@ export type ListActionRunResponse = {
 export type MarkdownOption = {
     /**
      * Context to render
-     *
-     * in: body
      */
     Context?: string;
     /**
      * Mode to render (comment, gfm, markdown)
-     *
-     * in: body
      */
     Mode?: string;
     /**
      * Text markdown to render
-     *
-     * in: body
      */
     Text?: string;
     /**
      * Is it a wiki page ?
-     *
-     * in: body
      */
     Wiki?: boolean;
 };
@@ -2148,38 +2355,26 @@ export type MarkdownOption = {
 export type MarkupOption = {
     /**
      * The current branch path where the form gets posted
-     *
-     * in: body
      */
     BranchPath?: string;
     /**
      * Context to render
-     *
-     * in: body
      */
     Context?: string;
     /**
      * File path for detecting extension in file mode
-     *
-     * in: body
      */
     FilePath?: string;
     /**
      * Mode to render (comment, gfm, markdown, file)
-     *
-     * in: body
      */
     Mode?: string;
     /**
      * Text markup to render
-     *
-     * in: body
      */
     Text?: string;
     /**
      * Is it a wiki page ?
-     *
-     * in: body
      */
     Wiki?: boolean;
 };
@@ -2223,7 +2418,7 @@ export type MigrateRepoOptions = {
      * Name of User or Organisation who will own Repo after migration
      */
     repo_owner?: string;
-    service?: 'git' | 'github' | 'gitea' | 'gitlab' | 'gogs' | 'onedev' | 'gitbucket' | 'codebase';
+    service?: 'git' | 'github' | 'gitea' | 'gitlab' | 'gogs' | 'onedev' | 'gitbucket' | 'codebase' | 'forgejo' | 'pagure' | 'bitbucketdc';
     /**
      * deprecated (only for backwards compatibility)
      */
@@ -2374,6 +2569,7 @@ export type OAuth2Application = {
  */
 export type Organization = {
     avatar_url?: string;
+    created?: string;
     description?: string;
     email?: string;
     full_name?: string;
@@ -2501,8 +2697,10 @@ export type PublicKey = {
     key_type?: string;
     read_only?: boolean;
     title?: string;
+    updated_at?: string;
     url?: string;
     user?: User;
+    verified?: boolean;
 };
 
 /**
@@ -2590,6 +2788,10 @@ export type PullReviewComment = {
     commit_id?: string;
     created_at?: string;
     diff_hunk?: string;
+    /**
+     * number of additional lines after the commented line (0 = single line comment)
+     */
+    extra_lines_count?: number;
     html_url?: string;
     id?: number;
     original_commit_id?: string;
@@ -2857,6 +3059,33 @@ export type Reference = {
 };
 
 /**
+ * RegisterRunnerOptions declares the accepted options for registering runners.
+ */
+export type RegisterRunnerOptions = {
+    /**
+     * Description of the runner to register.
+     */
+    description?: string;
+    /**
+     * Register as ephemeral runner https://forgejo.org/docs/latest/admin/actions/security/#ephemeral-runners
+     */
+    ephemeral?: boolean;
+    /**
+     * Name of the runner to register. The name of the runner does not have to be unique.
+     */
+    name: string;
+};
+
+/**
+ * RegisterRunnerResponse contains the details of the just registered runner.
+ */
+export type RegisterRunnerResponse = {
+    id?: number;
+    token?: string;
+    uuid?: string;
+};
+
+/**
  * RegistrationToken is a string used to register a runner with a server
  */
 export type RegistrationToken = {
@@ -2935,6 +3164,17 @@ export type RepoCommit = {
     verification?: PayloadCommitVerification;
 };
 
+export type RepoTargetOption = {
+    /**
+     * Name of repository
+     */
+    name: string;
+    /**
+     * Name of user or organisation that owns the repository
+     */
+    owner: string;
+};
+
 /**
  * RepoTopicOptions a collection of repo topic names
  */
@@ -2988,7 +3228,14 @@ export type Repository = {
     has_projects?: boolean;
     has_pull_requests?: boolean;
     has_releases?: boolean;
+    /**
+     * is the wiki enabled
+     */
     has_wiki?: boolean;
+    /**
+     * have wiki pages ever been created
+     */
+    has_wiki_contents?: boolean;
     html_url?: string;
     id?: number;
     ignore_whitespace_conflicts?: boolean;
@@ -3024,6 +3271,8 @@ export type Repository = {
     watchers_count?: number;
     website?: string;
     wiki_branch?: string;
+    wiki_clone_url?: string;
+    wiki_ssh_url?: string;
 };
 
 /**
@@ -3157,6 +3406,10 @@ export type Team = {
     name?: string;
     organization?: Organization;
     permission?: 'none' | 'read' | 'write' | 'admin' | 'owner';
+    /**
+     *
+     * Deprecated: This variable should be replaced by UnitsMap and will be dropped in later versions.
+     */
     units?: Array<string>;
     units_map?: {
         [key: string]: string;
@@ -3287,6 +3540,10 @@ export type UpdateFileOptions = {
     content: string;
     dates?: CommitDateOptions;
     /**
+     * (optional) will do a force-push if the new branch already exists
+     */
+    force_overwrite_new_branch?: boolean;
+    /**
      * from_path (optional) is the path of the original file which will be moved/renamed to the path in the URL
      */
     from_path?: string;
@@ -3329,15 +3586,17 @@ export type UpdateUserAvatarOption = {
 };
 
 /**
- * UpdateVariableOption the option when updating variable
+ * UpdateVariableOption defines the properties of the variable to update.
  */
 export type UpdateVariableOption = {
     /**
-     * New name for the variable. If the field is empty, the variable name won't be updated.
+     * New name for the variable. If the field is empty, the variable name won't be updated. Forgejo will convert it to
+     * uppercase.
      */
     name?: string;
     /**
-     * Value of the variable to update
+     * Value of the variable to update. Special characters will be retained. Line endings will be normalized to LF to
+     * match the behaviour of browsers. Encode the data with Base64 if line endings should be retained.
      */
     value: string;
 };
@@ -3542,6 +3801,22 @@ export type WikiPageMetaData = {
     sub_url?: string;
     title?: string;
 };
+
+export type GetActionsRunData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/actions/run';
+};
+
+export type GetActionsRunResponses = {
+    /**
+     * ActionRun
+     */
+    200: ActionRun;
+};
+
+export type GetActionsRunResponse = GetActionsRunResponses[keyof GetActionsRunResponses];
 
 export type ActivitypubInstanceActorData = {
     body?: never;
@@ -3770,6 +4045,193 @@ export type ActivitypubPersonFeedResponses = {
 
 export type ActivitypubPersonFeedResponse = ActivitypubPersonFeedResponses[keyof ActivitypubPersonFeedResponses];
 
+export type GetAdminRunnersData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * whether to include all visible runners (true) or only those that are directly owned by the instance (false)
+         */
+        visible?: boolean;
+        /**
+         * page number of results to return (1-based)
+         */
+        page?: number;
+        /**
+         * page size of results
+         */
+        limit?: number;
+    };
+    url: '/admin/actions/runners';
+};
+
+export type GetAdminRunnersErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type GetAdminRunnersError = GetAdminRunnersErrors[keyof GetAdminRunnersErrors];
+
+export type GetAdminRunnersResponses = {
+    /**
+     * ActionRunnerList is a list of Forgejo Action runners
+     */
+    200: Array<ActionRunner>;
+};
+
+export type GetAdminRunnersResponse = GetAdminRunnersResponses[keyof GetAdminRunnersResponses];
+
+export type RegisterAdminRunnerData = {
+    body?: RegisterRunnerOptions;
+    path?: never;
+    query?: never;
+    url: '/admin/actions/runners';
+};
+
+export type RegisterAdminRunnerErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
+     * APIUnauthorizedError is a unauthorized error response
+     */
+    401: ApiUnauthorizedError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type RegisterAdminRunnerError = RegisterAdminRunnerErrors[keyof RegisterAdminRunnerErrors];
+
+export type RegisterAdminRunnerResponses = {
+    /**
+     * RegisterRunnerResponse contains the details of the just registered runner.
+     */
+    201: RegisterRunnerResponse;
+};
+
+export type RegisterAdminRunnerResponse = RegisterAdminRunnerResponses[keyof RegisterAdminRunnerResponses];
+
+export type AdminGetActionRunJobsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * a comma separated list of labels to search for
+         */
+        labels?: string;
+    };
+    url: '/admin/actions/runners/jobs';
+};
+
+export type AdminGetActionRunJobsErrors = {
+    /**
+     * APIForbiddenError is a forbidden error response
+     */
+    403: ApiForbiddenError;
+};
+
+export type AdminGetActionRunJobsError = AdminGetActionRunJobsErrors[keyof AdminGetActionRunJobsErrors];
+
+export type AdminGetActionRunJobsResponses = {
+    /**
+     * RunJobList is a list of action run jobs
+     */
+    200: Array<ActionRunJob>;
+};
+
+export type AdminGetActionRunJobsResponse = AdminGetActionRunJobsResponses[keyof AdminGetActionRunJobsResponses];
+
+export type AdminGetRunnerRegistrationTokenData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/admin/actions/runners/registration-token';
+};
+
+export type AdminGetRunnerRegistrationTokenResponses = {
+    /**
+     * RegistrationToken is a string used to register a runner with a server
+     */
+    200: RegistrationToken;
+};
+
+export type AdminGetRunnerRegistrationTokenResponse = AdminGetRunnerRegistrationTokenResponses[keyof AdminGetRunnerRegistrationTokenResponses];
+
+export type DeleteAdminRunnerData = {
+    body?: never;
+    path: {
+        /**
+         * ID of the runner
+         */
+        runner_id: string;
+    };
+    query?: never;
+    url: '/admin/actions/runners/{runner_id}';
+};
+
+export type DeleteAdminRunnerErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type DeleteAdminRunnerError = DeleteAdminRunnerErrors[keyof DeleteAdminRunnerErrors];
+
+export type DeleteAdminRunnerResponses = {
+    /**
+     * runner has been deleted
+     */
+    204: unknown;
+};
+
+export type GetAdminRunnerData = {
+    body?: never;
+    path: {
+        /**
+         * ID of the runner
+         */
+        runner_id: string;
+    };
+    query?: never;
+    url: '/admin/actions/runners/{runner_id}';
+};
+
+export type GetAdminRunnerErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type GetAdminRunnerError = GetAdminRunnerErrors[keyof GetAdminRunnerErrors];
+
+export type GetAdminRunnerResponses = {
+    /**
+     * ActionRunner represents a runner
+     */
+    200: ActionRunner;
+};
+
+export type GetAdminRunnerResponse = GetAdminRunnerResponses[keyof GetAdminRunnerResponses];
+
 export type AdminCronListData = {
     body?: never;
     path?: never;
@@ -3922,7 +4384,7 @@ export type AdminListHooksData = {
 
 export type AdminListHooksResponses = {
     /**
-     * HookList
+     * HookListWithoutPagination - Hooks without pagination headers
      */
     200: Array<Hook>;
 };
@@ -4604,21 +5066,21 @@ export type AdminSearchRunJobsResponses = {
 
 export type AdminSearchRunJobsResponse = AdminSearchRunJobsResponses[keyof AdminSearchRunJobsResponses];
 
-export type AdminGetRunnerRegistrationTokenData = {
+export type AdminGetRegistrationTokenData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/admin/runners/registration-token';
 };
 
-export type AdminGetRunnerRegistrationTokenResponses = {
+export type AdminGetRegistrationTokenResponses = {
     /**
      * RegistrationToken is a string used to register a runner with a server
      */
     200: RegistrationToken;
 };
 
-export type AdminGetRunnerRegistrationTokenResponse = AdminGetRunnerRegistrationTokenResponses[keyof AdminGetRunnerRegistrationTokenResponses];
+export type AdminGetRegistrationTokenResponse = AdminGetRegistrationTokenResponses[keyof AdminGetRegistrationTokenResponses];
 
 export type AdminUnadoptedListData = {
     body?: never;
@@ -4738,6 +5200,10 @@ export type AdminSearchUsersData = {
          * user's login name to search for
          */
         login_name?: string;
+        /**
+         * whether or not to filter users with the 2fa enabled
+         */
+        is_2fa_enabled?: boolean;
         /**
          * sort order of results
          */
@@ -5217,6 +5683,125 @@ export type AdminCreateRepoResponses = {
 
 export type AdminCreateRepoResponse = AdminCreateRepoResponses[keyof AdminCreateRepoResponses];
 
+export type AdminListUserAccessTokensData = {
+    body?: never;
+    path: {
+        /**
+         * username of user
+         */
+        username: string;
+    };
+    query?: {
+        /**
+         * page number of results to return (1-based)
+         */
+        page?: number;
+        /**
+         * page size of results
+         */
+        limit?: number;
+    };
+    url: '/admin/users/{username}/tokens';
+};
+
+export type AdminListUserAccessTokensErrors = {
+    /**
+     * APIForbiddenError is a forbidden error response
+     */
+    403: ApiForbiddenError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type AdminListUserAccessTokensError = AdminListUserAccessTokensErrors[keyof AdminListUserAccessTokensErrors];
+
+export type AdminListUserAccessTokensResponses = {
+    /**
+     * AccessTokenList
+     */
+    200: Array<AccessToken>;
+};
+
+export type AdminListUserAccessTokensResponse = AdminListUserAccessTokensResponses[keyof AdminListUserAccessTokensResponses];
+
+export type AdminCreateUserAccessTokenData = {
+    body?: CreateAccessTokenOption;
+    path: {
+        /**
+         * username of user
+         */
+        username: string;
+    };
+    query?: never;
+    url: '/admin/users/{username}/tokens';
+};
+
+export type AdminCreateUserAccessTokenErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
+     * APIForbiddenError is a forbidden error response
+     */
+    403: ApiForbiddenError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type AdminCreateUserAccessTokenError = AdminCreateUserAccessTokenErrors[keyof AdminCreateUserAccessTokenErrors];
+
+export type AdminCreateUserAccessTokenResponses = {
+    /**
+     * AccessToken represents an API access token.
+     */
+    201: unknown;
+};
+
+export type AdminDeleteUserAccessTokenData = {
+    body?: never;
+    path: {
+        /**
+         * username of user
+         */
+        username: string;
+        /**
+         * token to be deleted, identified by ID and if not available by name
+         */
+        token: string;
+    };
+    query?: never;
+    url: '/admin/users/{username}/tokens/{token}';
+};
+
+export type AdminDeleteUserAccessTokenErrors = {
+    /**
+     * APIForbiddenError is a forbidden error response
+     */
+    403: ApiForbiddenError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+    /**
+     * APIError is error format response
+     */
+    422: ApiError;
+};
+
+export type AdminDeleteUserAccessTokenError = AdminDeleteUserAccessTokenErrors[keyof AdminDeleteUserAccessTokenErrors];
+
+export type AdminDeleteUserAccessTokenResponses = {
+    /**
+     * APIEmpty is an empty response
+     */
+    204: unknown;
+};
+
 export type ListGitignoresTemplatesData = {
     body?: never;
     path?: never;
@@ -5520,7 +6105,7 @@ export type NotifyReadListData = {
 
 export type NotifyReadListResponses = {
     /**
-     * NotificationThreadList
+     * NotificationThreadListWithoutPagination - Notification threads without pagination headers
      */
     205: Array<NotificationThread>;
 };
@@ -5800,6 +6385,91 @@ export type OrgEditResponses = {
 
 export type OrgEditResponse = OrgEditResponses[keyof OrgEditResponses];
 
+export type GetOrgRunnersData = {
+    body?: never;
+    path: {
+        /**
+         * name of the organization
+         */
+        org: string;
+    };
+    query?: {
+        /**
+         * whether to include all visible runners (true) or only those that are directly owned by the organization (false)
+         */
+        visible?: boolean;
+        /**
+         * page number of results to return (1-based)
+         */
+        page?: number;
+        /**
+         * page size of results
+         */
+        limit?: number;
+    };
+    url: '/orgs/{org}/actions/runners';
+};
+
+export type GetOrgRunnersErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type GetOrgRunnersError = GetOrgRunnersErrors[keyof GetOrgRunnersErrors];
+
+export type GetOrgRunnersResponses = {
+    /**
+     * ActionRunnerList is a list of Forgejo Action runners
+     */
+    200: Array<ActionRunner>;
+};
+
+export type GetOrgRunnersResponse = GetOrgRunnersResponses[keyof GetOrgRunnersResponses];
+
+export type RegisterOrgRunnerData = {
+    body?: RegisterRunnerOptions;
+    path: {
+        /**
+         * name of the organization
+         */
+        org: string;
+    };
+    query?: never;
+    url: '/orgs/{org}/actions/runners';
+};
+
+export type RegisterOrgRunnerErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
+     * APIUnauthorizedError is a unauthorized error response
+     */
+    401: ApiUnauthorizedError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type RegisterOrgRunnerError = RegisterOrgRunnerErrors[keyof RegisterOrgRunnerErrors];
+
+export type RegisterOrgRunnerResponses = {
+    /**
+     * RegisterRunnerResponse contains the details of the just registered runner.
+     */
+    201: RegisterRunnerResponse;
+};
+
+export type RegisterOrgRunnerResponse = RegisterOrgRunnerResponses[keyof RegisterOrgRunnerResponses];
+
 export type OrgSearchRunJobsData = {
     body?: never;
     path: {
@@ -5855,6 +6525,80 @@ export type OrgGetRunnerRegistrationTokenResponses = {
 };
 
 export type OrgGetRunnerRegistrationTokenResponse = OrgGetRunnerRegistrationTokenResponses[keyof OrgGetRunnerRegistrationTokenResponses];
+
+export type DeleteOrgRunnerData = {
+    body?: never;
+    path: {
+        /**
+         * name of the organization
+         */
+        org: string;
+        /**
+         * ID of the runner
+         */
+        runner_id: string;
+    };
+    query?: never;
+    url: '/orgs/{org}/actions/runners/{runner_id}';
+};
+
+export type DeleteOrgRunnerErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type DeleteOrgRunnerError = DeleteOrgRunnerErrors[keyof DeleteOrgRunnerErrors];
+
+export type DeleteOrgRunnerResponses = {
+    /**
+     * runner has been deleted
+     */
+    204: unknown;
+};
+
+export type GetOrgRunnerData = {
+    body?: never;
+    path: {
+        /**
+         * name of the organization
+         */
+        org: string;
+        /**
+         * ID of the runner
+         */
+        runner_id: string;
+    };
+    query?: never;
+    url: '/orgs/{org}/actions/runners/{runner_id}';
+};
+
+export type GetOrgRunnerErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type GetOrgRunnerError = GetOrgRunnerErrors[keyof GetOrgRunnerErrors];
+
+export type GetOrgRunnerResponses = {
+    /**
+     * ActionRunner represents a runner
+     */
+    200: ActionRunner;
+};
+
+export type GetOrgRunnerResponse = GetOrgRunnerResponses[keyof GetOrgRunnerResponses];
 
 export type OrgListActionsSecretsData = {
     body?: never;
@@ -6335,7 +7079,7 @@ export type OrgListHooksError = OrgListHooksErrors[keyof OrgListHooksErrors];
 
 export type OrgListHooksResponses = {
     /**
-     * HookList
+     * HookListWithoutPagination - Hooks without pagination headers
      */
     200: Array<Hook>;
 };
@@ -7828,7 +8572,7 @@ export type RepoSearchData = {
          */
         is_private?: boolean;
         /**
-         * include template repositories this user has access to (defaults to true)
+         * show only template, non-template or all repositories (defaults to all)
          */
         template?: boolean;
         /**
@@ -7996,6 +8740,450 @@ export type RepoEditResponses = {
 
 export type RepoEditResponse = RepoEditResponses[keyof RepoEditResponses];
 
+export type ListActionArtifactsData = {
+    body?: never;
+    path: {
+        /**
+         * owner of the repo
+         */
+        owner: string;
+        /**
+         * name of the repo
+         */
+        repo: string;
+    };
+    query?: {
+        /**
+         * filter by artifact name
+         */
+        name?: string;
+        /**
+         * page number of results to return (1-based)
+         */
+        page?: number;
+        /**
+         * page size of results, default maximum page size is 50
+         */
+        limit?: number;
+    };
+    url: '/repos/{owner}/{repo}/actions/artifacts';
+};
+
+export type ListActionArtifactsErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
+     * APIForbiddenError is a forbidden error response
+     */
+    403: ApiForbiddenError;
+};
+
+export type ListActionArtifactsError = ListActionArtifactsErrors[keyof ListActionArtifactsErrors];
+
+export type ListActionArtifactsResponses = {
+    /**
+     * ActionArtifactList
+     */
+    200: Array<ActionArtifact>;
+};
+
+export type ListActionArtifactsResponse = ListActionArtifactsResponses[keyof ListActionArtifactsResponses];
+
+export type DeleteActionArtifactData = {
+    body?: never;
+    path: {
+        /**
+         * owner of the repo
+         */
+        owner: string;
+        /**
+         * name of the repo
+         */
+        repo: string;
+        /**
+         * ID of the artifact
+         */
+        artifact_id: number;
+    };
+    query?: never;
+    url: '/repos/{owner}/{repo}/actions/artifacts/{artifact_id}';
+};
+
+export type DeleteActionArtifactErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
+     * APIForbiddenError is a forbidden error response
+     */
+    403: ApiForbiddenError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type DeleteActionArtifactError = DeleteActionArtifactErrors[keyof DeleteActionArtifactErrors];
+
+export type DeleteActionArtifactResponses = {
+    /**
+     * artifact marked for deletion
+     */
+    204: unknown;
+};
+
+export type GetActionArtifactData = {
+    body?: never;
+    path: {
+        /**
+         * owner of the repo
+         */
+        owner: string;
+        /**
+         * name of the repo
+         */
+        repo: string;
+        /**
+         * ID of the artifact
+         */
+        artifact_id: number;
+    };
+    query?: never;
+    url: '/repos/{owner}/{repo}/actions/artifacts/{artifact_id}';
+};
+
+export type GetActionArtifactErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
+     * APIForbiddenError is a forbidden error response
+     */
+    403: ApiForbiddenError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type GetActionArtifactError = GetActionArtifactErrors[keyof GetActionArtifactErrors];
+
+export type GetActionArtifactResponses = {
+    /**
+     * ActionArtifact
+     */
+    200: ActionArtifact;
+};
+
+export type GetActionArtifactResponse = GetActionArtifactResponses[keyof GetActionArtifactResponses];
+
+export type DownloadActionArtifactData = {
+    body?: never;
+    path: {
+        /**
+         * owner of the repo
+         */
+        owner: string;
+        /**
+         * name of the repo
+         */
+        repo: string;
+        /**
+         * ID of the artifact
+         */
+        artifact_id: number;
+    };
+    query?: never;
+    url: '/repos/{owner}/{repo}/actions/artifacts/{artifact_id}/zip';
+};
+
+export type DownloadActionArtifactErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
+     * APIForbiddenError is a forbidden error response
+     */
+    403: ApiForbiddenError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type DownloadActionArtifactError = DownloadActionArtifactErrors[keyof DownloadActionArtifactErrors];
+
+export type DownloadActionArtifactResponses = {
+    /**
+     * the artifact archive
+     */
+    200: Blob | File;
+};
+
+export type DownloadActionArtifactResponse = DownloadActionArtifactResponses[keyof DownloadActionArtifactResponses];
+
+export type RepoGetActionJobData = {
+    body?: never;
+    path: {
+        /**
+         * owner of the repo
+         */
+        owner: string;
+        /**
+         * name of the repo
+         */
+        repo: string;
+        /**
+         * ID of the workflow job
+         */
+        job_id: number;
+    };
+    query?: never;
+    url: '/repos/{owner}/{repo}/actions/jobs/{job_id}';
+};
+
+export type RepoGetActionJobErrors = {
+    /**
+     * APIUnauthorizedError is a unauthorized error response
+     */
+    401: ApiUnauthorizedError;
+    /**
+     * APIForbiddenError is a forbidden error response
+     */
+    403: ApiForbiddenError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type RepoGetActionJobError = RepoGetActionJobErrors[keyof RepoGetActionJobErrors];
+
+export type RepoGetActionJobResponses = {
+    /**
+     * ActionRunJob is a single workflow run job
+     */
+    200: ActionRunJob;
+};
+
+export type RepoGetActionJobResponse = RepoGetActionJobResponses[keyof RepoGetActionJobResponses];
+
+export type RepoGetActionJobLogsData = {
+    body?: never;
+    path: {
+        /**
+         * owner of the repo
+         */
+        owner: string;
+        /**
+         * name of the repo
+         */
+        repo: string;
+        /**
+         * ID of the workflow job
+         */
+        job_id: number;
+    };
+    query?: {
+        /**
+         * 1-based attempt number matching the value of `attempt` in the job listing; omit to fetch the latest attempt of the job
+         */
+        attempt?: number;
+        /**
+         * Step number to filter to. Use the `number` field from `GET /repos/{owner}/{repo}/actions/jobs/{job_id}` — 0 is the "Set up job" entry, the last index is the "Complete job" entry, real steps are in between. Returns only that step's slice of the log. Range requests still work over the slice.
+         *
+         */
+        step?: number;
+        /**
+         * Substring filter applied to each line's content (the part after the timestamp prefix). Plain string match — regex is not supported. Setting `q` drops `Accept-Ranges` and disables `Range:` support; the full filtered body is always returned.
+         *
+         */
+        q?: string;
+        /**
+         * Case-insensitive substring match (only meaningful when `q` is set).
+         */
+        qi?: boolean;
+        /**
+         * Response shape. `text` (default) returns log content as plaintext lines. `ndjson` returns one `{"time":"...","content":"..."}` object per emitted line, separated by `\n` (content-type `application/x-ndjson`). `format=ndjson` drops `Accept-Ranges` and disables `Range:` support.
+         *
+         */
+        format?: 'text' | 'ndjson';
+    };
+    url: '/repos/{owner}/{repo}/actions/jobs/{job_id}/logs';
+};
+
+export type RepoGetActionJobLogsErrors = {
+    /**
+     * APIUnauthorizedError is a unauthorized error response
+     */
+    401: ApiUnauthorizedError;
+    /**
+     * APIForbiddenError is a forbidden error response
+     */
+    403: ApiForbiddenError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type RepoGetActionJobLogsError = RepoGetActionJobLogsErrors[keyof RepoGetActionJobLogsErrors];
+
+export type RepoGetActionJobLogsResponses = {
+    /**
+     * Plaintext log content (or NDJSON when `format=ndjson`)
+     */
+    200: string;
+    /**
+     * Partial log content (Range request; not returned when `q` or `format=ndjson` is set)
+     */
+    206: string;
+};
+
+export type RepoGetActionJobLogsResponse = RepoGetActionJobLogsResponses[keyof RepoGetActionJobLogsResponses];
+
+export type RepoRerunActionJobData = {
+    body?: never;
+    path: {
+        /**
+         * owner of the repo
+         */
+        owner: string;
+        /**
+         * name of the repo
+         */
+        repo: string;
+        /**
+         * ID of the workflow job
+         */
+        job_id: number;
+    };
+    query?: never;
+    url: '/repos/{owner}/{repo}/actions/jobs/{job_id}/rerun';
+};
+
+export type RepoRerunActionJobErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
+     * APIForbiddenError is a forbidden error response
+     */
+    403: ApiForbiddenError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type RepoRerunActionJobError = RepoRerunActionJobErrors[keyof RepoRerunActionJobErrors];
+
+export type RepoRerunActionJobResponses = {
+    /**
+     * Workflow job rerun has been started
+     */
+    204: unknown;
+};
+
+export type GetRepoRunnersData = {
+    body?: never;
+    path: {
+        /**
+         * owner of the repo
+         */
+        owner: string;
+        /**
+         * name of the repo
+         */
+        repo: string;
+    };
+    query?: {
+        /**
+         * whether to include all visible runners (true) or only those that are directly owned by the repository (false)
+         */
+        visible?: boolean;
+        /**
+         * page number of results to return (1-based)
+         */
+        page?: number;
+        /**
+         * page size of results
+         */
+        limit?: number;
+    };
+    url: '/repos/{owner}/{repo}/actions/runners';
+};
+
+export type GetRepoRunnersErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type GetRepoRunnersError = GetRepoRunnersErrors[keyof GetRepoRunnersErrors];
+
+export type GetRepoRunnersResponses = {
+    /**
+     * ActionRunnerList is a list of Forgejo Action runners
+     */
+    200: Array<ActionRunner>;
+};
+
+export type GetRepoRunnersResponse = GetRepoRunnersResponses[keyof GetRepoRunnersResponses];
+
+export type RegisterRepoRunnerData = {
+    body?: RegisterRunnerOptions;
+    path: {
+        /**
+         * owner of the repo
+         */
+        owner: string;
+        /**
+         * name of the repo
+         */
+        repo: string;
+    };
+    query?: never;
+    url: '/repos/{owner}/{repo}/actions/runners';
+};
+
+export type RegisterRepoRunnerErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
+     * APIUnauthorizedError is a unauthorized error response
+     */
+    401: ApiUnauthorizedError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type RegisterRepoRunnerError = RegisterRepoRunnerErrors[keyof RegisterRepoRunnerErrors];
+
+export type RegisterRepoRunnerResponses = {
+    /**
+     * RegisterRunnerResponse contains the details of the just registered runner.
+     */
+    201: RegisterRunnerResponse;
+};
+
+export type RegisterRepoRunnerResponse = RegisterRepoRunnerResponses[keyof RegisterRepoRunnerResponses];
+
 export type RepoSearchRunJobsData = {
     body?: never;
     path: {
@@ -8060,6 +9248,88 @@ export type RepoGetRunnerRegistrationTokenResponses = {
 
 export type RepoGetRunnerRegistrationTokenResponse = RepoGetRunnerRegistrationTokenResponses[keyof RepoGetRunnerRegistrationTokenResponses];
 
+export type DeleteRepoRunnerData = {
+    body?: never;
+    path: {
+        /**
+         * owner of the repo
+         */
+        owner: string;
+        /**
+         * name of the repo
+         */
+        repo: string;
+        /**
+         * ID of the runner
+         */
+        runner_id: string;
+    };
+    query?: never;
+    url: '/repos/{owner}/{repo}/actions/runners/{runner_id}';
+};
+
+export type DeleteRepoRunnerErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type DeleteRepoRunnerError = DeleteRepoRunnerErrors[keyof DeleteRepoRunnerErrors];
+
+export type DeleteRepoRunnerResponses = {
+    /**
+     * runner has been deleted
+     */
+    204: unknown;
+};
+
+export type GetRepoRunnerData = {
+    body?: never;
+    path: {
+        /**
+         * owner of the repo
+         */
+        owner: string;
+        /**
+         * name of the repo
+         */
+        repo: string;
+        /**
+         * ID of the runner
+         */
+        runner_id: string;
+    };
+    query?: never;
+    url: '/repos/{owner}/{repo}/actions/runners/{runner_id}';
+};
+
+export type GetRepoRunnerErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type GetRepoRunnerError = GetRepoRunnerErrors[keyof GetRepoRunnerErrors];
+
+export type GetRepoRunnerResponses = {
+    /**
+     * ActionRunner represents a runner
+     */
+    200: ActionRunner;
+};
+
+export type GetRepoRunnerResponse = GetRepoRunnerResponses[keyof GetRepoRunnerResponses];
+
 export type ListActionRunsData = {
     body?: never;
     path: {
@@ -8099,6 +9369,14 @@ export type ListActionRunsData = {
          * Only returns workflow runs that are associated with the specified head_sha.
          */
         head_sha?: string;
+        /**
+         * Only return workflow runs that involve the given Git reference, for example, `refs/heads/main`.
+         */
+        ref?: string;
+        /**
+         * Only return workflow runs that involve the given workflow ID.
+         */
+        workflow_id?: string;
     };
     url: '/repos/{owner}/{repo}/actions/runs';
 };
@@ -8124,6 +9402,50 @@ export type ListActionRunsResponses = {
 };
 
 export type ListActionRunsResponse = ListActionRunsResponses[keyof ListActionRunsResponses];
+
+export type DeleteActionRunData = {
+    body?: never;
+    path: {
+        /**
+         * owner of the repo
+         */
+        owner: string;
+        /**
+         * name of the repo
+         */
+        repo: string;
+        /**
+         * id of the action run
+         */
+        run_id: number;
+    };
+    query?: never;
+    url: '/repos/{owner}/{repo}/actions/runs/{run_id}';
+};
+
+export type DeleteActionRunErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
+     * APIForbiddenError is a forbidden error response
+     */
+    403: ApiForbiddenError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type DeleteActionRunError = DeleteActionRunErrors[keyof DeleteActionRunErrors];
+
+export type DeleteActionRunResponses = {
+    /**
+     * Workflow run has been removed
+     */
+    204: unknown;
+};
 
 export type ActionRunData = {
     body?: never;
@@ -8170,6 +9492,242 @@ export type ActionRunResponses = {
 };
 
 export type ActionRunResponse = ActionRunResponses[keyof ActionRunResponses];
+
+export type ListActionRunArtifactsData = {
+    body?: never;
+    path: {
+        /**
+         * owner of the repo
+         */
+        owner: string;
+        /**
+         * name of the repo
+         */
+        repo: string;
+        /**
+         * ID of the workflow run
+         */
+        run_id: number;
+    };
+    query?: {
+        /**
+         * filter by artifact name
+         */
+        name?: string;
+        /**
+         * page number of results to return (1-based)
+         */
+        page?: number;
+        /**
+         * page size of results, default maximum page size is 50
+         */
+        limit?: number;
+    };
+    url: '/repos/{owner}/{repo}/actions/runs/{run_id}/artifacts';
+};
+
+export type ListActionRunArtifactsErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
+     * APIForbiddenError is a forbidden error response
+     */
+    403: ApiForbiddenError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type ListActionRunArtifactsError = ListActionRunArtifactsErrors[keyof ListActionRunArtifactsErrors];
+
+export type ListActionRunArtifactsResponses = {
+    /**
+     * ActionArtifactList
+     */
+    200: Array<ActionArtifact>;
+};
+
+export type ListActionRunArtifactsResponse = ListActionRunArtifactsResponses[keyof ListActionRunArtifactsResponses];
+
+export type CancelActionRunData = {
+    body?: never;
+    path: {
+        /**
+         * owner of the repo
+         */
+        owner: string;
+        /**
+         * name of the repo
+         */
+        repo: string;
+        /**
+         * ID of the workflow run
+         */
+        run_id: number;
+    };
+    query?: never;
+    url: '/repos/{owner}/{repo}/actions/runs/{run_id}/cancel';
+};
+
+export type CancelActionRunErrors = {
+    /**
+     * APIForbiddenError is a forbidden error response
+     */
+    403: ApiForbiddenError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type CancelActionRunError = CancelActionRunErrors[keyof CancelActionRunErrors];
+
+export type CancelActionRunResponses = {
+    /**
+     * Workflow run has been cancelled
+     */
+    204: unknown;
+};
+
+export type ListActionRunJobsData = {
+    body?: never;
+    path: {
+        /**
+         * owner of the repo
+         */
+        owner: string;
+        /**
+         * name of the repo
+         */
+        repo: string;
+        /**
+         * ID of the workflow run
+         */
+        run_id: number;
+    };
+    query?: never;
+    url: '/repos/{owner}/{repo}/actions/runs/{run_id}/jobs';
+};
+
+export type ListActionRunJobsErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
+     * APIForbiddenError is a forbidden error response
+     */
+    403: ApiForbiddenError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type ListActionRunJobsError = ListActionRunJobsErrors[keyof ListActionRunJobsErrors];
+
+export type ListActionRunJobsResponses = {
+    /**
+     * ActionRunJobList
+     */
+    200: Array<ActionRunJob>;
+};
+
+export type ListActionRunJobsResponse = ListActionRunJobsResponses[keyof ListActionRunJobsResponses];
+
+export type RepoGetActionRunLogsData = {
+    body?: never;
+    path: {
+        /**
+         * owner of the repo
+         */
+        owner: string;
+        /**
+         * name of the repo
+         */
+        repo: string;
+        /**
+         * ID of the workflow run. The ZIP contains the latest attempt of each job in the run, with each entry named `{job-name}-{job-id}-attempt-{N}.log` (the job ID prevents collisions when two jobs share a name; the attempt number records which run the log came from). The run itself has no attempt number — jobs are re-run independently, so use the per-job logs endpoint with `?attempt` to fetch a specific historical attempt of one job.
+         *
+         */
+        run_id: number;
+    };
+    query?: never;
+    url: '/repos/{owner}/{repo}/actions/runs/{run_id}/logs';
+};
+
+export type RepoGetActionRunLogsErrors = {
+    /**
+     * APIUnauthorizedError is a unauthorized error response
+     */
+    401: ApiUnauthorizedError;
+    /**
+     * APIForbiddenError is a forbidden error response
+     */
+    403: ApiForbiddenError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type RepoGetActionRunLogsError = RepoGetActionRunLogsErrors[keyof RepoGetActionRunLogsErrors];
+
+export type RepoGetActionRunLogsResponses = {
+    /**
+     * ZIP archive of per-job log files
+     */
+    200: Blob | File;
+};
+
+export type RepoGetActionRunLogsResponse = RepoGetActionRunLogsResponses[keyof RepoGetActionRunLogsResponses];
+
+export type RerunActionRunData = {
+    body?: never;
+    path: {
+        /**
+         * owner of the repo
+         */
+        owner: string;
+        /**
+         * name of the repo
+         */
+        repo: string;
+        /**
+         * ID of the workflow run
+         */
+        run_id: number;
+    };
+    query?: never;
+    url: '/repos/{owner}/{repo}/actions/runs/{run_id}/rerun';
+};
+
+export type RerunActionRunErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
+     * APIForbiddenError is a forbidden error response
+     */
+    403: ApiForbiddenError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type RerunActionRunError = RerunActionRunErrors[keyof RerunActionRunErrors];
+
+export type RerunActionRunResponses = {
+    /**
+     * Workflow rerun has been started
+     */
+    204: unknown;
+};
 
 export type RepoListActionsSecretsData = {
     body?: never;
@@ -8319,6 +9877,12 @@ export type ListActionTasksData = {
          * page size of results, default maximum page size is 50
          */
         limit?: number;
+        /**
+         * Returns workflow tasks with the check run status or conclusion that is specified.
+         * For example, a conclusion can be success or a status can be in_progress.
+         *
+         */
+        status?: Array<'unknown' | 'waiting' | 'running' | 'success' | 'failure' | 'cancelled' | 'skipped' | 'blocked'>;
     };
     url: '/repos/{owner}/{repo}/actions/tasks';
 };
@@ -8595,6 +10159,10 @@ export type DispatchWorkflowData = {
 };
 
 export type DispatchWorkflowErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
     /**
      * APINotFound is a not found error response
      */
@@ -9447,7 +11015,7 @@ export type RepoGetAllCommitsData = {
          */
         page?: number;
         /**
-         * page size of results (ignored if used with 'path')
+         * page size of results
          */
         limit?: number;
         /**
@@ -9644,7 +11212,16 @@ export type RepoCompareDiffData = {
          */
         basehead: string;
     };
-    query?: never;
+    query?: {
+        /**
+         * include verification status for each commit
+         */
+        verification?: boolean;
+        /**
+         * include which files changed by a commit
+         */
+        files?: boolean;
+    };
     url: '/repos/{owner}/{repo}/compare/{basehead}';
 };
 
@@ -11453,6 +13030,10 @@ export type IssueListIssuesErrors = {
      * APINotFound is a not found error response
      */
     404: ApiNotFound;
+    /**
+     * APIValidationError is error format response related to input validation
+     */
+    422: ApiValidationError;
 };
 
 export type IssueListIssuesError = IssueListIssuesErrors[keyof IssueListIssuesErrors];
@@ -12036,7 +13617,7 @@ export type IssueGetCommentReactionsError = IssueGetCommentReactionsErrors[keyof
 
 export type IssueGetCommentReactionsResponses = {
     /**
-     * ReactionList
+     * ReactionListWithoutPagination - Reactions for a specific comment (no pagination headers)
      */
     200: Array<Reaction>;
 };
@@ -12116,7 +13697,7 @@ export type RepoListPinnedIssuesError = RepoListPinnedIssuesErrors[keyof RepoLis
 
 export type RepoListPinnedIssuesResponses = {
     /**
-     * IssueList
+     * IssueListWithoutPagination - Issues without pagination headers (used for pinned issues, dependencies, etc.)
      */
     200: Array<Issue>;
 };
@@ -12567,7 +14148,7 @@ export type IssueListBlocksError = IssueListBlocksErrors[keyof IssueListBlocksEr
 
 export type IssueListBlocksResponses = {
     /**
-     * IssueList
+     * IssueListWithoutPagination - Issues without pagination headers (used for pinned issues, dependencies, etc.)
      */
     200: Array<Issue>;
 };
@@ -12937,7 +14518,7 @@ export type IssueListIssueDependenciesError = IssueListIssueDependenciesErrors[k
 
 export type IssueListIssueDependenciesResponses = {
     /**
-     * IssueList
+     * IssueListWithoutPagination - Issues without pagination headers (used for pinned issues, dependencies, etc.)
      */
     200: Array<Issue>;
 };
@@ -13057,7 +14638,7 @@ export type IssueGetLabelsError = IssueGetLabelsErrors[keyof IssueGetLabelsError
 
 export type IssueGetLabelsResponses = {
     /**
-     * LabelList
+     * LabelListWithoutPagination - Labels for a specific issue (no pagination headers)
      */
     200: Array<Label>;
 };
@@ -13099,7 +14680,7 @@ export type IssueAddLabelError = IssueAddLabelErrors[keyof IssueAddLabelErrors];
 
 export type IssueAddLabelResponses = {
     /**
-     * LabelList
+     * LabelListWithoutPagination - Labels for a specific issue (no pagination headers)
      */
     200: Array<Label>;
 };
@@ -13141,7 +14722,7 @@ export type IssueReplaceLabelsError = IssueReplaceLabelsErrors[keyof IssueReplac
 
 export type IssueReplaceLabelsResponses = {
     /**
-     * LabelList
+     * LabelListWithoutPagination - Labels for a specific issue (no pagination headers)
      */
     200: Array<Label>;
 };
@@ -13190,6 +14771,94 @@ export type IssueRemoveLabelErrors = {
 export type IssueRemoveLabelError = IssueRemoveLabelErrors[keyof IssueRemoveLabelErrors];
 
 export type IssueRemoveLabelResponses = {
+    /**
+     * APIEmpty is an empty response
+     */
+    204: unknown;
+};
+
+export type UnlockIssueData = {
+    body?: never;
+    path: {
+        /**
+         * owner of the repo
+         */
+        owner: string;
+        /**
+         * name of the repo
+         */
+        repo: string;
+        /**
+         * index of the issue to unlock
+         */
+        index: number;
+    };
+    query?: never;
+    url: '/repos/{owner}/{repo}/issues/{index}/lock';
+};
+
+export type UnlockIssueErrors = {
+    /**
+     * APIForbiddenError is a forbidden error response
+     */
+    403: ApiForbiddenError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+    /**
+     * APIConflict is a conflict empty response
+     */
+    409: unknown;
+};
+
+export type UnlockIssueError = UnlockIssueErrors[keyof UnlockIssueErrors];
+
+export type UnlockIssueResponses = {
+    /**
+     * APIEmpty is an empty response
+     */
+    204: unknown;
+};
+
+export type LockIssueData = {
+    body?: IssueLockOption;
+    path: {
+        /**
+         * owner of the repo
+         */
+        owner: string;
+        /**
+         * name of the repo
+         */
+        repo: string;
+        /**
+         * index of the issue to lock
+         */
+        index: number;
+    };
+    query?: never;
+    url: '/repos/{owner}/{repo}/issues/{index}/lock';
+};
+
+export type LockIssueErrors = {
+    /**
+     * APIForbiddenError is a forbidden error response
+     */
+    403: ApiForbiddenError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+    /**
+     * APIConflict is a conflict empty response
+     */
+    409: unknown;
+};
+
+export type LockIssueError = LockIssueErrors[keyof LockIssueErrors];
+
+export type LockIssueResponses = {
     /**
      * APIEmpty is an empty response
      */
@@ -13912,9 +15581,17 @@ export type IssueTrackedTimesData = {
 
 export type IssueTrackedTimesErrors = {
     /**
+     * APIForbiddenError is a forbidden error response
+     */
+    403: ApiForbiddenError;
+    /**
      * APINotFound is a not found error response
      */
     404: ApiNotFound;
+    /**
+     * APIValidationError is error format response related to input validation
+     */
+    422: ApiValidationError;
 };
 
 export type IssueTrackedTimesError = IssueTrackedTimesErrors[keyof IssueTrackedTimesErrors];
@@ -14827,7 +16504,7 @@ export type NotifyReadRepoListData = {
 
 export type NotifyReadRepoListResponses = {
     /**
-     * NotificationThreadList
+     * NotificationThreadListWithoutPagination - Notification threads without pagination headers
      */
     205: Array<NotificationThread>;
 };
@@ -14868,6 +16545,14 @@ export type RepoListPullRequestsData = {
          */
         poster?: string;
         /**
+         * Filter by base branch name
+         */
+        base?: string;
+        /**
+         * Filter by head branch name
+         */
+        head?: string;
+        /**
          * Page number of results to return (1-based)
          */
         page?: number;
@@ -14880,6 +16565,10 @@ export type RepoListPullRequestsData = {
 };
 
 export type RepoListPullRequestsErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
     /**
      * APINotFound is a not found error response
      */
@@ -15269,7 +16958,7 @@ export type RepoGetPullRequestFilesError = RepoGetPullRequestFilesErrors[keyof R
 
 export type RepoGetPullRequestFilesResponses = {
     /**
-     * ChangedFileList
+     * ChangedFileListWithPagination
      */
     200: Array<ChangedFile>;
 };
@@ -15472,6 +17161,10 @@ export type RepoCreatePullReviewRequestsData = {
 
 export type RepoCreatePullReviewRequestsErrors = {
     /**
+     * APIForbiddenError is a forbidden error response
+     */
+    403: ApiForbiddenError;
+    /**
      * APINotFound is a not found error response
      */
     404: ApiNotFound;
@@ -15485,7 +17178,7 @@ export type RepoCreatePullReviewRequestsError = RepoCreatePullReviewRequestsErro
 
 export type RepoCreatePullReviewRequestsResponses = {
     /**
-     * PullReviewList
+     * PullReviewListWithoutPagination - Review requests without pagination headers
      */
     201: Array<PullReview>;
 };
@@ -17774,13 +19467,17 @@ export type RepoListTeamsErrors = {
      * APINotFound is a not found error response
      */
     404: ApiNotFound;
+    /**
+     * APIError is error format response
+     */
+    405: ApiError;
 };
 
 export type RepoListTeamsError = RepoListTeamsErrors[keyof RepoListTeamsErrors];
 
 export type RepoListTeamsResponses = {
     /**
-     * TeamList
+     * TeamListWithoutPagination - Teams without pagination headers
      */
     200: Array<Team>;
 };
@@ -17967,6 +19664,10 @@ export type RepoTrackedTimesErrors = {
      * APINotFound is a not found error response
      */
     404: ApiNotFound;
+    /**
+     * APIValidationError is error format response related to input validation
+     */
+    422: ApiValidationError;
 };
 
 export type RepoTrackedTimesError = RepoTrackedTimesErrors[keyof RepoTrackedTimesErrors];
@@ -18019,7 +19720,7 @@ export type UserTrackedTimesError = UserTrackedTimesErrors[keyof UserTrackedTime
 
 export type UserTrackedTimesResponses = {
     /**
-     * TrackedTimeList
+     * TrackedTimeListWithoutPagination - Tracked times for a specific user (no pagination headers)
      */
     200: Array<TrackedTime>;
 };
@@ -19028,6 +20729,10 @@ export type OrgAddTeamMemberErrors = {
      * APINotFound is a not found error response
      */
     404: ApiNotFound;
+    /**
+     * APIForbiddenError is a forbidden error response
+     */
+    409: ApiForbiddenError;
 };
 
 export type OrgAddTeamMemberError = OrgAddTeamMemberErrors[keyof OrgAddTeamMemberErrors];
@@ -19271,6 +20976,85 @@ export type UserGetCurrentResponses = {
 
 export type UserGetCurrentResponse = UserGetCurrentResponses[keyof UserGetCurrentResponses];
 
+export type GetUserRunnersData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * whether to include all visible runners (true) or only those that are directly owned by the user (false)
+         */
+        visible?: boolean;
+        /**
+         * page number of results to return (1-based)
+         */
+        page?: number;
+        /**
+         * page size of results
+         */
+        limit?: number;
+    };
+    url: '/user/actions/runners';
+};
+
+export type GetUserRunnersErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
+     * APIUnauthorizedError is a unauthorized error response
+     */
+    401: ApiUnauthorizedError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type GetUserRunnersError = GetUserRunnersErrors[keyof GetUserRunnersErrors];
+
+export type GetUserRunnersResponses = {
+    /**
+     * ActionRunnerList is a list of Forgejo Action runners
+     */
+    200: Array<ActionRunner>;
+};
+
+export type GetUserRunnersResponse = GetUserRunnersResponses[keyof GetUserRunnersResponses];
+
+export type RegisterUserRunnerData = {
+    body?: RegisterRunnerOptions;
+    path?: never;
+    query?: never;
+    url: '/user/actions/runners';
+};
+
+export type RegisterUserRunnerErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
+     * APIUnauthorizedError is a unauthorized error response
+     */
+    401: ApiUnauthorizedError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type RegisterUserRunnerError = RegisterUserRunnerErrors[keyof RegisterUserRunnerErrors];
+
+export type RegisterUserRunnerResponses = {
+    /**
+     * RegisterRunnerResponse contains the details of the just registered runner.
+     */
+    201: RegisterRunnerResponse;
+};
+
+export type RegisterUserRunnerResponse = RegisterUserRunnerResponses[keyof RegisterUserRunnerResponses];
+
 export type UserSearchRunJobsData = {
     body?: never;
     path?: never;
@@ -19333,6 +21117,118 @@ export type UserGetRunnerRegistrationTokenResponses = {
 };
 
 export type UserGetRunnerRegistrationTokenResponse = UserGetRunnerRegistrationTokenResponses[keyof UserGetRunnerRegistrationTokenResponses];
+
+export type DeleteUserRunnerData = {
+    body?: never;
+    path: {
+        /**
+         * ID of the runner
+         */
+        runner_id: string;
+    };
+    query?: never;
+    url: '/user/actions/runners/{runner_id}';
+};
+
+export type DeleteUserRunnerErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
+     * APIUnauthorizedError is a unauthorized error response
+     */
+    401: ApiUnauthorizedError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type DeleteUserRunnerError = DeleteUserRunnerErrors[keyof DeleteUserRunnerErrors];
+
+export type DeleteUserRunnerResponses = {
+    /**
+     * runner has been deleted
+     */
+    204: unknown;
+};
+
+export type GetUserRunnerData = {
+    body?: never;
+    path: {
+        /**
+         * ID of the runner
+         */
+        runner_id: string;
+    };
+    query?: never;
+    url: '/user/actions/runners/{runner_id}';
+};
+
+export type GetUserRunnerErrors = {
+    /**
+     * APIError is error format response
+     */
+    400: ApiError;
+    /**
+     * APIUnauthorizedError is a unauthorized error response
+     */
+    401: ApiUnauthorizedError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type GetUserRunnerError = GetUserRunnerErrors[keyof GetUserRunnerErrors];
+
+export type GetUserRunnerResponses = {
+    /**
+     * ActionRunner represents a runner
+     */
+    200: ActionRunner;
+};
+
+export type GetUserRunnerResponse = GetUserRunnerResponses[keyof GetUserRunnerResponses];
+
+export type UserListActionsSecretsData = {
+    body?: never;
+    path?: never;
+    query?: {
+        /**
+         * page number of results to return (1-based)
+         */
+        page?: number;
+        /**
+         * page size of results
+         */
+        limit?: number;
+    };
+    url: '/user/actions/secrets';
+};
+
+export type UserListActionsSecretsErrors = {
+    /**
+     * APIUnauthorizedError is a unauthorized error response
+     */
+    401: ApiUnauthorizedError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type UserListActionsSecretsError = UserListActionsSecretsErrors[keyof UserListActionsSecretsErrors];
+
+export type UserListActionsSecretsResponses = {
+    /**
+     * SecretList
+     */
+    200: Array<Secret>;
+};
+
+export type UserListActionsSecretsResponse = UserListActionsSecretsResponses[keyof UserListActionsSecretsResponses];
 
 export type DeleteUserSecretData = {
     body?: never;
@@ -19638,6 +21534,37 @@ export type UpdateUserVariableResponses = {
     204: unknown;
 };
 
+export type UserCurrentActivityPubFollowData = {
+    body?: ApRemoteFollowOption;
+    path?: never;
+    query?: never;
+    url: '/user/activitypub/follow';
+};
+
+export type UserCurrentActivityPubFollowErrors = {
+    /**
+     * APIUnauthorizedError is a unauthorized error response
+     */
+    401: ApiUnauthorizedError;
+    /**
+     * APIForbiddenError is a forbidden error response
+     */
+    403: ApiForbiddenError;
+    /**
+     * APINotFound is a not found error response
+     */
+    404: ApiNotFound;
+};
+
+export type UserCurrentActivityPubFollowError = UserCurrentActivityPubFollowErrors[keyof UserCurrentActivityPubFollowErrors];
+
+export type UserCurrentActivityPubFollowResponses = {
+    /**
+     * APIEmpty is an empty response
+     */
+    204: unknown;
+};
+
 export type UserGetOAuth2ApplicationsData = {
     body?: never;
     path?: never;
@@ -19702,12 +21629,10 @@ export type UserCreateOAuth2ApplicationError = UserCreateOAuth2ApplicationErrors
 
 export type UserCreateOAuth2ApplicationResponses = {
     /**
-     * OAuth2Application
+     * OAuth2Application represents an OAuth2 application.
      */
-    201: OAuth2Application;
+    201: unknown;
 };
-
-export type UserCreateOAuth2ApplicationResponse = UserCreateOAuth2ApplicationResponses[keyof UserCreateOAuth2ApplicationResponses];
 
 export type UserDeleteOAuth2ApplicationData = {
     body?: never;
@@ -19776,12 +21701,10 @@ export type UserGetOAuth2ApplicationError = UserGetOAuth2ApplicationErrors[keyof
 
 export type UserGetOAuth2ApplicationResponses = {
     /**
-     * OAuth2Application
+     * OAuth2Application represents an OAuth2 application.
      */
-    200: OAuth2Application;
+    200: unknown;
 };
-
-export type UserGetOAuth2ApplicationResponse = UserGetOAuth2ApplicationResponses[keyof UserGetOAuth2ApplicationResponses];
 
 export type UserUpdateOAuth2ApplicationData = {
     body: CreateOAuth2ApplicationOptions;
@@ -19814,12 +21737,10 @@ export type UserUpdateOAuth2ApplicationError = UserUpdateOAuth2ApplicationErrors
 
 export type UserUpdateOAuth2ApplicationResponses = {
     /**
-     * OAuth2Application
+     * OAuth2Application represents an OAuth2 application.
      */
-    200: OAuth2Application;
+    200: unknown;
 };
-
-export type UserUpdateOAuth2ApplicationResponse = UserUpdateOAuth2ApplicationResponses[keyof UserUpdateOAuth2ApplicationResponses];
 
 export type UserDeleteAvatarData = {
     body?: never;
@@ -20442,7 +22363,7 @@ export type UserListHooksError = UserListHooksErrors[keyof UserListHooksErrors];
 
 export type UserListHooksResponses = {
     /**
-     * HookList
+     * HookListWithoutPagination - Hooks without pagination headers
      */
     200: Array<Hook>;
 };
@@ -20800,7 +22721,7 @@ export type OrgListCurrentUserOrgsError = OrgListCurrentUserOrgsErrors[keyof Org
 
 export type OrgListCurrentUserOrgsResponses = {
     /**
-     * OrganizationList
+     * OrganizationListWithoutPagination - Organizations without pagination headers
      */
     200: Array<Organization>;
 };
@@ -21868,7 +23789,7 @@ export type OrgListUserOrgsError = OrgListUserOrgsErrors[keyof OrgListUserOrgsEr
 
 export type OrgListUserOrgsResponses = {
     /**
-     * OrganizationList
+     * OrganizationListWithoutPagination - Organizations without pagination headers
      */
     200: Array<Organization>;
 };
@@ -22066,7 +23987,7 @@ export type UserGetTokensError = UserGetTokensErrors[keyof UserGetTokensErrors];
 
 export type UserGetTokensResponses = {
     /**
-     * AccessTokenList represents a list of API access token.
+     * AccessTokenList
      */
     200: Array<AccessToken>;
 };
@@ -22106,10 +24027,8 @@ export type UserCreateTokenResponses = {
     /**
      * AccessToken represents an API access token.
      */
-    201: AccessToken;
+    201: unknown;
 };
-
-export type UserCreateTokenResponse = UserCreateTokenResponses[keyof UserCreateTokenResponses];
 
 export type UserDeleteAccessTokenData = {
     body?: never;
